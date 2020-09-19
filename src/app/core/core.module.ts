@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
-import { BasePageComponent } from '../base-page/base-page.component';
+import { SharedModule } from '../shared/shared.module';
 
 const components = [
-  LoginComponent,
-  BasePageComponent
+  LoginComponent
 ];
 
 @NgModule({
   declarations: [ ...components ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule
   ]
 })
 export class CoreModule { }
