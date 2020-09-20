@@ -13,8 +13,7 @@
           <img mat-card-image [src]="slide" class="slide">
           <mat-card-content>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis atque repellendus sunt nostrum,
-              doloremque commodi iste omnis, vero totam nemo autem fugiat optio quas ut fuga amet, beatae aperiam nihil.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p>
           </mat-card-content>
           <mat-card-actions>
@@ -25,6 +24,15 @@
               <p>
                 <span matBadge="12" matBadgeOverlap="false">Repetições</span>
               </p>
+
+            </div>
+            <mat-form-field color="accent" class="example-full-width">
+              <mat-label>Novo peso</mat-label>
+              <input matInput>
+            </mat-form-field>
+            <button color="primary" mat-raised-button (click)="swiperGallery.directiveRef.nextSlide()">Alterar
+              peso</button>
+            <div>
             </div>
             <button color="primary" mat-raised-button (click)="swiperGallery.directiveRef.nextSlide()">Feito</button>
             <button color="primary" mat-raised-button (click)="swiperGallery.directiveRef.nextSlide()">Pular</button>

@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const components = [];
 
@@ -20,7 +21,8 @@ const modules = [
   MatIconModule,
   MatMenuModule,
   MatCardModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatTooltipModule
 ];
 
 @NgModule({
