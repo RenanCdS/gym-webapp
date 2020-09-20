@@ -2,7 +2,20 @@
   <div class="button-container">
     <button color="primary" mat-raised-button>Treinar</button>
   </div>
+  <h2 class="subtitle">Frequência em comparação com a média</h2>
   <div class="charts">
-
+    <x-chartist class="col-md-6" [data]="data" [type]="type" [options]="options" [events]="events">
+    </x-chartist>
+  </div>
+  <div class="flex-container">
+    <span> Peso atual: 80kg </span>
+    <span> Altura: 1.75m</span>
+  </div>
+  <div class="flex-container flex-container--column">
+    <mat-form-field color="accent" class="example-full-width">
+      <mat-label>Peso Atual</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <button color="primary" mat-raised-button>Alterar</button>
   </div>
 </div>

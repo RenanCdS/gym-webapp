@@ -7,4 +7,23 @@
       padding: 1rem;
     }
   }
+
+  .subtitle {
+    width: 75%;
+    margin: auto;
+    text-align: center;
+  }
+
+  .flex-container {
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+
+    &--column {
+      flex-direction: column;
+      width: 50%;;
+      margin: auto;
+    }
+
+  }
 }

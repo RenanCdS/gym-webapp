@@ -3,15 +3,14 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-
+import { ChartistModule } from 'ng-chartist';
 
 @NgModule({
   declarations: [HomeComponent],
   imports: [
     CommonModule,
     SharedModule,
-    NgxChartsModule,
+    ChartistModule,
     HomeRoutingModule
   ]
 })
