@@ -13,7 +13,8 @@ const routes: Routes = [
     path: '',
     component: BasePageComponent,
     children: [
-      { path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) }
+      { path: 'treino', loadChildren: () => import('./training/training.module').then(m => m.TrainingModule) },
+      { path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
     ]
   }
 ];
