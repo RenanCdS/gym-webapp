@@ -1,0 +1,44 @@
+<div class="training-page">
+  <swiper class="swiper-container" [config]="config_gallery" (indexChange)="onIndexChange($event)"
+    (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')"
+    #swiperGallery>
+    <div *ngFor="let slide of slides" class="swiper-slide">
+      <div class="card-container">
+        <mat-card>
+          <mat-card-header>
+            <div mat-card-avatar class="avatar"></div>
+            <mat-card-title>Lorem ipsum</mat-card-title>
+            <mat-card-subtitle>Exercise</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image [src]="slide" class="slide">
+          <mat-card-content>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="exercise-info">
+              <p>
+                <span matBadge="10" matBadgeOverlap="false">Último peso usado</span>
+              </p>
+              <p>
+                <span matBadge="12" matBadgeOverlap="false">Repetições</span>
+              </p>
+
+            </div>
+            <mat-form-field color="accent" class="example-full-width">
+              <mat-label>Novo peso</mat-label>
+              <input matInput>
+            </mat-form-field>
+            <button color="primary" mat-raised-button (click)="swiperGallery.directiveRef.nextSlide()">Alterar
+              peso</button>
+            <div>
+            </div>
+            <button color="primary" mat-raised-button (click)="swiperGallery.directiveRef.nextSlide()">Feito</button>
+            <button color="primary" mat-raised-button (click)="swiperGallery.directiveRef.nextSlide()">Pular</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </swiper>
+</div>

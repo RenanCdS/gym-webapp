@@ -4,22 +4,29 @@
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>menu</mat-icon>
       </button>
-      <h1 class="title">Gym Webapp</h1>
+      <div [routerLink]="['/']"
+        style=" margin: auto; width: 50%;display: flex; justify-content: space-between; align-items: center;">
+        <h1 class="title">Gym Webapp </h1>
+      </div>
     </mat-toolbar>
   </nav>
   <router-outlet></router-outlet>
 </div>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>
-    <mat-icon>fitness_center</mat-icon>
-    <span>Treinos</span>
+  <button mat-menu-item [routerLink]="['/']">
+    <mat-icon>house</mat-icon>
+    <span>Home</span>
   </button>
-  <button mat-menu-item>
+  <button mat-menu-item [routerLink]="['/treino']">
+    <mat-icon>fitness_center</mat-icon>
+    <span>Treino</span>
+  </button>
+  <button mat-menu-item [routerLink]="['/cadastro-atleta']">
     <mat-icon>person_add</mat-icon>
     <span>Cadastrar</span>
   </button>
-  <button mat-menu-item>
+  <button mat-menu-item [routerLink]="['/login']">
     <mat-icon>close</mat-icon>
     <span>Sair</span>
   </button>
