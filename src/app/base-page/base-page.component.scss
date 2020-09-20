@@ -1,3 +1,13 @@
 nav {
     width: 100%;
 }
+
+:host {
+  .base-page {
+    &__navigation {
+      .title {
+        margin: auto;
+      }
+    }
+  }
+}

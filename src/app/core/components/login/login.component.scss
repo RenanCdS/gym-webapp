@@ -6,8 +6,24 @@
     height: 100vh;
     background: $primaryColor;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    &__animation {
+      width: 200px;
+      height: 200px;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column; 
+
+      .input-group {
+          margin-bottom: 1rem;
+        
+      }
+    }
   }
 
   .mat-input-element {
@@ -19,5 +35,4 @@
     font-size: .75rem;
   }
 }
-
 
