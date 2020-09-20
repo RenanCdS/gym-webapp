@@ -3,16 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
+import { BasePageComponent } from './base-page/base-page.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BasePageComponent
   ],
   imports: [
     BrowserModule,
+    SharedModule,
+    CoreModule,
     AppRoutingModule,
-    NoopAnimationsModule
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

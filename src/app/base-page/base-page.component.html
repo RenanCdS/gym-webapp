@@ -1,0 +1,26 @@
+<div class="base-page">
+  <nav class="base-page__navigation">
+    <mat-toolbar color="primary">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <h1 class="title">Gym Webapp</h1>
+    </mat-toolbar>
+  </nav>
+  <router-outlet></router-outlet>
+</div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>fitness_center</mat-icon>
+    <span>Treinos</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>person_add</mat-icon>
+    <span>Cadastrar</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>close</mat-icon>
+    <span>Sair</span>
+  </button>
+</mat-menu>

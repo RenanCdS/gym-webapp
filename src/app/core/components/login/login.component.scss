@@ -1,0 +1,38 @@
+@import 'src/variables';
+
+:host {
+  .login-page {
+    width: 100vw;
+    height: 100vh;
+    background: $primaryColor;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__animation {
+      width: 200px;
+      height: 200px;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column; 
+
+      .input-group {
+          margin-bottom: 1rem;
+        
+      }
+    }
+  }
+
+  .mat-input-element {
+    font-size: 1rem;
+    color: $defaultWhite;
+  }
+  
+  .mat-error {
+    font-size: .75rem;
+  }
+}
+

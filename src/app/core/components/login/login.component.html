@@ -1,0 +1,25 @@
+<div class="login-page">
+  <div class="login-page__animation" lottie [options]="lottieOptions" width="100px" height="100px"
+    (animationCreated)="animationCreated($event)">
+  </div>
+  <form [formGroup]="loginForm" class="login-form">
+    <div class="input-group">
+      <mat-form-field color="accent" class="example-full-width">
+        <mat-label>E-mail</mat-label>
+        <input formControlName="username" matInput placeholder="Ex. teste@teste.com">
+        <mat-error *ngIf="loginForm.get('username').hasError('required')"> por favor, insira um e-mail válido
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="input-group">
+      <mat-form-field color="accent" class="example-full-width">
+        <mat-label>Senha</mat-label>
+        <input formControlName="username" type="password" matInput>
+        <mat-error *ngIf="loginForm.get('password').hasError('required')"> por favor, insira a senha
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <button [routerLink]="['/']" routerLinkActive="router-link-active" color="accent" mat-raised-button>Entrar</button>
+  </form>
+
+</div>
