@@ -1,0 +1,20 @@
+:host {
+  .training-form-page {
+    .exercise-form-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .first-step {
+      &.mat-form-field {
+        width: 75%;
+      }
+    }
+  }
+}
+
+.mat-form-field {
+  width: 30%;
+}

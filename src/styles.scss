@@ -24,7 +24,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
   &--athlete {
     background-image: linear-gradient(to right bottom, rgba(63,81,181,.8), rgba(100,121,220,.6)), url("/../assets/img/athlete-background.jpg");
+  }
 
+  &--training {
+    background-image: linear-gradient(to right bottom, rgba(63,81,181,.8), rgba(100,121,220,.6)), url("/../assets/img/training-background.jpg");
   }
 
   &--align-center {
@@ -39,18 +42,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-family: Arial, Helvetica, sans-serif;
     text-shadow: 2px 2px 2px $defaultBlack;
   }
-
-  .form-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-
-    .field-container {
-      width: 90%;
-    }
-  }
+  
 }
