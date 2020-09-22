@@ -30,6 +30,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-image: linear-gradient(to right bottom, rgba(63,81,181,.8), rgba(100,121,220,.6)), url("/../assets/img/training-background.jpg");
   }
 
+  &--bonification {
+    background-image: linear-gradient(to right bottom, rgba(63,81,181,.8), rgba(100,121,220,.6)), url("/../assets/img/bonification-background.jpg");
+  }
+
+  &--goal {
+    background-image: linear-gradient(to right bottom, rgba(63,81,181,.8), rgba(100,121,220,.6)), url("/../assets/img/goal-background.jpg");
+  }
+
   &--align-center {
     display: flex;
     justify-content: center;

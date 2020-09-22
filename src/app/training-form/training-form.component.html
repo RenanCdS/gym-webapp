@@ -5,16 +5,14 @@
   <div class="stepper-container">
     <mat-vertical-stepper [linear]="true" #stepper>
       <mat-step>
-        <form>
-          <ng-template matStepLabel>Insira o nome do treino</ng-template>
-          <mat-form-field color="accent" class="first-step">
-            <mat-label>Nome</mat-label>
-            <input matInput placeholder="Last name, First name" required>
-          </mat-form-field>
-          <div>
-            <button color="primary" mat-raised-button matStepperNext>Próximo</button>
-          </div>
-        </form>
+        <ng-template matStepLabel>Insira o nome do treino</ng-template>
+        <mat-form-field color="accent" class="first-step">
+          <mat-label>Nome</mat-label>
+          <input matInput placeholder="Last name, First name" required>
+        </mat-form-field>
+        <div>
+          <button color="primary" mat-raised-button matStepperNext>Próximo</button>
+        </div>
       </mat-step>
       <mat-step>
         <form>
