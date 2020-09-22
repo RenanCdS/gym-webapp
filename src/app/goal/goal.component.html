@@ -1,0 +1,32 @@
+<div class="goal-page">
+  <div class="banner banner--align-center banner--title banner--goal">
+    <h1>Adicionar meta</h1>
+  </div>
+  <div class="form-container">
+    <div class="field-container">
+      <mat-form-field color="accent">
+        <mat-label>Meta</mat-label>
+        <input matInput>
+        <mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="field-container">
+      <mat-form-field color="accent">
+        <mat-label>Peso</mat-label>
+        <input matInput>
+        <mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="field-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Escolha a data da sua meta</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary">Cadastrar</button>
+  </div>
+</div>

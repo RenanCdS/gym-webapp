@@ -11,6 +11,10 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 const components = [];
 
@@ -26,7 +30,10 @@ const modules = [
   MatBadgeModule,
   MatTooltipModule,
   MatStepperModule,
-  MatSelectModule
+  MatSelectModule,
+  MatExpansionModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 ];
 
 @NgModule({

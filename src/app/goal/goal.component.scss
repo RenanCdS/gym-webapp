@@ -1,7 +1,5 @@
-@import 'src/variables';
-
 :host {
-  .coach-form-page {
+  .goal-page {
 
     .form-container {
       width: 100%;
@@ -19,11 +17,10 @@
       .mat-raised-button {
         width: 90%;
       }
+
+      .mat-form-field {
+        width: 100%;
+      }
     }
   }
-
-  .mat-form-field {
-    width: 100%;
-  }
 }
-
