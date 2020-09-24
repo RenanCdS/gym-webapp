@@ -18,21 +18,33 @@
     <mat-icon>house</mat-icon>
     <span>Home</span>
   </button>
-  <button mat-menu-item [routerLink]="['/treino']">
+  <button mat-menu-item [routerLink]="['/atleta/treino']">
     <mat-icon>fitness_center</mat-icon>
-    <span>Treino</span>
+    <span>Meu treino</span>
   </button>
-  <button mat-menu-item [routerLink]="['/cadastro-atleta']">
+  <button mat-menu-item [routerLink]="['/atleta']">
     <mat-icon>person_add</mat-icon>
     <span>Cadastrar aluno</span>
   </button>
-  <button mat-menu-item [routerLink]="['/cadastro-treinador']">
+  <button mat-menu-item [routerLink]="['/treinador/cadastro-treinador']">
     <mat-icon>person_add_alt_1</mat-icon>
     <span>Cadastrar treinador</span>
   </button>
-  <button mat-menu-item [routerLink]="['/cadastro-treino']">
+  <button mat-menu-item [routerLink]="['/treinador/cadastro-treino']">
     <mat-icon>create</mat-icon>
     <span>Cadastrar treino</span>
+  </button>
+  <button mat-menu-item [routerLink]="['/treinador/lista']">
+    <mat-icon>group</mat-icon>
+    <span>Treinadores</span>
+  </button>
+  <button mat-menu-item [routerLink]="['/metas']">
+    <mat-icon>anchor</mat-icon>
+    <span>Cadastrar metas</span>
+  </button>
+  <button mat-menu-item [routerLink]="['/treinador/meus-atletas']">
+    <mat-icon>groups</mat-icon>
+    <span>Meus alunos</span>
   </button>
   <button mat-menu-item [routerLink]="['/login']">
     <mat-icon>close</mat-icon>

@@ -38,6 +38,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-image: linear-gradient(to right bottom, rgba(63,81,181,.8), rgba(100,121,220,.6)), url("/../assets/img/goal-background.jpg");
   }
 
+  &--coaches {
+    background-image: linear-gradient(to right bottom, rgba(63,81,181,.8), rgba(100,121,220,.6)), url("/../assets/img/coaches-background.jpg");
+  }
+
   &--align-center {
     display: flex;
     justify-content: center;
