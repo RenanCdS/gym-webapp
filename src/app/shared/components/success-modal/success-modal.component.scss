@@ -1,0 +1,16 @@
+:host {
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .successfully-message-container {
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+      text-align: center;
+    }
+
+  }
+}

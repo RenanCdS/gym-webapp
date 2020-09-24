@@ -14,7 +14,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SuccessModalComponent } from './components/success-modal/success-modal.component';
+import { LottieModule } from 'ngx-lottie';
+import { RouterModule } from '@angular/router';
 
 const components = [];
 
@@ -33,13 +37,17 @@ const modules = [
   MatSelectModule,
   MatExpansionModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatDialogModule,
+  MatSnackBarModule
 ];
 
 @NgModule({
-  declarations: [...components],
+  declarations: [...components, SuccessModalComponent],
   imports: [
-    ...modules
+    ...modules,
+    LottieModule,
+    RouterModule
   ],
   exports: [
     ...modules,

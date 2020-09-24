@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   IBarChartOptions,
   IChartistAnimationOptions,
@@ -13,7 +14,7 @@ import { ChartEvent, ChartType } from 'ng-chartist';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -61,5 +62,9 @@ export class HomeComponent implements OnInit {
       }
     }
   };
+
+  openSnackbar(): void {
+    this.snackbar.open('Peso alterado com sucesso!', '', { verticalPosition: 'top' });
+  }
 
 }

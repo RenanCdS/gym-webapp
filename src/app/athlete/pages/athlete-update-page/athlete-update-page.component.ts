@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-goal',
-  templateUrl: './goal.component.html',
-  styleUrls: ['./goal.component.scss']
+  selector: 'app-athlete-update-page',
+  templateUrl: './athlete-update-page.component.html',
+  styleUrls: ['./athlete-update-page.component.scss']
 })
-export class GoalComponent implements OnInit {
+export class AthleteUpdatePageComponent implements OnInit {
 
   constructor(private snackBar: MatSnackBar) { }
 
@@ -14,7 +14,7 @@ export class GoalComponent implements OnInit {
   }
 
   openSnackbar(): void {
-    this.snackBar.open('Meta cadastrada com sucesso!', '', {
+    this.snackBar.open('Aluno atualizado com sucesso!', '', {
       verticalPosition: 'top'
     });
   }

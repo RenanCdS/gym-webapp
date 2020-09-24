@@ -1,0 +1,58 @@
+<div class="training-form-page">
+  <div class="banner banner--align-center banner--title banner--training">
+    <h1>Cadastro de treino</h1>
+  </div>
+  <div class="stepper-container">
+    <mat-vertical-stepper [linear]="true" #stepper>
+      <mat-step>
+        <ng-template matStepLabel>Insira o e-mail do aluno</ng-template>
+        <mat-form-field color="accent" class="first-step">
+          <mat-label>E-mail</mat-label>
+          <input matInput placeholder="Last name, First name" required>
+        </mat-form-field>
+        <div>
+          <button color="primary" mat-raised-button matStepperNext>Próximo</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <form>
+          <ng-template matStepLabel>Insira os exercícios</ng-template>
+          <button mat-mini-fab color="primary" (click)="addCounter()">
+            <mat-icon>plus_one</mat-icon>
+          </button>
+          <div *ngFor="let item of counter" class="exercise-form-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Exercício</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let exercise of exercises">
+                  {{exercise.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <mat-label>Peso</mat-label>
+              <input matInput placeholder="Last name, First name" required>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <mat-label>Quantidade</mat-label>
+              <input matInput placeholder="Last name, First name" required>
+            </mat-form-field>
+          </div>
+          <div>
+            <button style="margin-right: 2rem;" color="primary" mat-raised-button matStepperPrevious>Voltar</button>
+            <button color="primary" mat-raised-button matStepperNext>Próximo</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Pronto</ng-template>
+        <p>Tudo Pronto!</p>
+        <div>
+          <button style="margin-right: 2rem;" mat-raised-button color="primary" matStepperPrevious>Voltar</button>
+          <button mat-raised-button color="primary" (click)="openSnackbar()">Cadastrar</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </div>
+
+</div>
