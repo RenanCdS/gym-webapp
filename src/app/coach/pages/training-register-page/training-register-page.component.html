@@ -15,34 +15,144 @@
         </div>
       </mat-step>
       <mat-step>
-        <form>
-          <ng-template matStepLabel>Insira os exercícios</ng-template>
-          <button mat-mini-fab color="primary" (click)="addCounter()">
-            <mat-icon>plus_one</mat-icon>
-          </button>
-          <div *ngFor="let item of counter" class="exercise-form-container">
-            <mat-form-field appearance="fill">
-              <mat-label>Exercício</mat-label>
-              <mat-select>
-                <mat-option *ngFor="let exercise of exercises">
-                  {{exercise.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field color="accent">
-              <mat-label>Peso</mat-label>
-              <input matInput placeholder="Last name, First name" required>
-            </mat-form-field>
-            <mat-form-field color="accent">
-              <mat-label>Quantidade</mat-label>
-              <input matInput placeholder="Last name, First name" required>
-            </mat-form-field>
-          </div>
-          <div>
-            <button style="margin-right: 2rem;" color="primary" mat-raised-button matStepperPrevious>Voltar</button>
-            <button color="primary" mat-raised-button matStepperNext>Próximo</button>
-          </div>
-        </form>
+        <ng-template matStepLabel>Insira os exercícios (segunda-feira)</ng-template>
+        <button mat-mini-fab color="primary" (click)="addCounter()">
+          <mat-icon>plus_one</mat-icon>
+        </button>
+        <div *ngFor="let item of counter" class="exercise-form-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Exercício</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let exercise of exercises">
+                {{exercise.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Peso</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Quantidade</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+        </div>
+        <div>
+          <button style="margin-right: 2rem;" color="primary" mat-raised-button matStepperPrevious>Voltar</button>
+          <button color="primary" mat-raised-button matStepperNext>Próximo</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Insira os exercícios (terça-feira)</ng-template>
+        <button mat-mini-fab color="primary" (click)="addCounter()">
+          <mat-icon>plus_one</mat-icon>
+        </button>
+        <div *ngFor="let item of counter" class="exercise-form-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Exercício</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let exercise of exercises">
+                {{exercise.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Peso</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Quantidade</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+        </div>
+        <div>
+          <button style="margin-right: 2rem;" color="primary" mat-raised-button matStepperPrevious>Voltar</button>
+          <button color="primary" mat-raised-button matStepperNext>Próximo</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Insira os exercícios (quarta-feira)</ng-template>
+        <button mat-mini-fab color="primary" (click)="addCounter()">
+          <mat-icon>plus_one</mat-icon>
+        </button>
+        <div *ngFor="let item of counter" class="exercise-form-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Exercício</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let exercise of exercises">
+                {{exercise.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Peso</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Quantidade</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+        </div>
+        <div>
+          <button style="margin-right: 2rem;" color="primary" mat-raised-button matStepperPrevious>Voltar</button>
+          <button color="primary" mat-raised-button matStepperNext>Próximo</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Insira os exercícios (quinta-feira)</ng-template>
+        <button mat-mini-fab color="primary" (click)="addCounter()">
+          <mat-icon>plus_one</mat-icon>
+        </button>
+        <div *ngFor="let item of counter" class="exercise-form-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Exercício</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let exercise of exercises">
+                {{exercise.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Peso</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Quantidade</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+        </div>
+        <div>
+          <button style="margin-right: 2rem;" color="primary" mat-raised-button matStepperPrevious>Voltar</button>
+          <button color="primary" mat-raised-button matStepperNext>Próximo</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Insira os exercícios (Sexta-feira)</ng-template>
+        <button mat-mini-fab color="primary" (click)="addCounter()">
+          <mat-icon>plus_one</mat-icon>
+        </button>
+        <div *ngFor="let item of counter" class="exercise-form-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Exercício</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let exercise of exercises">
+                {{exercise.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Peso</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Quantidade</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+        </div>
+        <div>
+          <button style="margin-right: 2rem;" color="primary" mat-raised-button matStepperPrevious>Voltar</button>
+          <button color="primary" mat-raised-button matStepperNext>Próximo</button>
+        </div>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Pronto</ng-template>
