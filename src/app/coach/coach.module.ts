@@ -7,12 +7,15 @@ import { CoachListPageComponent } from './pages/coach-list-page/coach-list-page.
 import { SharedModule } from '../shared/shared.module';
 import { MyAthletesPageComponent } from './pages/my-athletes-page/my-athletes-page.component';
 import { TrainingRegisterPageComponent } from './pages/training-register-page/training-register-page.component';
+import { CoachUpdatePageComponent } from './pages/coach-update-page/coach-update-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [CoachRegisterPageComponent, CoachListPageComponent, MyAthletesPageComponent, TrainingRegisterPageComponent],
+  declarations: [CoachRegisterPageComponent, CoachListPageComponent, MyAthletesPageComponent, TrainingRegisterPageComponent, CoachUpdatePageComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     SharedModule,
     CoachRoutingModule
   ]

@@ -3,63 +3,90 @@
     <h1>Cadastro de treinador</h1>
   </div>
   <div class="form-container">
-    <div class="field-container">
-      <mat-form-field color="accent">
-        <mat-label>Nome</mat-label>
-        <input matInput>
-        <mat-error>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="field-container">
-      <mat-form-field color="accent">
-        <mat-label>Idade</mat-label>
-        <input matInput>
-        <mat-error>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="field-container">
-      <mat-form-field color="accent">
-        <mat-label>E-mail</mat-label>
-        <input matInput>
-        <mat-error>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="field-container">
-      <mat-form-field color="accent">
-        <mat-label>Telefone</mat-label>
-        <input matInput>
-        <mat-error>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="field-container">
-      <mat-form-field color="accent">
-        <mat-label>Endereço</mat-label>
-        <input matInput>
-        <mat-error>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="field-container">
-      <mat-form-field color="accent">
-        <mat-label>Cnpj</mat-label>
-        <input matInput>
-        <mat-error>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="field-container">
-      <mat-form-field color="accent">
-        <mat-label>Senha</mat-label>
-        <input matInput>
-        <mat-error>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <button mat-raised-button color="primary">Cadastrar</button>
+    <form style="width: 90%;" [formGroup]="form">
+      <div class="field-container">
+        <mat-form-field color="accent">
+          <mat-label>Nome</mat-label>
+          <input formControlName="name" matInput>
+          <mat-error>
+            Esse campo é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="field-container">
+        <mat-form-field color="accent">
+          <mat-label>Idade</mat-label>
+          <input formControlName="age" matInput>
+          <mat-error>
+            Esse campo é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="field-container">
+        <mat-form-field color="accent">
+          <mat-label>E-mail</mat-label>
+          <input formControlName="email" matInput>
+          <mat-error>
+            Esse campo é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="field-container">
+        <mat-form-field color="accent">
+          <mat-label>Telefone</mat-label>
+          <input formControlName="tel" matInput>
+          <mat-error>
+            Esse campo é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="field-container">
+        <mat-form-field color="accent">
+          <mat-label>Endereço</mat-label>
+          <input matInput>
+          <mat-error>
+            Esse campo é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="field-container">
+        <mat-form-field color="accent">
+          <mat-label>Cnpj</mat-label>
+          <input matInput>
+          <mat-error>
+            Esse campo é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="field-container">
+        <mat-form-field color="accent">
+          <mat-label>Peso</mat-label>
+          <input matInput>
+          <mat-error>
+            Esse campo é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="field-container">
+        <mat-form-field color="accent">
+          <mat-label>Altura</mat-label>
+          <input matInput>
+          <mat-error>
+            Esse campo é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="field-container">
+        <mat-form-field color="accent">
+          <mat-label>Senha</mat-label>
+          <input matInput>
+          <mat-error>
+            Esse campo é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary">Cadastrar</button>
+    </form>
   </div>
 
 </div>

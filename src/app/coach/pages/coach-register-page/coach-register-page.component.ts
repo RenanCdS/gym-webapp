@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-coach-register-page',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoachRegisterPageComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      name: ['', [Validators.required]],
+      age: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      tel: ['', [Validators.required]],
+      weight: ['', [Validators.required]],
+    });
   }
 
 }

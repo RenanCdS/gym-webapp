@@ -9,6 +9,7 @@ import { TrainingPageComponent } from './pages/training-page/training-page.compo
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 export function playerFactory() {
@@ -21,6 +22,7 @@ export function playerFactory() {
     CommonModule,
     SwiperModule,
     SharedModule,
+    ReactiveFormsModule,
     LottieModule.forRoot({ player: playerFactory }),
     AthleteRoutingModule
   ]

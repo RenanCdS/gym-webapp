@@ -1,5 +1,5 @@
 <div class="coach-list-page">
-  <div class="banner banner--align-center banner--title banner--bonification">
+  <div class="banner banner--align-center banner--title banner--coaches">
     <h1>Treinadores</h1>
   </div>
   <div class="panel-wrapper">
@@ -13,10 +13,10 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div class="action-container">
-        <a>
+        <a (click)="openSnackbar('Treinador excluido com sucesso!')">
           <mat-icon>delete</mat-icon>
         </a>
-        <a>
+        <a [routerLink]="['/treinador/atualizar']">
           <mat-icon>edit</mat-icon>
         </a>
       </div>
@@ -37,7 +37,7 @@
         <a>
           <mat-icon>delete</mat-icon>
         </a>
-        <a>
+        <a [routerLink]="['/treinador/atualizar']">
           <mat-icon>edit</mat-icon>
         </a>
       </div>
@@ -55,11 +55,11 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div class="action-container">
-        <a (click)="openSnackbar('Aluno excluido com sucesso!')">
+        <a (click)="openSnackbar('Treinador excluido com sucesso!')">
           <mat-icon>delete</mat-icon>
         </a>
         <a>
-          <mat-icon [routerLink]="['/atleta/atualizar']">edit</mat-icon>
+          <mat-icon [routerLink]="['/treinador/atualizar']">edit</mat-icon>
         </a>
       </div>
     </mat-expansion-panel>
