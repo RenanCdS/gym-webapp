@@ -1,0 +1,10 @@
+{
+  "request": {
+      "method": "POST",
+      "url": "/api/login"
+  },
+  "response": {
+      "status": 200,
+      "bodyFileName": "login/login-{{jsonPath request.body '$.login'}}-response.json"
+  }
+}
