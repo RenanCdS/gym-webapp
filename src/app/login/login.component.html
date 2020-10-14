@@ -14,12 +14,12 @@
     <div class="input-group">
       <mat-form-field color="accent" class="example-full-width">
         <mat-label>Senha</mat-label>
-        <input formControlName="username" type="password" matInput>
+        <input formControlName="password" type="password" matInput>
         <mat-error *ngIf="loginForm.get('password').hasError('required')"> por favor, insira a senha
         </mat-error>
       </mat-form-field>
     </div>
-    <button [routerLink]="['/']" routerLinkActive="router-link-active" color="accent" mat-raised-button>Entrar</button>
+    <button (click)="login()" color="accent" mat-raised-button>Entrar</button>
   </form>
 
 </div>
