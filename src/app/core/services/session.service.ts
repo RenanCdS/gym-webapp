@@ -15,4 +15,8 @@ export class SessionService {
   getAuthToken(): string {
     return localStorage.getItem(ACCESS_TOKEN_KEY);
   }
+
+  clearLocalStorage(): void {
+    localStorage.clear();
+  }
 }

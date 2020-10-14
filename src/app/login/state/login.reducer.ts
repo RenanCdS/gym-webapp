@@ -1,7 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 import { UserRoleEnum } from 'src/app/core/enums/user-role.enum';
-import { State } from 'src/app/state/app.state';
-import { LoginApiActions } from './actions';
+import { LoginApiActions, LoginPageActions } from './actions';
+import * as App from '../../state/app.state';
+
 
 export interface LoginState {
   login: string;
@@ -10,16 +11,18 @@ export interface LoginState {
   userRole: UserRoleEnum;
 }
 
-export const initialState: State = {
-  login: {
-    login: '',
-    token: '',
-    error: null,
-    userRole: null
-  }
+export interface State extends App.State {
+  login: LoginState;
+}
+
+export const initialState: LoginState = {
+  login: '',
+  token: '',
+  error: null,
+  userRole: null
 };
 
-export const loginReducer = createReducer<State>(
+export const loginReducer = createReducer<LoginState>(
   initialState,
   on(LoginApiActions.loginSuccess, (state, action) => {
     return {
@@ -34,5 +37,14 @@ export const loginReducer = createReducer<State>(
       ...state,
       error: action.error
     };
+  }),
+  on(LoginPageActions.exit, state => {
+    return {
+      ...state,
+      error: '',
+      login: '',
+      token: '',
+      userRole: null
+    }
   })
 );

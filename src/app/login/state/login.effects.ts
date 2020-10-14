@@ -39,7 +39,7 @@ export class LoginEffects {
             this.sessionService.setStorage(ACCESS_TOKEN_KEY, token);
             this.snackBar.open('Logado com sucesso ;)', '', {
               duration: 2000,
-              verticalPosition: 'top'
+              verticalPosition: 'bottom'
             });
           }),
           map(tokenResponse => {
@@ -60,6 +60,15 @@ export class LoginEffects {
           })
         );
       })
+    );
+  });
+
+  exit$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(LoginPageActions.exit),
+      tap(() => this.sessionService.clearLocalStorage()),
+      tap(() => this.router.navigate(['/login'])),
+      map(() => LoginPageActions.empty())
     );
   });
 }
