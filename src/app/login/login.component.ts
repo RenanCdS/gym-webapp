@@ -1,10 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
-import { Subscription } from 'rxjs';
-import { getToken } from './state';
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { SessionService } from '../core/services/session.service';
+import { getLoginError, getToken } from './state';
 import { LoginPageActions } from './state/actions';
 import { LoginState } from './state/login.reducer';
 
@@ -15,8 +20,14 @@ import { LoginState } from './state/login.reducer';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
+  private readonly ERROR_MESSAGES = new Map([
+    [401, 'E-mail ou senha incorretos'],
+    [403, 'E-mail ou senha incorretos'],
+    [500, 'Ocorreu um erro no sistema :('],
+  ]);
   subs: Subscription[] = [];
   loginForm: FormGroup;
+  loginError$: Observable<string>;
   lottieOptions: AnimationOptions = {
     path: 'assets/lottie/squat.json',
     autoplay: true,
@@ -24,7 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   };
 
   constructor(private readonly store: Store<LoginState>,
-    private readonly formBuilder: FormBuilder) { }
+    private readonly formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -32,7 +44,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: ['', Validators.required]
     });
 
-    this.subs.push(this.store.select(getToken).subscribe(token => { localStorage.setItem('access_token', token); }));
+    this.store.select(getLoginError).subscribe(
+      error => {
+        this.loginForm.reset();
+      }
+    );
   }
 
   animationCreated(animationItem: AnimationItem): void {
@@ -42,6 +58,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login(): void {
     if (!this.loginForm.valid) {
+      this.loginForm.markAllAsTouched();
+      this.loginForm.updateValueAndValidity();
       return;
     }
 
