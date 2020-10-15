@@ -17,7 +17,15 @@ import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ReactiveFormsModule } from '@angular/forms';
+import { appReducer } from './state/app.reducer';
+import { AppEffects } from './state/app.effects';
+import { LoginComponent } from './components/login/login.component';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
 
+export function playerFactory() {
+  return player;
+}
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -32,6 +40,7 @@ const components = [
   declarations: [
     AppComponent,
     BasePageComponent,
+    LoginComponent,
     ...components
   ],
   imports: [
@@ -49,9 +58,12 @@ const components = [
     AppRoutingModule,
     ReactiveFormsModule,
     SwiperModule,
+    LottieModule.forRoot({ player: playerFactory }),
     BrowserAnimationsModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot(),
+    StoreModule.forRoot({
+      login: appReducer
+    }),
+    EffectsModule.forRoot([AppEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [

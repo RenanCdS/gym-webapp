@@ -3,9 +3,9 @@ import { Store } from '@ngrx/store';
 import { MENU_OPTIONS, USER_MENU } from '../core/constants/constants';
 import { MenuItem } from '../core/models/MenuItem';
 import { SessionService } from '../core/services/session.service';
-import { getUserRole } from '../login/state';
-import { LoginPageActions } from '../login/state/actions';
-import { State } from '../login/state/login.reducer';
+import { getUserRole } from '../state';
+import { AppPageActions } from '../state/actions';
+import { State } from '../state/app.reducer';
 
 @Component({
   selector: 'app-base-page',
@@ -19,6 +19,7 @@ export class BasePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(AppPageActions.indetifyUserRole());
     this.store.select(getUserRole).subscribe(userRole => {
       this.menuList = MENU_OPTIONS.get(userRole);
       if (userRole) {
@@ -28,6 +29,6 @@ export class BasePageComponent implements OnInit {
   }
 
   exit(): void {
-    this.store.dispatch(LoginPageActions.exit());
+    this.store.dispatch(AppPageActions.exit());
   }
 }

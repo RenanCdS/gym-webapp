@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { LoginApiActions, LoginPageActions } from './actions';
+import { AppApiActions, AppPageActions } from './actions';
 import { of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SessionService } from 'src/app/core/services/session.service';
 import { Router } from '@angular/router';
 import { ACCESS_TOKEN_KEY } from 'src/app/core/constants/constants';
+import { UserRoleEnum } from 'src/app/core/enums/user-role.enum';
 
 @Injectable()
-export class LoginEffects {
+export class AppEffects {
 
   private readonly ERROR_MESSAGES = new Map([
     [401, 'E-mail ou senha incorretos'],
@@ -26,7 +27,7 @@ export class LoginEffects {
 
   login$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(LoginPageActions.login),
+      ofType(AppPageActions.login),
       switchMap(action => {
         return this.authService.login(action.login, action.password).pipe(
           tap(tokenResponse => {
@@ -45,7 +46,7 @@ export class LoginEffects {
           map(tokenResponse => {
             const token = tokenResponse.token;
             const userRole = this.authService.decodeToken(token).role;
-            return LoginApiActions.loginSuccess({ token, userRole });
+            return AppApiActions.loginSuccess({ token, userRole });
           }),
           catchError(error => {
             let message = this.ERROR_MESSAGES.get(500);
@@ -56,7 +57,7 @@ export class LoginEffects {
               verticalPosition: 'top',
               duration: 2000
             });
-            return of(LoginApiActions.loginFailure({ error }));
+            return of(AppApiActions.loginFailure({ error }));
           })
         );
       })
@@ -65,10 +66,25 @@ export class LoginEffects {
 
   exit$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(LoginPageActions.exit),
+      ofType(AppPageActions.exit),
       tap(() => this.sessionService.clearLocalStorage()),
       tap(() => this.router.navigate(['/login'])),
-      map(() => LoginPageActions.empty())
+      map(() => AppPageActions.empty())
+    );
+  });
+
+  identifyUserRole$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AppPageActions.indetifyUserRole),
+      map(() => {
+        const token = this.authService.decodeToken(this.sessionService.getAuthToken());
+        let userRole = UserRoleEnum.STUDENT;
+        if (token) {
+          userRole = token.role;
+        }
+
+        return AppApiActions.userRoleSuccess({ userRole });
+      })
     );
   });
 }

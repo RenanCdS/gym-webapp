@@ -1,17 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { SessionService } from '../core/services/session.service';
-import { getLoginError, getToken } from './state';
-import { LoginPageActions } from './state/actions';
-import { LoginState } from './state/login.reducer';
+import { getLoginError } from 'src/app/state';
+import { AppPageActions } from 'src/app/state/actions';
+import { State } from 'src/app/state/app.reducer';
 
 @Component({
   selector: 'app-login',
@@ -19,12 +14,6 @@ import { LoginState } from './state/login.reducer';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-
-  private readonly ERROR_MESSAGES = new Map([
-    [401, 'E-mail ou senha incorretos'],
-    [403, 'E-mail ou senha incorretos'],
-    [500, 'Ocorreu um erro no sistema :('],
-  ]);
   subs: Subscription[] = [];
   loginForm: FormGroup;
   loginError$: Observable<string>;
@@ -34,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     loop: true,
   };
 
-  constructor(private readonly store: Store<LoginState>,
+  constructor(private readonly store: Store<State>,
     private readonly formBuilder: FormBuilder
   ) { }
 
@@ -45,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
 
     this.store.select(getLoginError).subscribe(
-      error => {
+      () => {
         this.loginForm.reset();
       }
     );
@@ -63,7 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.store.dispatch(LoginPageActions.login(
+    this.store.dispatch(AppPageActions.login(
       {
         login: this.loginForm.controls.username.value,
         password: this.loginForm.controls.password.value

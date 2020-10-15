@@ -1,5 +1,4 @@
 import { UserRoleEnum } from '../enums/user-role.enum';
-import { MenuItem } from '../models/MenuItem';
 
 const studentMenu = [
   { name: 'Home', icon: 'house', url: '/home' },
