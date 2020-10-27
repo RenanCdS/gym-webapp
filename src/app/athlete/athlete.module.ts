@@ -10,7 +10,10 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { StoreModule } from '@ngrx/store';
+import { athleteReducer } from './state/athlete.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AthleteEffects } from './state/athlete.effects';
 
 export function playerFactory() {
   return player;
@@ -23,6 +26,8 @@ export function playerFactory() {
     SwiperModule,
     SharedModule,
     ReactiveFormsModule,
+    StoreModule.forFeature('athlete', athleteReducer),
+    EffectsModule.forFeature([AthleteEffects]),
     LottieModule.forRoot({ player: playerFactory }),
     AthleteRoutingModule
   ]

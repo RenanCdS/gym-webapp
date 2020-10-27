@@ -1,14 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { UserRoleEnum } from '../core/enums/user-role.enum';
+import { State } from '../athlete/state';
 import { AppApiActions, AppPageActions } from './actions';
-
-
-export interface State {
-  login: string;
-  token: string;
-  error: string;
-  userRole: UserRoleEnum;
-}
 
 const initialState: State = {
   error: '',

@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
 import { SuccessModalComponent } from 'src/app/shared/components/success-modal/success-modal.component';
+import { getMyTrainingSuccess, State } from '../../state';
+import { AthletePageActions } from '../../state/actions';
 
 @Component({
   selector: 'app-training-page',
@@ -30,9 +34,13 @@ export class TrainingPageComponent implements OnInit {
     zoom: false
   };
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private readonly dialog: MatDialog,
+    private readonly store: Store<State>) { }
 
   ngOnInit(): void {
+    this.store.select(getMyTrainingSuccess).subscribe(() => { });
+
+    this.store.dispatch(AthletePageActions.loadExercises({ trainingType: TrainingTypeEnum.A }));
   }
 
   onIndexChange(index: number): void {

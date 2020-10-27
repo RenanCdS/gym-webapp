@@ -5,8 +5,6 @@
   <div class="form-container">
     <form [formGroup]="form" style="width: 90%;">
       <div class="field-container">
-
-
         <mat-form-field color="accent">
           <mat-label>Nome</mat-label>
           <input formControlName="name" matInput>
@@ -63,6 +61,15 @@
       <div class="field-container">
         <mat-form-field color="accent">
           <mat-label>Rg</mat-label>
+          <input matInput>
+          <mat-error>
+            Esse campo é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="field-container">
+        <mat-form-field color="accent">
+          <mat-label>Senha</mat-label>
           <input matInput>
           <mat-error>
             Esse campo é obrigatório

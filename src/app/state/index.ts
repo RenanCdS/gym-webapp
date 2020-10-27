@@ -1,5 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { State } from './app.reducer';
+import { UserRoleEnum } from '../core/enums/user-role.enum';
+
+export interface State {
+  login: string;
+  token: string;
+  error: string;
+  userRole: UserRoleEnum;
+}
 
 const rootSelector = createFeatureSelector<State>('login');
 

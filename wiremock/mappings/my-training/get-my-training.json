@@ -1,0 +1,24 @@
+{
+  "request": {
+      "method": "GET",
+      "urlPath": "/api/my-training",
+      "queryParameters" : {
+        "trainingType" : {
+          "equalTo" : "A"
+        }
+      }
+  },
+  "response": {
+      "status": 200,
+      "bodyFileName": "my-training/get-my-training-response.json",
+      "headers": {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Methods" : "*",
+        "Access-Control-Allow-Headers": "Accept, Content-Type, Content-Encoding, Server, Transfer-Encoding",
+        "X-Content-Type-Options" : "nosniff",
+        "x-frame-options" : "DENY",
+        "x-xss-protection" : "1; mode=block"
+    }
+  }
+}
