@@ -3,9 +3,8 @@ import { Store } from '@ngrx/store';
 import { MENU_OPTIONS, USER_MENU } from '../core/constants/constants';
 import { MenuItem } from '../core/models/MenuItem';
 import { SessionService } from '../core/services/session.service';
-import { getUserRole } from '../state';
+import { getUserRole, State } from '../state';
 import { AppPageActions } from '../state/actions';
-import { State } from '../state/app.reducer';
 
 @Component({
   selector: 'app-base-page',

@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { State } from '../athlete/state';
+import { State } from './index';
 import { AppApiActions, AppPageActions } from './actions';
 
 const initialState: State = {

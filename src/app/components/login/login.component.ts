@@ -4,9 +4,9 @@ import { Store } from '@ngrx/store';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
 import { Observable, Subscription } from 'rxjs';
-import { getLoginError } from 'src/app/state';
+import { getLoginError, State } from 'src/app/state';
 import { AppPageActions } from 'src/app/state/actions';
-import { State } from 'src/app/state/app.reducer';
+
 
 @Component({
   selector: 'app-login',

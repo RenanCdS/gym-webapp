@@ -2,31 +2,31 @@
   <swiper class="swiper-container" [config]="config_gallery" (indexChange)="onIndexChange($event)"
     (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')"
     #swiperGallery>
-    <div *ngFor="let slide of slides" class="swiper-slide">
+    <div *ngFor="let exercise of exercises$ | async" class="swiper-slide">
       <div class="card-container">
         <mat-card>
           <mat-card-header>
             <div mat-card-avatar class="avatar"></div>
-            <mat-card-title>Lorem ipsum</mat-card-title>
-            <mat-card-subtitle>Exercise</mat-card-subtitle>
+            <mat-card-title>{{exercise.exerciseName}}</mat-card-title>
+            <mat-card-subtitle>{{exercise.exerciseName}}</mat-card-subtitle>
           </mat-card-header>
-          <img mat-card-image [src]="slide" class="slide">
+          <img mat-card-image [src]="exercise.exerciseImage" class="slide">
           <mat-card-content>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              {{exercise.description}}
             </p>
           </mat-card-content>
           <mat-card-actions>
             <div class="exercise-info">
               <p>
-                <span matBadge="10" matBadgeOverlap="false">Último peso usado</span>
+                <span [matBadge]="exercise.weight" matBadgeOverlap="false">Último peso usado</span>
               </p>
               <p>
-                <span matBadge="12" matBadgeOverlap="false">Repetições</span>
+                <span [matBadge]="exercise.repetions" matBadgeOverlap="false">Repetições</span>
               </p>
 
             </div>
-            <mat-form-field color="accent" class="example-full-width">
+            <mat-form-field color="accent">
               <mat-label>Novo peso</mat-label>
               <input matInput>
             </mat-form-field>
@@ -34,7 +34,7 @@
               peso</button>
             <div>
             </div>
-            <button color="primary" mat-raised-button (click)="swiperGallery.directiveRef.nextSlide()">Feito</button>
+            <button color="primary" mat-raised-button (click)="done()">Feito</button>
             <button color="primary" mat-raised-button (click)="swiperGallery.directiveRef.nextSlide()">Pular</button>
             <button color="primary" mat-raised-button (click)="swiperGallery.directiveRef.nextSlide()">Finalizar
               treino</button>

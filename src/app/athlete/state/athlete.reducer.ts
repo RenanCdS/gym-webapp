@@ -9,13 +9,15 @@ export interface AthleteState {
   currentTrainingType: TrainingTypeEnum;
   myTrainingResponse: MyTrainingResponse;
   error: string;
+  currentExercise: Exercise;
 }
 
 const initialState: AthleteState = {
   exercises: [],
   currentTrainingType: TrainingTypeEnum.A,
   myTrainingResponse: null,
-  error: ''
+  error: '',
+  currentExercise: null
 };
 
 export const athleteReducer = createReducer<AthleteState>(
@@ -23,7 +25,7 @@ export const athleteReducer = createReducer<AthleteState>(
   on(AthleteApiActions.loadExerciseSuccess, (state, action) => {
     return {
       ...state,
-      myTrainingResponse: action.myTrainingResponse
+      myTrainingResponse: action?.myTrainingResponse
     };
   }),
   on(AthleteApiActions.loadExerciseFailure, (state, action) => {

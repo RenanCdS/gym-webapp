@@ -56,3 +56,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
   
 }
+
+.swiper-button-next, .swiper-button-prev {
+  transition: opacity .5s;
+}
+
+.swiper-button-disabled {
+   opacity: 0 !important;
+}
+
+.s-wrapper {
+  .swiper-button-next {
+    display: none;
+  }
+  
+  .swiper-button-prev {
+    display: none;
+  }
+}
