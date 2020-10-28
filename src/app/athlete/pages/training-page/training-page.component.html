@@ -1,5 +1,5 @@
 <div class="training-page">
-  <swiper class="swiper-container" [config]="config_gallery" (indexChange)="onIndexChange($event)"
+  <swiper class="swiper-container" [config]="swiperConfig" (indexChange)="onIndexChange($event)"
     (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')"
     #swiperGallery>
     <div *ngFor="let exercise of exercises$ | async" class="swiper-slide">

@@ -20,26 +20,15 @@ export class TrainingPageComponent implements OnInit {
 
   exercises$: Observable<Exercise[]>;
   @ViewChild('swiperGallery') swiperGallery: SwiperComponent;
-  slides = [
-    'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-    'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-    'https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-    'https://images.unsplash.com/photo-1535743686920-55e4145369b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-    'https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-  ];
 
-  config_gallery: SwiperConfigInterface = {
+  swiperConfig: SwiperConfigInterface = {
     a11y: true,
     direction: 'horizontal',
-    loop: true,
-    initialSlide: 1,
     centeredSlides: true,
-    allowSlidePrev: true,
     centerInsufficientSlides: true,
     centeredSlidesBounds: true,
     resistance: false,
-    allowSlideNext: true,
-    zoom: false
+    allowTouchMove: false,
   };
 
   constructor(private readonly dialog: MatDialog,
@@ -61,10 +50,11 @@ export class TrainingPageComponent implements OnInit {
 
           });
         }
-      }),
-      map(myTrainingResponse => myTrainingResponse?.exercises)
-    );
 
+      }),
+      map(myTrainingResponse => myTrainingResponse?.exercises),
+      tap(() => this.swiperGallery?.directiveRef.update())
+    );
     this.store.dispatch(AthletePageActions.loadExercises({ trainingType: TrainingTypeEnum.A }));
   }
 
@@ -84,6 +74,7 @@ export class TrainingPageComponent implements OnInit {
   }
 
   done(): void {
-    this.swiperGallery.directiveRef.nextSlide(2);
+    this.swiperGallery.directiveRef.nextSlide();
+    this.swiperGallery?.directiveRef.update()
   }
 }
