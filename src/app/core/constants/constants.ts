@@ -2,7 +2,7 @@ import { UserRoleEnum } from '../enums/user-role.enum';
 
 const studentMenu = [
   { name: 'Home', icon: 'house', url: '/home' },
-  { name: 'Meu treino', icon: 'fitness_center', url: '/atleta/treino' },
+  { name: 'Meu treino', icon: 'fitness_center', url: '/atleta' },
   { name: 'Cadastrar metas', icon: 'anchor', url: '/metas' },
 ];
 const teacherMenu = [

@@ -14,13 +14,14 @@ import { StoreModule } from '@ngrx/store';
 import { athleteReducer } from './state/athlete.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AthleteEffects } from './state/athlete.effects';
+import { TrainingTypeComponent } from './pages/training-type/training-type.component';
 
 export function playerFactory() {
   return player;
 }
 
 @NgModule({
-  declarations: [AthleteRegisterPageComponent, AthleteUpdatePageComponent, TrainingPageComponent],
+  declarations: [AthleteRegisterPageComponent, AthleteUpdatePageComponent, TrainingPageComponent, TrainingTypeComponent],
   imports: [
     CommonModule,
     SwiperModule,
