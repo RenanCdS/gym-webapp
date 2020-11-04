@@ -19,8 +19,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SuccessModalComponent } from './components/success-modal/success-modal.component';
 import { LottieModule } from 'ngx-lottie';
 import { RouterModule } from '@angular/router';
+import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 
-const components = [];
+const components = [
+  SuccessModalComponent,
+  ConfirmationModalComponent
+];
 
 const modules = [
   CommonModule,
@@ -43,7 +47,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [...components, SuccessModalComponent],
+  declarations: [...components],
   imports: [
     ...modules,
     LottieModule,

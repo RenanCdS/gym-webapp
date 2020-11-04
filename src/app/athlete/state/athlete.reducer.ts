@@ -26,7 +26,7 @@ export const athleteReducer = createReducer<AthleteState>(
     return {
       ...state,
       myTrainingResponse: action?.myTrainingResponse,
-      exercises: action?.myTrainingResponse.exercises
+      exercises: action?.myTrainingResponse.exercises.map(exercise => Object.assign({}, exercise, { completed: false }))
     };
   }),
   on(AthleteApiActions.loadExerciseFailure, (state, action) => {

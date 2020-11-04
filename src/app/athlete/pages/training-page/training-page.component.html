@@ -1,7 +1,5 @@
 <div *ngIf="exercises$ | async as exercises" class="training-page">
-  <swiper *ngIf="exercises.length > 0" class="swiper-container" [config]="swiperConfig"
-    (indexChange)="onIndexChange($event)" (swiperTransitionStart)="onSwiperEvent('transitionStart')"
-    (swiperTransitionEnd)="onSwiperEvent('transitionEnd')" #swiperGallery>
+  <swiper *ngIf="exercises.length > 0" class="swiper-container" [config]="swiperConfig" #swiperGallery>
     <div *ngFor="let exercise of exercises" class="swiper-slide">
       <div class="card-container">
         <mat-card>
@@ -34,9 +32,8 @@
               peso</button>
             <div>
             </div>
-            <button color="primary" mat-raised-button (click)="onDone(exercise)">Feito</button>
-            <button color="primary" mat-raised-button (click)="onJump(exercise)">Pular</button>
-            <button color="primary" mat-raised-button (click)="onFinish(exercise)">Finalizar
+            <button color="primary" mat-raised-button (click)="onDoneHandler(exercise)">Feito</button>
+            <button color="primary" mat-raised-button (click)="onFinishHandler(confirmationModal)">Finalizar
               treino</button>
           </mat-card-actions>
         </mat-card>
@@ -44,3 +41,19 @@
     </div>
   </swiper>
 </div>
+
+<ng-template #confirmationModal>
+  <app-confirmation-modal image="assets/img/confirmation-image.svg" (confirmationEvent)="finishTraining()"
+    (deniedEvent)="closeModal()">
+  </app-confirmation-modal>
+</ng-template>
+
+<ng-template #successModal>
+  <app-success-modal text="Treino concluido com sucesso!" image="assets/lottie/champion.json">
+  </app-success-modal>
+</ng-template>
+
+<ng-template #finalizedTraining>
+  <app-success-modal text="Treino finalizado!" image="assets/lottie/finalize-training.json">
+  </app-success-modal>
+</ng-template>
