@@ -1,8 +1,8 @@
-<div class="training-page">
-  <swiper class="swiper-container" [config]="swiperConfig" (indexChange)="onIndexChange($event)"
-    (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')"
-    #swiperGallery>
-    <div *ngFor="let exercise of exercises$ | async" class="swiper-slide">
+<div *ngIf="exercises$ | async as exercises" class="training-page">
+  <swiper *ngIf="exercises.length > 0" class="swiper-container" [config]="swiperConfig"
+    (indexChange)="onIndexChange($event)" (swiperTransitionStart)="onSwiperEvent('transitionStart')"
+    (swiperTransitionEnd)="onSwiperEvent('transitionEnd')" #swiperGallery>
+    <div *ngFor="let exercise of exercises" class="swiper-slide">
       <div class="card-container">
         <mat-card>
           <mat-card-header>
@@ -34,9 +34,9 @@
               peso</button>
             <div>
             </div>
-            <button color="primary" mat-raised-button (click)="done()">Feito</button>
-            <button color="primary" mat-raised-button (click)="swiperGallery.directiveRef.nextSlide()">Pular</button>
-            <button color="primary" mat-raised-button (click)="swiperGallery.directiveRef.nextSlide()">Finalizar
+            <button color="primary" mat-raised-button (click)="onDone(exercise)">Feito</button>
+            <button color="primary" mat-raised-button (click)="onJump(exercise)">Pular</button>
+            <button color="primary" mat-raised-button (click)="onFinish(exercise)">Finalizar
               treino</button>
           </mat-card-actions>
         </mat-card>

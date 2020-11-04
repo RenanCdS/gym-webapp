@@ -17,4 +17,8 @@ export class AthleteService {
   getExercises(trainingType: TrainingTypeEnum): Observable<MyTrainingResponse> {
     return this.http.get<MyTrainingResponse>(`${this.BASE_URL}my-training?trainingType=${trainingType}`);
   }
+
+  getTrainingStartedVerification(): Observable<any> {
+    return null;
+  }
 }

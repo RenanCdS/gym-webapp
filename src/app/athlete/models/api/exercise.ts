@@ -7,4 +7,5 @@ export interface Exercise {
   description: string;
   teacherName: string;
   exerciseImage: string;
+  completed: boolean; // propriedade não mapeada na api
 }

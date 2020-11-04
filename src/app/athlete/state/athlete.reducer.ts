@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
 import { Exercise } from '../models/api/exercise';
 import { MyTrainingResponse } from '../models/api/my-training-response';
-import { AthleteApiActions } from './actions';
+import { AthleteApiActions, AthletePageActions } from './actions';
 
 export interface AthleteState {
   exercises: Exercise[];
@@ -25,7 +25,8 @@ export const athleteReducer = createReducer<AthleteState>(
   on(AthleteApiActions.loadExerciseSuccess, (state, action) => {
     return {
       ...state,
-      myTrainingResponse: action?.myTrainingResponse
+      myTrainingResponse: action?.myTrainingResponse,
+      exercises: action?.myTrainingResponse.exercises
     };
   }),
   on(AthleteApiActions.loadExerciseFailure, (state, action) => {
@@ -34,4 +35,11 @@ export const athleteReducer = createReducer<AthleteState>(
       error: action.error
     };
   }),
+  on(AthletePageActions.jumpExercise, (state, action) => {
+    return {
+      ...state,
+      exercises: state.exercises ? state.exercises.map(exercise =>
+        exercise.exerciseId === action.exercise.exerciseId ? action.exercise : exercise) : []
+    };
+  })
 );

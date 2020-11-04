@@ -13,6 +13,11 @@ export const getMyTrainingSuccess = createSelector(
   state => state.myTrainingResponse
 );
 
+export const getExercises = createSelector(
+  athleteSelector,
+  state => state.exercises
+);
+
 export const getMyTrainingFailure = createSelector(
   athleteSelector,
   state => state.error
