@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
 import { environment } from 'src/environments/environment';
 import { TrainingStatusResponse } from '../models/api/my-training-response';
+import { ChangeWeightRequest } from '../models/api/my-training/change-weight-request';
+import { ChangeWeightResponse } from '../models/api/my-training/change-weight-response';
 import { SendTrainingRequest } from '../models/api/my-training/send-training-request';
 import { StartTrainingResponse } from '../models/api/my-training/start-training-response';
 
@@ -28,8 +30,8 @@ export class AthleteService {
     return this.http.post<any>(`${this.BASE_URL}my-training`, sendTrainingRequest);
   }
 
-  changeExerciseWeight(currentWeight: number): Observable<any> {
-    return this.http.put<any>(`${this.BASE_URL}my-training`, {});
+  changeExerciseWeight(changeWeightRequest: ChangeWeightRequest): Observable<ChangeWeightResponse> {
+    return this.http.put<ChangeWeightResponse>(`${this.BASE_URL}my-training`, changeWeightRequest);
   }
 
   startTraining(trainingType: TrainingTypeEnum): Observable<StartTrainingResponse> {

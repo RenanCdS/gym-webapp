@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
+import { getExercises } from '.';
 import { Exercise } from '../models/api/exercise';
 import { AthleteApiActions, AthletePageActions } from './actions';
 
@@ -52,6 +53,31 @@ export const athleteReducer = createReducer<AthleteState>(
       isFinished: action.startedTraining.isFinished,
       isStarted: action.startedTraining.isStarted,
       currentTrainingType: action.startedTraining.trainingType
+    };
+  }),
+  on(AthleteApiActions.startTrainingFailure, (state, action) => {
+    return {
+      ...state,
+      error: action.error
+    };
+  }),
+  on(AthleteApiActions.changeWeightSuccess, (state, action) => {
+    return {
+      ...state,
+      exercises: state.exercises.map(exercise => {
+        if (exercise.exerciseId === action.exerciseId) {
+          const updatedExercise = Object.assign({}, exercise, { weight: action.currentWeight });
+          return updatedExercise;
+        }
+        return exercise;
+      })
+    };
+  }),
+  on(AthletePageActions.doneExercise, (state, action) => {
+    return {
+      ...state,
+      exercises: state.exercises ? state.exercises.map(exercise =>
+        exercise.exerciseId === action.exercise.exerciseId ? action.exercise : exercise) : []
     };
   })
 );

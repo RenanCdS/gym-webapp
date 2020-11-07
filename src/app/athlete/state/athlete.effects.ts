@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 import { UtilsService } from 'src/app/core/services/utils.service';
-import { athleteSelector, State } from '.';
+import { athleteSelector, getTrainingId, State } from '.';
 import { TrainingStatusResponse } from '../models/api/my-training-response';
+import { ChangeWeightRequest } from '../models/api/my-training/change-weight-request';
 import { ExerciseStatus } from '../models/api/my-training/send-training-request';
 import { AthleteService } from '../services/athlete.service';
 import { AthleteApiActions, AthletePageActions } from './actions';
@@ -18,7 +20,8 @@ export class AthleteEffects {
   constructor(private readonly actions$: Actions,
     private readonly store: Store<State>,
     private readonly athleteService: AthleteService,
-    private readonly utilsService: UtilsService) {
+    private readonly utilsService: UtilsService,
+    private readonly snackBar: MatSnackBar) {
   }
 
   verifyTrainingStatus$ = createEffect(() => {
@@ -85,10 +88,26 @@ export class AthleteEffects {
     );
   });
 
-  // changeExerciseWeight$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(AthletePageActions.changeExerciseWeight),
-  //     switchMap()
-  //   )
-  // })
+  changeExerciseWeight$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AthletePageActions.changeExerciseWeight),
+      withLatestFrom(this.store.select(getTrainingId)),
+      switchMap(([action, trainingId]) => {
+        const changeWeightRequest: ChangeWeightRequest = {
+          currentWeight: action.currentWeight,
+          exerciseId: action.exercise.exerciseId,
+          trainingId
+        };
+        return this.athleteService.changeExerciseWeight(changeWeightRequest).pipe(
+          map(changeWeightResponse => AthleteApiActions.changeWeightSuccess(changeWeightResponse)),
+          tap(() => this.snackBar.open('Peso alterado com sucesso ;)', '', {
+            duration: 2000
+          })),
+          catchError(error => {
+            return of(AthleteApiActions.changeWeightFailure({ error }));
+          })
+        );
+      })
+    );
+  })
 }

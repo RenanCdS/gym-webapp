@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { TrainingStatusResponse } from '../../models/api/my-training-response';
+import { ChangeWeightResponse } from '../../models/api/my-training/change-weight-response';
 import { StartTrainingResponse } from '../../models/api/my-training/start-training-response';
 
 export const verifyTrainingStatusSuccess = createAction(
@@ -29,5 +30,15 @@ export const startTrainingSuccess = createAction(
 
 export const startTrainingFailure = createAction(
   '[Athlete] Start Training Failure',
+  props<{ error }>()
+);
+
+export const changeWeightSuccess = createAction(
+  '[Athlete] Change Weight Success',
+  props<ChangeWeightResponse>()
+);
+
+export const changeWeightFailure = createAction(
+  '[Athlete] Change Weight Failure',
   props<{ error }>()
 );

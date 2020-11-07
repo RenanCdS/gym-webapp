@@ -22,14 +22,24 @@
               <p>
                 <span [matBadge]="exercise.repetions" matBadgeOverlap="false">Repetições</span>
               </p>
-
             </div>
-            <mat-form-field color="accent">
-              <mat-label>Novo peso</mat-label>
-              <input matInput>
-            </mat-form-field>
-            <button color="primary" mat-raised-button (click)="changeWeight()">Alterar
-              peso</button>
+            <form class="training-page__change-weight-form d-flex " [formGroup]="changeWeightForm">
+              <mat-form-field color="accent">
+                <mat-label>Novo peso</mat-label>
+                <input formControlName="currentWeight" matInput>
+                <mat-error
+                  *ngIf="changeWeightForm.get('currentWeight').touched && changeWeightForm.get('currentWeight').errors?.required">
+                  campo obrigatório
+                </mat-error>
+                <mat-error
+                  *ngIf="changeWeightForm.get('currentWeight').touched && changeWeightForm.get('currentWeight').errors?.pattern">
+                  por favor, insira somente números
+                </mat-error>
+              </mat-form-field>
+              <button style="height: 40px" color="primary" mat-raised-button (click)="changeWeight(exercise)">
+                Alterar peso
+              </button>
+            </form>
             <div>
             </div>
             <button color="primary" mat-raised-button (click)="onDoneHandler(exercise)">Feito</button>

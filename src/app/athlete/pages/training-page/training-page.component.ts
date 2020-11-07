@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { SwiperComponent, SwiperConfigInterface } from 'ngx-swiper-wrapper';
@@ -27,19 +28,25 @@ export class TrainingPageComponent implements OnInit {
     loop: false,
   };
 
+  changeWeightForm: FormGroup;
+
   constructor(private readonly dialog: MatDialog,
-    private readonly store: Store<State>) { }
+    private readonly store: Store<State>,
+    private readonly fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.exercises$ = this.store.select(getExercises).pipe(
       map(exercises => exercises ? exercises?.filter(exercise => !exercise.completed) : []),
       tap(exercises => {
+        console.log(exercises);
         if (exercises && exercises.length === 0) {
           this.store.dispatch(AthletePageActions.finalizeTraining({ isFinished: true, dailyTrainingId: 1 }));
           this.dialog.open(SuccessModalComponent);
         }
       })
     );
+
+    this.initalizeChangeWeightForm();
   }
 
   onDoneHandler(exercise: Exercise): void {
@@ -62,11 +69,23 @@ export class TrainingPageComponent implements OnInit {
     this.dialog.open(this.finalizedTraining);
   }
 
-  changeWeight(): void {
-
+  changeWeight(exercise: Exercise): void {
+    if (!this.changeWeightForm.valid) {
+      this.changeWeightForm.markAllAsTouched();
+      this.changeWeightForm.updateValueAndValidity();
+      return;
+    }
+    const currentWeight = this.changeWeightForm.get('currentWeight').value;
+    this.store.dispatch(AthletePageActions.changeExerciseWeight({ exercise, currentWeight }));
   }
 
   closeModal(): void {
     this.dialog.closeAll();
+  }
+
+  private initalizeChangeWeightForm(): void {
+    this.changeWeightForm = this.fb.group({
+      currentWeight: this.fb.control('', [Validators.required, Validators.pattern('[0-9]*')])
+    });
   }
 }

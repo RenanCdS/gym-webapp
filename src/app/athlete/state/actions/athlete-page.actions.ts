@@ -19,7 +19,7 @@ export const finalizeTraining = createAction(
 
 export const changeExerciseWeight = createAction(
   '[Athlete] Change Exercise Weight',
-  props<{ currentWeight: number }>()
+  props<{ exercise: Exercise, currentWeight: number }>()
 );
 
 export const doneExercise = createAction(
