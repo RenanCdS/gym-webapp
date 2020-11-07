@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SuccessModalComponent } from './components/success-modal/success-modal.component';
@@ -38,10 +39,12 @@ const modules = [
   MatBadgeModule,
   MatTooltipModule,
   MatStepperModule,
+  MatProgressSpinnerModule,
   MatSelectModule,
   MatExpansionModule,
   MatDatepickerModule,
   MatNativeDateModule,
+
   MatDialogModule,
   MatSnackBarModule
 ];

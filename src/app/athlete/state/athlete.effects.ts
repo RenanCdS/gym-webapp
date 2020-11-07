@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { Action } from 'rxjs/internal/scheduler/Action';
-import { catchError, map, switchMap, take, withLatestFrom } from 'rxjs/operators';
-import { athleteSelector, getExercises, State } from '.';
-import { MyTrainingResponse } from '../models/api/my-training-response';
+import { catchError, map, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
+import { UtilsService } from 'src/app/core/services/utils.service';
+import { athleteSelector, State } from '.';
+import { TrainingStatusResponse } from '../models/api/my-training-response';
 import { ExerciseStatus } from '../models/api/my-training/send-training-request';
 import { AthleteService } from '../services/athlete.service';
 import { AthleteApiActions, AthletePageActions } from './actions';
@@ -17,17 +17,24 @@ export class AthleteEffects {
 
   constructor(private readonly actions$: Actions,
     private readonly store: Store<State>,
-    private readonly athleteService: AthleteService) {
+    private readonly athleteService: AthleteService,
+    private readonly utilsService: UtilsService) {
   }
 
-  loadExercises$ = createEffect(() => {
+  verifyTrainingStatus$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AthletePageActions.loadExercises),
-      switchMap(actions => {
-        return this.athleteService.getExercises(actions.trainingType);
+      ofType(AthletePageActions.verifyTrainingStatus),
+      tap(() => {
+        this.utilsService.startLoading();
       }),
-      map((response: MyTrainingResponse) => {
-        return AthleteApiActions.loadExerciseSuccess({ myTrainingResponse: response });
+      switchMap(() => {
+        return this.athleteService.getTrainingStatus();
+      }),
+      map((response: TrainingStatusResponse) => {
+        return AthleteApiActions.verifyTrainingStatusSuccess({ myTrainingResponse: response });
+      }),
+      tap(() => {
+        this.utilsService.finishLoading();
       })
     );
   });
@@ -56,4 +63,11 @@ export class AthleteEffects {
       }),
     );
   });
+
+  // changeExerciseWeight$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(AthletePageActions.changeExerciseWeight),
+  //     switchMap()
+  //   )
+  // })
 }

@@ -1,12 +1,10 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { SwiperComponent, SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Observable } from 'rxjs';
 import { map, skip, tap } from 'rxjs/operators';
-import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
-import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-modal.component';
+import { UtilsService } from 'src/app/core/services/utils.service';
 import { SuccessModalComponent } from 'src/app/shared/components/success-modal/success-modal.component';
 import { Exercise } from '../../models/api/exercise';
 import { getExercises, State } from '../../state';
@@ -32,9 +30,11 @@ export class TrainingPageComponent implements OnInit {
   };
 
   constructor(private readonly dialog: MatDialog,
-    private readonly store: Store<State>) { }
+    private readonly store: Store<State>,
+    private readonly utilsService: UtilsService) { }
 
   ngOnInit(): void {
+    // this.utilsService.startLoading();
     this.exercises$ = this.store.select(getExercises).pipe(
       skip(1),
       map(exercises => exercises ? exercises?.filter(exercise => !exercise.completed) : []),
@@ -45,8 +45,6 @@ export class TrainingPageComponent implements OnInit {
         }
       })
     );
-
-    this.store.dispatch(AthletePageActions.loadExercises({ trainingType: TrainingTypeEnum.A }));
   }
 
   onDoneHandler(exercise: Exercise): void {
@@ -59,7 +57,7 @@ export class TrainingPageComponent implements OnInit {
    * @description exibe a modal de confirmação de finalização do treino
    * @param modal modal a ser exibida
    */
-  onFinishHandler(modal: TemplateRef): void {
+  onFinishHandler(modal: TemplateRef<any>): void {
     this.dialog.open(modal);
   }
 
@@ -67,6 +65,10 @@ export class TrainingPageComponent implements OnInit {
     this.store.dispatch(AthletePageActions.finalizeTraining({ isFinished: false, dailyTrainingId: 1 }));
     this.dialog.closeAll();
     this.dialog.open(this.finalizedTraining);
+  }
+
+  changeWeight(): void {
+
   }
 
   closeModal(): void {

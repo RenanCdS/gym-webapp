@@ -5,11 +5,14 @@
         <mat-icon>menu</mat-icon>
       </button>
       <div [routerLink]="['/']"
-        style=" margin: auto; width: 50%;display: flex; justify-content: space-between; align-items: center;">
-        <h1 class="title">Gym Webapp </h1>
+        style="margin: auto; width: 50%;display: flex; justify-content: space-between; align-items: center;">
+        <h1 class="title">Gym Pal </h1>
       </div>
     </mat-toolbar>
   </nav>
+  <div *ngIf="isLoading$ | async" class="loading-container d-flex justify-content-center align-items-center">
+    <mat-spinner></mat-spinner>
+  </div>
   <router-outlet></router-outlet>
 </div>
 

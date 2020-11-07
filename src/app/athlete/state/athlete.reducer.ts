@@ -1,35 +1,43 @@
 import { createReducer, on } from '@ngrx/store';
 import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
 import { Exercise } from '../models/api/exercise';
-import { MyTrainingResponse } from '../models/api/my-training-response';
 import { AthleteApiActions, AthletePageActions } from './actions';
 
 export interface AthleteState {
   exercises: Exercise[];
   currentTrainingType: TrainingTypeEnum;
-  myTrainingResponse: MyTrainingResponse;
+  trainingId: number;
+  dailyTrainingId: number;
+  isStarted: boolean;
+  isFinished: boolean;
   error: string;
   currentExercise: Exercise;
 }
 
 const initialState: AthleteState = {
   exercises: [],
-  currentTrainingType: TrainingTypeEnum.A,
-  myTrainingResponse: null,
+  currentTrainingType: null,
+  dailyTrainingId: null,
+  isFinished: null,
+  isStarted: null,
+  trainingId: null,
   error: '',
   currentExercise: null
 };
 
 export const athleteReducer = createReducer<AthleteState>(
   initialState,
-  on(AthleteApiActions.loadExerciseSuccess, (state, action) => {
+  on(AthleteApiActions.verifyTrainingStatusSuccess, (state, action) => {
     return {
       ...state,
-      myTrainingResponse: action?.myTrainingResponse,
-      exercises: action?.myTrainingResponse.exercises.map(exercise => Object.assign({}, exercise, { completed: false }))
+      dailyTrainingId: action.myTrainingResponse.dailyTrainingId,
+      isFinished: action.myTrainingResponse.isFinished,
+      isStarted: action.myTrainingResponse.isStarted,
+      exercises: action.myTrainingResponse.exercises,
+      currentExercise: null
     };
   }),
-  on(AthleteApiActions.loadExerciseFailure, (state, action) => {
+  on(AthleteApiActions.verifyTrainingStatusFailure, (state, action) => {
     return {
       ...state,
       error: action.error

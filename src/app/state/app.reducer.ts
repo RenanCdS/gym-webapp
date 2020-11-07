@@ -6,7 +6,8 @@ const initialState: State = {
   error: '',
   login: '',
   token: '',
-  userRole: null
+  userRole: null,
+  loading: false
 };
 
 export const appReducer = createReducer<State>(
@@ -25,6 +26,12 @@ export const appReducer = createReducer<State>(
       error: action.error
     };
   }),
+  on(AppApiActions.userRoleSuccess, (state, action) => {
+    return {
+      ...state,
+      userRole: action.userRole
+    };
+  }),
   on(AppPageActions.exit, state => {
     return {
       ...state,
@@ -34,10 +41,16 @@ export const appReducer = createReducer<State>(
       userRole: null
     };
   }),
-  on(AppApiActions.userRoleSuccess, (state, action) => {
+  on(AppPageActions.startLoading, state => {
     return {
       ...state,
-      userRole: action.userRole
+      loading: true
+    };
+  }),
+  on(AppPageActions.finishLoading, state => {
+    return {
+      ...state,
+      loading: false
     };
   })
 );

@@ -6,6 +6,7 @@ export interface State {
   token: string;
   error: string;
   userRole: UserRoleEnum;
+  loading: boolean;
 }
 
 const rootSelector = createFeatureSelector<State>('login');
@@ -23,4 +24,9 @@ export const getLoginError = createSelector(
 export const getUserRole = createSelector(
   rootSelector,
   state => state.userRole
+);
+
+export const getLoading = createSelector(
+  rootSelector,
+  state => state.loading
 );

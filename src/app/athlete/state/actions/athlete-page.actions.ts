@@ -1,10 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
 import { Exercise } from '../../models/api/exercise';
 
-export const loadExercises = createAction(
-  '[Athlete] Load Exercise',
-  props<{ trainingType: TrainingTypeEnum }>()
+// action que verifica se o treino já foi iniciado
+export const verifyTrainingStatus = createAction(
+  '[Athlete] Verify Training Status'
 );
 
 export const jumpExercise = createAction(
@@ -25,4 +24,9 @@ export const finalizeTrainingSuccess = createAction(
 export const finalizeTrainingFailure = createAction(
   '[Athlete] Finalize Training Failure',
   props<{ error: string }>()
+);
+
+export const changeExerciseWeight = createAction(
+  '[Athlete] Change Exercise Weight',
+  props<{ currentWeight: number }>()
 );

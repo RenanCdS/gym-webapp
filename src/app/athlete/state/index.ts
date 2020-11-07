@@ -8,11 +8,6 @@ export interface State extends AppState.State {
 
 export const athleteSelector = createFeatureSelector<AthleteState>('athlete');
 
-export const getMyTrainingSuccess = createSelector(
-  athleteSelector,
-  state => state.myTrainingResponse
-);
-
 export const getExercises = createSelector(
   athleteSelector,
   state => state.exercises
@@ -21,4 +16,14 @@ export const getExercises = createSelector(
 export const getMyTrainingFailure = createSelector(
   athleteSelector,
   state => state.error
+);
+
+export const getIsFinished = createSelector(
+  athleteSelector,
+  state => state.isFinished
+);
+
+export const getIsStarted = createSelector(
+  athleteSelector,
+  state => state.isStarted
 );

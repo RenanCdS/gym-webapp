@@ -16,3 +16,11 @@ export const empty = createAction(
 export const indetifyUserRole = createAction(
   '[App] Indetify User Role'
 );
+
+export const startLoading = createAction(
+  '[App] Start Loading'
+);
+
+export const finishLoading = createAction(
+  '[App] Finish Loading'
+);

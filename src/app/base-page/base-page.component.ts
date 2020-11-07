@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { delay, map } from 'rxjs/operators';
 import { MENU_OPTIONS, USER_MENU } from '../core/constants/constants';
 import { MenuItem } from '../core/models/MenuItem';
 import { SessionService } from '../core/services/session.service';
-import { getUserRole, State } from '../state';
+import { getLoading, getUserRole, State } from '../state';
 import { AppPageActions } from '../state/actions';
 
 @Component({
@@ -13,6 +15,7 @@ import { AppPageActions } from '../state/actions';
 })
 export class BasePageComponent implements OnInit {
   menuList: MenuItem[];
+  isLoading$: Observable<boolean>;
   constructor(private readonly store: Store<State>,
     private readonly sessionService: SessionService) {
   }
@@ -25,6 +28,8 @@ export class BasePageComponent implements OnInit {
         this.sessionService.setStorage(USER_MENU, JSON.stringify(this.menuList));
       }
     });
+
+    this.isLoading$ = this.store.select(getLoading).pipe(delay(100));
   }
 
   exit(): void {

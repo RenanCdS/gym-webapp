@@ -1,12 +1,12 @@
 import { createAction, props } from '@ngrx/store';
-import { MyTrainingResponse } from '../../models/api/my-training-response';
+import { TrainingStatusResponse } from '../../models/api/my-training-response';
 
-export const loadExerciseSuccess = createAction(
-  '[Athlete] Load Exercise Success',
-  props<{ myTrainingResponse: MyTrainingResponse }>()
+export const verifyTrainingStatusSuccess = createAction(
+  '[Athlete] Load Training Success',
+  props<{ myTrainingResponse: TrainingStatusResponse }>()
 );
 
-export const loadExerciseFailure = createAction(
-  '[Athlete] Load Exercise Failure',
+export const verifyTrainingStatusFailure = createAction(
+  '[Athlete] Load Training Failure',
   props<{ error: string }>()
 );
