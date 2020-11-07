@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
+import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
 import { getIsFinished, getIsStarted, State } from '../../state';
 import { AthletePageActions } from '../../state/actions';
 
@@ -13,6 +14,7 @@ import { AthletePageActions } from '../../state/actions';
 })
 export class TrainingTypeComponent implements OnInit {
 
+  readonly trainingType = TrainingTypeEnum;
   constructor(private readonly store: Store<State>,
     private readonly router: Router,
     private readonly snackBar: MatSnackBar) { }
@@ -27,7 +29,10 @@ export class TrainingTypeComponent implements OnInit {
 
         if (isFinished) {
           this.router.navigate(['home']);
-          this.snackBar.open('Seu treino diário já foi concluído ;)');
+          this.snackBar.open('Seu treino diário já foi concluído ;)', '', {
+            verticalPosition: 'top',
+            duration: 2000
+          });
           return;
         }
 
@@ -41,4 +46,7 @@ export class TrainingTypeComponent implements OnInit {
     this.store.select(getIsStarted);
   }
 
+  startTraining(trainingType: TrainingTypeEnum): void {
+    this.store.dispatch(AthletePageActions.startTraining({ trainingType }));
+  }
 }

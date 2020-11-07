@@ -43,11 +43,15 @@ export const athleteReducer = createReducer<AthleteState>(
       error: action.error
     };
   }),
-  on(AthletePageActions.jumpExercise, (state, action) => {
+  on(AthleteApiActions.startTrainingSuccess, (state, action) => {
     return {
       ...state,
-      exercises: state.exercises ? state.exercises.map(exercise =>
-        exercise.exerciseId === action.exercise.exerciseId ? action.exercise : exercise) : []
+      exercises: action.startedTraining.exercises,
+      trainingId: action.startedTraining.trainingId,
+      dailyTrainingId: action.startedTraining.dailyTrainingId,
+      isFinished: action.startedTraining.isFinished,
+      isStarted: action.startedTraining.isStarted,
+      currentTrainingType: action.startedTraining.trainingType
     };
   })
 );

@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
 import { Exercise } from '../../models/api/exercise';
 
 // action que verifica se o treino já foi iniciado
@@ -6,9 +7,9 @@ export const verifyTrainingStatus = createAction(
   '[Athlete] Verify Training Status'
 );
 
-export const jumpExercise = createAction(
-  '[Athlete] Jump Exercise',
-  props<{ exercise: Exercise }>()
+export const startTraining = createAction(
+  '[Athlete] Start Training',
+  props<{ trainingType: TrainingTypeEnum }>()
 );
 
 export const finalizeTraining = createAction(
@@ -16,17 +17,13 @@ export const finalizeTraining = createAction(
   props<{ isFinished: boolean, dailyTrainingId: number }>()
 );
 
-export const finalizeTrainingSuccess = createAction(
-  '[Athlete] Finalize Training Success',
-  props()
-);
-
-export const finalizeTrainingFailure = createAction(
-  '[Athlete] Finalize Training Failure',
-  props<{ error: string }>()
-);
-
 export const changeExerciseWeight = createAction(
   '[Athlete] Change Exercise Weight',
   props<{ currentWeight: number }>()
 );
+
+export const doneExercise = createAction(
+  '[Athlete] Done Exercise',
+  props<{ exercise: Exercise }>()
+);
+

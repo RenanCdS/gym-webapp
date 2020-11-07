@@ -39,6 +39,27 @@ export class AthleteEffects {
     );
   });
 
+  startTraining$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AthletePageActions.startTraining),
+      tap(() => {
+        this.utilsService.startLoading();
+      }),
+      switchMap(action => {
+        return this.athleteService.startTraining(action.trainingType).pipe(
+          map(startedTraining => AthleteApiActions.startTrainingSuccess({ startedTraining })),
+          catchError(error => {
+            this.utilsService.finishLoading();
+            return of(AthleteApiActions.startTrainingFailure({ error }));
+          })
+        );
+      }),
+      tap(() => {
+        this.utilsService.finishLoading();
+      })
+    );
+  });
+
   finalizeTraining$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AthletePageActions.finalizeTraining),
@@ -55,9 +76,9 @@ export class AthleteEffects {
           exercises: exercisesStatus,
           isFinished: action.isFinished
         }).pipe(
-          map(() => AthletePageActions.finalizeTrainingSuccess(null)),
+          map(() => AthleteApiActions.finalizeTrainingSuccess(null)),
           catchError(error => {
-            return of(AthletePageActions.finalizeTrainingFailure({ error }));
+            return of(AthleteApiActions.finalizeTrainingFailure({ error }));
           })
         );
       }),

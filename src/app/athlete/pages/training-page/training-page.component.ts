@@ -3,8 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { SwiperComponent, SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Observable } from 'rxjs';
-import { map, skip, tap } from 'rxjs/operators';
-import { UtilsService } from 'src/app/core/services/utils.service';
+import { map, tap } from 'rxjs/operators';
 import { SuccessModalComponent } from 'src/app/shared/components/success-modal/success-modal.component';
 import { Exercise } from '../../models/api/exercise';
 import { getExercises, State } from '../../state';
@@ -26,17 +25,13 @@ export class TrainingPageComponent implements OnInit {
     slidesPerView: 1,
     spaceBetween: 30,
     loop: false,
-
   };
 
   constructor(private readonly dialog: MatDialog,
-    private readonly store: Store<State>,
-    private readonly utilsService: UtilsService) { }
+    private readonly store: Store<State>) { }
 
   ngOnInit(): void {
-    // this.utilsService.startLoading();
     this.exercises$ = this.store.select(getExercises).pipe(
-      skip(1),
       map(exercises => exercises ? exercises?.filter(exercise => !exercise.completed) : []),
       tap(exercises => {
         if (exercises && exercises.length === 0) {
@@ -49,7 +44,7 @@ export class TrainingPageComponent implements OnInit {
 
   onDoneHandler(exercise: Exercise): void {
     const currentExercise: Exercise = Object.assign({}, exercise, { completed: true });
-    this.store.dispatch(AthletePageActions.jumpExercise({ exercise: currentExercise }));
+    this.store.dispatch(AthletePageActions.doneExercise({ exercise: currentExercise }));
     this.swiperGallery.directiveRef.update();
   }
 

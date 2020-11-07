@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CanActivate, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { getIsFinished, getIsStarted, State } from '../state';
 
-// TODO: Implementar lógica
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TrainingGuard implements CanActivate {
   constructor(private readonly store: Store<State>,
     private readonly router: Router,
@@ -26,7 +26,8 @@ export class TrainingGuard implements CanActivate {
         if (isStarted) {
           return true;
         }
-        return true;
+        this.router.navigate(['/atleta']);
+        return false;
       })
     );
   }
