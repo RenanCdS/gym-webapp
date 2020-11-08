@@ -48,11 +48,7 @@ export class AthleteService {
     }
 
     if (isFinished) {
-      this.router.navigate(['home']);
-      this.snackBar.open('Seu treino diário já foi concluído ;)', '', {
-        verticalPosition: 'top',
-        duration: 2000
-      });
+      this.router.navigate(['/atleta/finalizado']);
       return;
     }
 

@@ -26,6 +26,9 @@ export class AthleteEffects {
     private readonly router: Router) {
   }
 
+  /**
+   * @description effect que verifica se o usuário já comeou um treino ou se ele já finalizou 
+   */
   verifyTrainingStatus$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AthletePageActions.verifyTrainingStatus),
@@ -93,18 +96,21 @@ export class AthleteEffects {
     return this.actions$.pipe(
       ofType(AthletePageActions.finalizeTraining),
       withLatestFrom(this.store.select(athleteSelector)),
-      switchMap(([action, storeState]) => {
-        const exercisesStatus: ExerciseStatus[] = storeState.exercises.map(exercise => (
+      switchMap(([action, athleteState]) => {
+        const exercisesStatus: ExerciseStatus[] = athleteState.exercises.map(exercise => (
           {
             exerciseId: exercise.exerciseId,
             completed: exercise.completed
           }));
 
         return this.athleteService.sendDailyTraining({
-          dailyTrainingId: action.dailyTrainingId,
+          dailyTrainingId: athleteState.dailyTrainingId,
           exercises: exercisesStatus,
           isFinished: action.isFinished
         }).pipe(
+          tap(() => {
+            this.router.navigate(['/atleta/finalizado']);
+          }),
           map(() => AthleteApiActions.finalizeTrainingSuccess(null)),
           catchError(error => {
             this.router.navigate(['/erro']);

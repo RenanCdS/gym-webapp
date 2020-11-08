@@ -15,13 +15,14 @@ import { athleteReducer } from './state/athlete.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AthleteEffects } from './state/athlete.effects';
 import { TrainingTypeComponent } from './pages/training-type/training-type.component';
+import { FinalizedTrainingPageComponent } from './pages/finalized-training-page/finalized-training-page.component';
 
 export function playerFactory() {
   return player;
 }
 
 @NgModule({
-  declarations: [AthleteRegisterPageComponent, AthleteUpdatePageComponent, TrainingPageComponent, TrainingTypeComponent],
+  declarations: [AthleteRegisterPageComponent, AthleteUpdatePageComponent, TrainingPageComponent, TrainingTypeComponent, FinalizedTrainingPageComponent],
   imports: [
     CommonModule,
     SwiperModule,

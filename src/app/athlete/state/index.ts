@@ -32,3 +32,8 @@ export const getTrainingId = createSelector(
   athleteSelector,
   state => state.trainingId
 );
+
+export const getdailyTrainingId = createSelector(
+  athleteSelector,
+  state => state.dailyTrainingId
+);

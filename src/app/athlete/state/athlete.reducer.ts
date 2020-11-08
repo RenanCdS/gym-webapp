@@ -1,6 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
 import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
-import { getExercises } from '.';
 import { Exercise } from '../models/api/exercise';
 import { AthleteApiActions, AthletePageActions } from './actions';
 
@@ -71,6 +70,19 @@ export const athleteReducer = createReducer<AthleteState>(
         }
         return exercise;
       })
+    };
+  }),
+  on(AthleteApiActions.finalizeTrainingSuccess, (state, action) => {
+    return {
+      ...state,
+      isFinished: true,
+      isStarted: true
+    };
+  }),
+  on(AthleteApiActions.finalizeTrainingFailure, (state, action) => {
+    return {
+      ...state,
+      error: action.error
     };
   }),
   on(AthletePageActions.doneExercise, (state, action) => {

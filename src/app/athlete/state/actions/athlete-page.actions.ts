@@ -14,7 +14,7 @@ export const startTraining = createAction(
 
 export const finalizeTraining = createAction(
   '[Athlete] Finalize Training',
-  props<{ isFinished: boolean, dailyTrainingId: number }>()
+  props<{ isFinished: boolean }>()
 );
 
 export const changeExerciseWeight = createAction(

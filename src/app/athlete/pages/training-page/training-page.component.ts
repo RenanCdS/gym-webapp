@@ -39,8 +39,7 @@ export class TrainingPageComponent implements OnInit {
       map(exercises => exercises ? exercises?.filter(exercise => !exercise.completed) : []),
       tap(exercises => {
         if (exercises && exercises.length === 0) {
-          this.store.dispatch(AthletePageActions.finalizeTraining({ isFinished: true, dailyTrainingId: 1 }));
-          this.dialog.open(SuccessModalComponent);
+          this.store.dispatch(AthletePageActions.finalizeTraining({ isFinished: true }));
         }
       })
     );
@@ -63,7 +62,7 @@ export class TrainingPageComponent implements OnInit {
   }
 
   finishTraining(): void {
-    this.store.dispatch(AthletePageActions.finalizeTraining({ isFinished: false, dailyTrainingId: 1 }));
+    this.store.dispatch(AthletePageActions.finalizeTraining({ isFinished: false }));
     this.dialog.closeAll();
     this.dialog.open(this.finalizedTraining);
   }
