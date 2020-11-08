@@ -4,7 +4,7 @@
       "urlPath": "/api/my-training"
   },
   "response": {
-      "status": 200,
+      "status": 500,
       "bodyFileName": "my-training/get-my-training-response.json",
       "headers": {
         "Content-Type": "application/json",
@@ -15,6 +15,6 @@
         "x-frame-options" : "DENY",
         "x-xss-protection" : "1; mode=block"
       },
-      "fixedDelayMilliseconds": 2000
+      "fixedDelayMilliseconds": 200
   }
 }

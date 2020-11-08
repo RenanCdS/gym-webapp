@@ -20,10 +20,10 @@ export class TrainingTypeComponent implements OnInit {
     private readonly snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.store.dispatch(AthletePageActions.verifyTrainingStatus());
     combineLatest([this.store.select(getIsStarted), this.store.select(getIsFinished)]).subscribe(
       ([isStarted, isFinished]) => {
         if (isStarted === null || isFinished == null) {
-          this.store.dispatch(AthletePageActions.verifyTrainingStatus());
           return;
         }
 

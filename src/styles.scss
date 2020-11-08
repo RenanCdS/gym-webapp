@@ -110,3 +110,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     text-align: center;
   }
 }
+
+.subtitle {
+  font-size: $small;
+  &--center {
+    text-align: center;
+  }
+}

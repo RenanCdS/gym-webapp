@@ -38,7 +38,6 @@ export class TrainingPageComponent implements OnInit {
     this.exercises$ = this.store.select(getExercises).pipe(
       map(exercises => exercises ? exercises?.filter(exercise => !exercise.completed) : []),
       tap(exercises => {
-        console.log(exercises);
         if (exercises && exercises.length === 0) {
           this.store.dispatch(AthletePageActions.finalizeTraining({ isFinished: true, dailyTrainingId: 1 }));
           this.dialog.open(SuccessModalComponent);

@@ -18,6 +18,7 @@ const routes: Routes = [
       { path: 'treinador', loadChildren: () => import('./coach/coach.module').then(m => m.CoachModule) },
       { path: 'metas', loadChildren: () => import('./goal/goal.module').then(m => m.GoalModule) },
       { path: 'atleta', loadChildren: () => import('./athlete/athlete.module').then(m => m.AthleteModule) },
+      { path: 'erro', loadChildren: () => import('./error/error.module').then(m => m.ErrorModule) },
       { path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
       { path: '**', redirectTo: '/' }
     ]

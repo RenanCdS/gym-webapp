@@ -44,7 +44,6 @@ const modules = [
   MatExpansionModule,
   MatDatepickerModule,
   MatNativeDateModule,
-
   MatDialogModule,
   MatSnackBarModule
 ];

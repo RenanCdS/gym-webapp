@@ -31,10 +31,15 @@ export class AthleteEffects {
         this.utilsService.startLoading();
       }),
       switchMap(() => {
-        return this.athleteService.getTrainingStatus();
-      }),
-      map((response: TrainingStatusResponse) => {
-        return AthleteApiActions.verifyTrainingStatusSuccess({ myTrainingResponse: response });
+        return this.athleteService.getTrainingStatus().pipe(
+          map((response: TrainingStatusResponse) => {
+            return AthleteApiActions.verifyTrainingStatusSuccess({ myTrainingResponse: response });
+          }),
+          catchError(error => {
+            this.utilsService.showError('Houve um erro no sistema :(');
+            return of(AthleteApiActions.finalizeTrainingFailure({ error }));
+          })
+        );
       }),
       tap(() => {
         this.utilsService.finishLoading();
@@ -52,7 +57,6 @@ export class AthleteEffects {
         return this.athleteService.startTraining(action.trainingType).pipe(
           map(startedTraining => AthleteApiActions.startTrainingSuccess({ startedTraining })),
           catchError(error => {
-            this.utilsService.finishLoading();
             return of(AthleteApiActions.startTrainingFailure({ error }));
           })
         );
@@ -104,6 +108,7 @@ export class AthleteEffects {
             duration: 2000
           })),
           catchError(error => {
+            this.utilsService.showError('Houve um erro no sistema :(');
             return of(AthleteApiActions.changeWeightFailure({ error }));
           })
         );

@@ -1,0 +1,10 @@
+:host {
+  .generic-error-page {
+    height: 80vh;
+    padding: .5rem;
+    &__image {
+      width: 80%;
+      height: 300px;
+    }
+  }
+}
