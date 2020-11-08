@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
 import { environment } from 'src/environments/environment';
@@ -16,7 +18,9 @@ export class AthleteService {
 
   private readonly BASE_URL = environment.api.gym;
 
-  constructor(private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient,
+    private readonly router: Router,
+    private readonly snackBar: MatSnackBar) { }
 
   getTrainingStatus(): Observable<TrainingStatusResponse> {
     return this.http.get<TrainingStatusResponse>(`${this.BASE_URL}my-training`);
@@ -36,5 +40,25 @@ export class AthleteService {
 
   startTraining(trainingType: TrainingTypeEnum): Observable<StartTrainingResponse> {
     return this.http.get<StartTrainingResponse>(`${this.BASE_URL}my-training/start/${trainingType}`);
+  }
+
+  validateTrainingStatus(isFinished: boolean, isStarted: boolean): void {
+    if (isStarted === null || isFinished == null) {
+      return;
+    }
+
+    if (isFinished) {
+      this.router.navigate(['home']);
+      this.snackBar.open('Seu treino diário já foi concluído ;)', '', {
+        verticalPosition: 'top',
+        duration: 2000
+      });
+      return;
+    }
+
+    if (isStarted) {
+      this.router.navigate(['/atleta/treino']);
+      return;
+    }
   }
 }

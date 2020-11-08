@@ -4,7 +4,7 @@
       "urlPath": "/api/my-training"
   },
   "response": {
-      "status": 500,
+      "status": 200,
       "bodyFileName": "my-training/get-my-training-response.json",
       "headers": {
         "Content-Type": "application/json",

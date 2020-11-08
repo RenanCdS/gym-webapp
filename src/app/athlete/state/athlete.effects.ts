@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
-import { catchError, map, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { UtilsService } from 'src/app/core/services/utils.service';
 import { athleteSelector, getTrainingId, State } from '.';
 import { TrainingStatusResponse } from '../models/api/my-training-response';
@@ -21,7 +22,8 @@ export class AthleteEffects {
     private readonly store: Store<State>,
     private readonly athleteService: AthleteService,
     private readonly utilsService: UtilsService,
-    private readonly snackBar: MatSnackBar) {
+    private readonly snackBar: MatSnackBar,
+    private readonly router: Router) {
   }
 
   verifyTrainingStatus$ = createEffect(() => {
@@ -30,13 +32,29 @@ export class AthleteEffects {
       tap(() => {
         this.utilsService.startLoading();
       }),
-      switchMap(() => {
-        return this.athleteService.getTrainingStatus().pipe(
+      withLatestFrom(this.store.select(athleteSelector)),
+      switchMap(([action, athleteState]) => {
+        let response$: Observable<any>;
+        if (athleteState.isFinished === null || athleteState.isStarted === null) {
+          response$ = this.athleteService.getTrainingStatus();
+        } else {
+          const statusResponse: TrainingStatusResponse = {
+            dailyTrainingId: athleteState.dailyTrainingId,
+            exercises: athleteState.exercises,
+            isFinished: athleteState.isFinished,
+            isStarted: athleteState.isStarted,
+            trainingId: athleteState.trainingId
+          };
+          response$ = of(statusResponse);
+        }
+
+        return response$.pipe(
           map((response: TrainingStatusResponse) => {
+            this.athleteService.validateTrainingStatus(response.isFinished, response.isStarted);
             return AthleteApiActions.verifyTrainingStatusSuccess({ myTrainingResponse: response });
           }),
           catchError(error => {
-            this.utilsService.showError('Houve um erro no sistema :(');
+            this.router.navigate(['/erro']);
             return of(AthleteApiActions.finalizeTrainingFailure({ error }));
           })
         );
@@ -55,8 +73,12 @@ export class AthleteEffects {
       }),
       switchMap(action => {
         return this.athleteService.startTraining(action.trainingType).pipe(
+          tap(() => {
+            this.router.navigate(['/atleta/treino']);
+          }),
           map(startedTraining => AthleteApiActions.startTrainingSuccess({ startedTraining })),
           catchError(error => {
+            this.router.navigate(['/erro']);
             return of(AthleteApiActions.startTrainingFailure({ error }));
           })
         );
@@ -85,6 +107,7 @@ export class AthleteEffects {
         }).pipe(
           map(() => AthleteApiActions.finalizeTrainingSuccess(null)),
           catchError(error => {
+            this.router.navigate(['/erro']);
             return of(AthleteApiActions.finalizeTrainingFailure({ error }));
           })
         );
@@ -114,5 +137,5 @@ export class AthleteEffects {
         );
       })
     );
-  })
+  });
 }
