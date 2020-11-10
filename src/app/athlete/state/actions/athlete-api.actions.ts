@@ -42,3 +42,12 @@ export const changeWeightFailure = createAction(
   '[Athlete] Change Weight Failure',
   props<{ error }>()
 );
+
+export const registerAthleteSuccess = createAction(
+  '[Athlete] Register Athlete Success'
+);
+
+export const registerAthleteFailure = createAction(
+  '[Athlete] Register Athlete Failure',
+  props<{ error }>()
+);

@@ -6,7 +6,7 @@ const studentMenu = [
   { name: 'Cadastrar metas', icon: 'anchor', url: '/metas' },
 ];
 const teacherMenu = [
-  { name: 'Cadastrar aluno', icon: 'person_add', url: '/atleta' },
+  { name: 'Cadastrar aluno', icon: 'person_add', url: '/atleta/cadastrar' },
   { name: 'Meu treino', icon: 'person_add_alt_1', url: '/treinador/cadastro-treinador' },
   { name: 'Cadastrar treino', icon: 'create', url: '/treinador/cadastro-treino' },
   { name: 'Meus alunos', icon: 'groups', url: '/treinador/meus-atletas' },

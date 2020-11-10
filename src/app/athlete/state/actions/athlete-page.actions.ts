@@ -1,5 +1,7 @@
+import { FormGroup } from '@angular/forms';
 import { createAction, props } from '@ngrx/store';
 import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
+import { RegisterAthleteRequest } from '../../models/api/athletes/register-athlete-register';
 import { Exercise } from '../../models/api/exercise';
 
 // action que verifica se o treino já foi iniciado
@@ -25,5 +27,10 @@ export const changeExerciseWeight = createAction(
 export const doneExercise = createAction(
   '[Athlete] Done Exercise',
   props<{ exercise: Exercise }>()
+);
+
+export const registerAthlete = createAction(
+  '[Athlete] Register Athlete',
+  props<{ athleteRequest: Partial<RegisterAthleteRequest>, form?: FormGroup }>()
 );
 

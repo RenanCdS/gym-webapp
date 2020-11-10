@@ -23,6 +23,7 @@ export class UtilsService {
   showError(message: string): void {
     this.snackBar.open(message, '', {
       duration: 2000,
+      horizontalPosition: 'center'
     });
   }
 }

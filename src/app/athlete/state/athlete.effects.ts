@@ -6,7 +6,9 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { UtilsService } from 'src/app/core/services/utils.service';
+import { getUserRole } from 'src/app/state';
 import { athleteSelector, getTrainingId, State } from '.';
+import { RegisterAthleteRequest } from '../models/api/athletes/register-athlete-register';
 import { TrainingStatusResponse } from '../models/api/my-training-response';
 import { ChangeWeightRequest } from '../models/api/my-training/change-weight-request';
 import { ExerciseStatus } from '../models/api/my-training/send-training-request';
@@ -139,6 +141,30 @@ export class AthleteEffects {
           catchError(error => {
             this.utilsService.showError('Houve um erro no sistema :(');
             return of(AthleteApiActions.changeWeightFailure({ error }));
+          })
+        );
+      })
+    );
+  });
+
+  // TODO: Limpar campos do formulário
+  registerAthlete$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AthletePageActions.registerAthlete),
+      withLatestFrom(this.store.select(getUserRole)),
+      switchMap(([action, userRole]) => {
+        const registerAthleteRequest: RegisterAthleteRequest =
+          Object.assign({}, action.athleteRequest, { roleId: userRole }) as RegisterAthleteRequest;
+        return this.athleteService.registerAthlete(registerAthleteRequest).pipe(
+          map(() => {
+            this.snackBar.open('Atleta cadastrado com sucesso :)', '', {
+              duration: 2000
+            });
+            return AthleteApiActions.registerAthleteSuccess();
+          }),
+          catchError(error => {
+            this.utilsService.showError('Ocorreu uma falha ao registrar o atleta :(');
+            return of(AthleteApiActions.registerAthleteFailure({ error }));
           })
         );
       })

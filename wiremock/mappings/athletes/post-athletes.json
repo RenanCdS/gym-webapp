@@ -1,10 +1,10 @@
 {
   "request": {
-      "method": "OPTIONS",
-      "urlPath": "/api/my-training"
+      "method": "POST",
+      "url": "/api/athletes"
   },
   "response": {
-      "status": 200,
+      "status": 201,
       "headers": {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin" : "*",

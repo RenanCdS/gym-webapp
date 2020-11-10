@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
 import { environment } from 'src/environments/environment';
+import { RegisterAthleteRequest } from '../models/api/athletes/register-athlete-register';
 import { TrainingStatusResponse } from '../models/api/my-training-response';
 import { ChangeWeightRequest } from '../models/api/my-training/change-weight-request';
 import { ChangeWeightResponse } from '../models/api/my-training/change-weight-response';
@@ -40,6 +41,10 @@ export class AthleteService {
 
   startTraining(trainingType: TrainingTypeEnum): Observable<StartTrainingResponse> {
     return this.http.get<StartTrainingResponse>(`${this.BASE_URL}my-training/start/${trainingType}`);
+  }
+
+  registerAthlete(registerAthleteRequest: RegisterAthleteRequest): Observable<any> {
+    return this.http.post<any>(`${this.BASE_URL}athletes`, registerAthleteRequest);
   }
 
   validateTrainingStatus(isFinished: boolean, isStarted: boolean): void {

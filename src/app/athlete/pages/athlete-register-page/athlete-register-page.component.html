@@ -3,13 +3,14 @@
     <h1>Cadastro de Aluno</h1>
   </div>
   <div class="form-container">
-    <form [formGroup]="form" style="width: 90%;">
+    <form [formGroup]="registerAthleteForm" style="width: 90%;">
       <div class="field-container">
         <mat-form-field color="accent">
           <mat-label>Nome</mat-label>
           <input formControlName="name" matInput>
-          <mat-error>
-            Esse campo é obrigatório
+          <mat-error
+            *ngIf=" registerAthleteForm.get('name').touched && registerAthleteForm.get('name').errors?.required">
+            esse campo é obrigatório
           </mat-error>
         </mat-form-field>
       </div>
@@ -17,8 +18,8 @@
         <mat-form-field color="accent">
           <mat-label>Idade</mat-label>
           <input formControlName="age" matInput>
-          <mat-error>
-            Esse campo é obrigatório
+          <mat-error *ngIf="registerAthleteForm.get('age').touched && registerAthleteForm.get('age').errors?.required">
+            esse campo é obrigatório
           </mat-error>
         </mat-form-field>
       </div>
@@ -26,17 +27,19 @@
         <mat-form-field color="accent">
           <mat-label>E-mail</mat-label>
           <input formControlName="email" matInput>
-          <mat-error>
-            Esse campo é obrigatório
+          <mat-error
+            *ngIf="registerAthleteForm.get('email').touched && registerAthleteForm.get('email').errors?.required">
+            esse campo é obrigatório
           </mat-error>
         </mat-form-field>
       </div>
       <div class="field-container">
         <mat-form-field color="accent">
           <mat-label>Telefone</mat-label>
-          <input formControlName="tel" matInput>
-          <mat-error>
-            Esse campo é obrigatório
+          <input formControlName="phone" matInput>
+          <mat-error
+            *ngIf="registerAthleteForm.get('phone').touched && registerAthleteForm.get('phone').errors?.required">
+            esse campo é obrigatório
           </mat-error>
         </mat-form-field>
       </div>
@@ -44,39 +47,33 @@
         <mat-form-field color="accent">
           <mat-label>Peso</mat-label>
           <input formControlName="weight" matInput>
-          <mat-error>
-            Esse campo é obrigatório
+          <mat-error
+            *ngIf="registerAthleteForm.get('weight').touched && registerAthleteForm.get('weight').errors?.required">
+            esse campo é obrigatório
           </mat-error>
         </mat-form-field>
       </div>
       <div class="field-container">
         <mat-form-field color="accent">
           <mat-label>Altura</mat-label>
-          <input matInput>
-          <mat-error>
-            Esse campo é obrigatório
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="field-container">
-        <mat-form-field color="accent">
-          <mat-label>Rg</mat-label>
-          <input matInput>
-          <mat-error>
-            Esse campo é obrigatório
+          <input matInput formControlName="height">
+          <mat-error
+            *ngIf="registerAthleteForm.get('height').touched && registerAthleteForm.get('height').errors?.required">
+            esse campo é obrigatório
           </mat-error>
         </mat-form-field>
       </div>
       <div class="field-container">
         <mat-form-field color="accent">
           <mat-label>Senha</mat-label>
-          <input matInput>
-          <mat-error>
-            Esse campo é obrigatório
+          <input matInput formControlName="password">
+          <mat-error
+            *ngIf="registerAthleteForm.get('password').touched && registerAthleteForm.get('password').errors?.required">
+            esse campo é obrigatório
           </mat-error>
         </mat-form-field>
       </div>
-      <button mat-raised-button color="primary">Cadastrar</button>
+      <button mat-raised-button color="primary" (click)="registerAthlete()">Cadastrar</button>
     </form>
   </div>
 

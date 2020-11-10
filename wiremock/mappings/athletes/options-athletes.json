@@ -1,7 +1,7 @@
 {
   "request": {
       "method": "OPTIONS",
-      "urlPath": "/api/my-training"
+      "url": "/api/athletes"
   },
   "response": {
       "status": 200,
