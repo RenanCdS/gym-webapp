@@ -20,7 +20,7 @@ export class UtilsService {
     this.store.dispatch(AppPageActions.finishLoading());
   }
 
-  showError(message: string): void {
+  showMessage(message: string): void {
     this.snackBar.open(message, '', {
       duration: 2000,
       horizontalPosition: 'center'

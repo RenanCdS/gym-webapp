@@ -1,8 +1,8 @@
 {
   "priority": 9999,
   "request": {
-      "method": "GET",
-      "url": "/api/my-athletes"
+      "method": "DELETE",
+      "urlPathPattern": "/api/my-athletes"
   },
   "response": {
       "status": 200,
@@ -15,6 +15,6 @@
         "x-frame-options" : "DENY",
         "x-xss-protection" : "1; mode=block"
       },
-      "bodyFileName": "my-athletes/get-my-athletes-response.json"
+      "fixedDelayMilliseconds": 2000
   }
 }

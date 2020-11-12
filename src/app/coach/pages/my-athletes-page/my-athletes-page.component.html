@@ -17,7 +17,7 @@
         <div>Altura: {{myAthlete.height}}</div>
       </div>
       <div class="action-container">
-        <a>
+        <a (click)="deleteAthlete(myAthlete)">
           <mat-icon>delete</mat-icon>
         </a>
         <a (click)="editAthlete(myAthlete)">

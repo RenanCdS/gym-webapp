@@ -1,6 +1,6 @@
 <div class="athlete-form-page">
   <div class="banner banner--align-center banner--title banner--athlete">
-    <h1>Cadastro de Aluno</h1>
+    <h1>{{isRegistration ? 'Cadastro de aluno' : 'Atualização de aluno'}}</h1>
   </div>
   <div class="form-container">
     <mat-vertical-stepper [linear]="true" #stepper>
@@ -78,7 +78,8 @@
             </mat-form-field>
           </div>
         </form>
-        <button mat-raised-button color="primary" (click)="registerAthlete()">Cadastrar</button>
+        <button mat-raised-button color="primary"
+          (click)="registerAthlete()">{{isRegistration ? 'Cadastrar' : 'Atualizar'}}</button>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Treino A do aluno</ng-template>

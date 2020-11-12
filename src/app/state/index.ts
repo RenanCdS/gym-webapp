@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserRoleEnum } from '../core/enums/user-role.enum';
+import { Athlete } from '../core/models/Athlete';
 
 export interface State {
   login: string;
@@ -8,7 +9,7 @@ export interface State {
   userRole: UserRoleEnum;
   loading: boolean;
   isRegistration: boolean;
-  athleteToUpdate;
+  athleteToUpdate: Athlete;
 }
 
 const rootSelector = createFeatureSelector<State>('login');
@@ -31,4 +32,12 @@ export const getUserRole = createSelector(
 export const getLoading = createSelector(
   rootSelector,
   state => state.loading
+);
+
+export const getIsRegistration = createSelector(
+  rootSelector,
+  state => ({
+    isRegistration: state.isRegistration,
+    athleteToUpdate: state.athleteToUpdate
+  })
 );

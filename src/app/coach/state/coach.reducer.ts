@@ -4,10 +4,12 @@ import { CoachApiActions, CoachPageActions } from './actions';
 
 export interface CoachState {
   myAthletes: Athlete[];
+  error: string;
 }
 
 const initialState: CoachState = {
-  myAthletes: []
+  myAthletes: [],
+  error: ''
 };
 
 export const coachReducer = createReducer<CoachState>(
@@ -16,6 +18,18 @@ export const coachReducer = createReducer<CoachState>(
     return {
       ...state,
       myAthletes: action.athletes
+    };
+  }),
+  on(CoachApiActions.deleteAthleteSuccess, (state, action) => {
+    return {
+      ...state,
+      myAthletes: state.myAthletes.filter(athlete => athlete.email !== action.athlete.email)
+    };
+  }),
+  on(CoachApiActions.deleteAthleteFailure, (state, action) => {
+    return {
+      ...state,
+      error: action.error
     };
   })
 );

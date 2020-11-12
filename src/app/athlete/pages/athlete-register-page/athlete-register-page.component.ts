@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { getIsRegistration } from 'src/app/state';
 import { RegisterAthleteRequest } from '../../models/api/athletes/register-athlete-register';
 import { AthleteService } from '../../services/athlete.service';
 import { State } from '../../state';
@@ -16,6 +18,8 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
 
   registerAthleteForm: FormGroup;
   resetAthleteSub: Subscription;
+  isRegistration = true;
+
   constructor(private readonly fb: FormBuilder,
     private readonly store: Store<State>,
     private readonly athleteService: AthleteService) { }
@@ -27,6 +31,23 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
       this.registerAthleteForm.updateValueAndValidity();
     });
     this.initializeForm();
+
+    this.store.select(getIsRegistration).pipe(
+      take(1)
+    ).subscribe(({ isRegistration, athleteToUpdate }) => {
+      this.isRegistration = isRegistration;
+      if (!isRegistration) {
+        this.registerAthleteForm.patchValue({
+          name: athleteToUpdate.name,
+          age: athleteToUpdate.age,
+          email: athleteToUpdate.email,
+          height: athleteToUpdate.height,
+          phone: athleteToUpdate.phone,
+          weight: athleteToUpdate.weight,
+          password: athleteToUpdate.password
+        });
+      }
+    });
   }
 
   registerAthlete(): void {

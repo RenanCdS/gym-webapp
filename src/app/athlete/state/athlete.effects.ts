@@ -139,7 +139,7 @@ export class AthleteEffects {
             duration: 2000
           })),
           catchError(error => {
-            this.utilsService.showError('Houve um erro no sistema :(');
+            this.utilsService.showMessage('Houve um erro no sistema :(');
             return of(AthleteApiActions.changeWeightFailure({ error }));
           })
         );
@@ -166,7 +166,7 @@ export class AthleteEffects {
             return AthleteApiActions.registerAthleteSuccess();
           }),
           catchError(error => {
-            this.utilsService.showError('Ocorreu uma falha ao registrar o atleta :(');
+            this.utilsService.showMessage('Ocorreu uma falha ao registrar o atleta :(');
             return of(AthleteApiActions.registerAthleteFailure({ error }));
           })
         );

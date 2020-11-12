@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Athlete } from 'src/app/core/models/Athlete';
@@ -15,7 +16,7 @@ import { CoachPageActions } from '../../state/actions';
 export class MyAthletesPageComponent implements OnInit {
   myAthletes: Observable<Athlete[]>;
   constructor(private readonly store: Store<State>,
-    private readonly snackBar: MatSnackBar) { }
+    private readonly router: Router) { }
 
   ngOnInit(): void {
     this.myAthletes = this.store.select(getMyAthletes);
@@ -24,6 +25,12 @@ export class MyAthletesPageComponent implements OnInit {
 
   editAthlete(athlete: Athlete): void {
     this.store.dispatch(AppPageActions.updateAthlete({ athlete }));
+    this.router.navigate(['/atleta']);
   }
+
+  deleteAthlete(athlete: Athlete): void {
+    this.store.dispatch(CoachPageActions.deleteAthlete({ athlete }));
+  }
+
 
 }

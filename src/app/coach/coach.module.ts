@@ -14,6 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { coachReducer } from './state/coach.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CoachEffects } from './state/coach.effects';
+import { RouterModule } from '@angular/router';
 
 const components = [
   CoachRegisterPageComponent,
@@ -30,6 +31,7 @@ const components = [
     ReactiveFormsModule,
     SharedModule,
     HttpClientModule,
+    RouterModule,
     StoreModule.forFeature('coach', coachReducer),
     EffectsModule.forFeature([CoachEffects]),
     CoachRoutingModule
