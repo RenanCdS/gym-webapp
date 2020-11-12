@@ -7,6 +7,8 @@ export interface State {
   error: string;
   userRole: UserRoleEnum;
   loading: boolean;
+  isRegistration: boolean;
+  athleteToUpdate;
 }
 
 const rootSelector = createFeatureSelector<State>('login');

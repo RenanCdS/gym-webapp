@@ -9,8 +9,8 @@ import { TrainingTypeComponent } from './pages/training-type/training-type.compo
 
 
 const routes: Routes = [
-  { path: '', component: TrainingTypeComponent },
-  { path: 'cadastrar', component: AthleteRegisterPageComponent },
+  { path: '', component: AthleteRegisterPageComponent },
+  { path: 'inicializar', component: TrainingTypeComponent },
   { path: 'atualizar', component: AthleteUpdatePageComponent },
   { path: 'finalizado', component: FinalizedTrainingPageComponent },
   {

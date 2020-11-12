@@ -21,8 +21,16 @@ export function playerFactory() {
   return player;
 }
 
+const components = [
+  AthleteRegisterPageComponent,
+  AthleteUpdatePageComponent,
+  TrainingPageComponent,
+  TrainingTypeComponent,
+  FinalizedTrainingPageComponent
+];
+
 @NgModule({
-  declarations: [AthleteRegisterPageComponent, AthleteUpdatePageComponent, TrainingPageComponent, TrainingTypeComponent, FinalizedTrainingPageComponent],
+  declarations: [...components],
   imports: [
     CommonModule,
     SwiperModule,

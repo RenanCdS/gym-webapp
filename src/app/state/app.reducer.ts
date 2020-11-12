@@ -7,7 +7,9 @@ const initialState: State = {
   login: '',
   token: '',
   userRole: null,
-  loading: false
+  loading: false,
+  athleteToUpdate: null,
+  isRegistration: true
 };
 
 export const appReducer = createReducer<State>(
@@ -51,6 +53,13 @@ export const appReducer = createReducer<State>(
     return {
       ...state,
       loading: false
+    };
+  }),
+  on(AppPageActions.updateAthlete, (state, action) => {
+    return {
+      ...state,
+      isRegistration: false,
+      athleteToUpdate: action.athlete
     };
   })
 );

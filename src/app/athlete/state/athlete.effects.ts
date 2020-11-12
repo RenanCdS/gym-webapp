@@ -149,14 +149,17 @@ export class AthleteEffects {
 
   // TODO: Limpar campos do formulário
   registerAthlete$ = createEffect(() => {
+
     return this.actions$.pipe(
       ofType(AthletePageActions.registerAthlete),
       withLatestFrom(this.store.select(getUserRole)),
       switchMap(([action, userRole]) => {
+
         const registerAthleteRequest: RegisterAthleteRequest =
           Object.assign({}, action.athleteRequest, { roleId: userRole }) as RegisterAthleteRequest;
         return this.athleteService.registerAthlete(registerAthleteRequest).pipe(
           map(() => {
+            this.athleteService.resetAthleteFormSubject.next();
             this.snackBar.open('Atleta cadastrado com sucesso :)', '', {
               duration: 2000
             });

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
 import { environment } from 'src/environments/environment';
 import { RegisterAthleteRequest } from '../models/api/athletes/register-athlete-register';
@@ -18,10 +18,14 @@ import { StartTrainingResponse } from '../models/api/my-training/start-training-
 export class AthleteService {
 
   private readonly BASE_URL = environment.api.gym;
+  resetAthleteFormSubject = new Subject();
+  resetAthleteForm$: Observable<any>;
 
   constructor(private readonly http: HttpClient,
     private readonly router: Router,
-    private readonly snackBar: MatSnackBar) { }
+    private readonly snackBar: MatSnackBar) {
+    this.resetAthleteForm$ = this.resetAthleteFormSubject.asObservable();
+  }
 
   getTrainingStatus(): Observable<TrainingStatusResponse> {
     return this.http.get<TrainingStatusResponse>(`${this.BASE_URL}my-training`);

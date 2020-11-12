@@ -1,6 +1,6 @@
-import { FormGroup } from '@angular/forms';
 import { createAction, props } from '@ngrx/store';
 import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
+import { Athlete } from 'src/app/core/models/Athlete';
 import { RegisterAthleteRequest } from '../../models/api/athletes/register-athlete-register';
 import { Exercise } from '../../models/api/exercise';
 
@@ -31,6 +31,6 @@ export const doneExercise = createAction(
 
 export const registerAthlete = createAction(
   '[Athlete] Register Athlete',
-  props<{ athleteRequest: Partial<RegisterAthleteRequest>, form?: FormGroup }>()
+  props<{ athleteRequest: Partial<RegisterAthleteRequest> }>()
 );
 

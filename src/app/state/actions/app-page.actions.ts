@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { Athlete } from 'src/app/core/models/Athlete';
 
 export const login = createAction(
   '[App] Do Login',
@@ -23,4 +24,9 @@ export const startLoading = createAction(
 
 export const finishLoading = createAction(
   '[App] Finish Loading'
+);
+
+export const updateAthlete = createAction(
+  '[App] Update Athlete',
+  props<{ athlete: Athlete }>()
 );

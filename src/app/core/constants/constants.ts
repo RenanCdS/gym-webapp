@@ -3,11 +3,9 @@ import { UserRoleEnum } from '../enums/user-role.enum';
 const studentMenu = [
   { name: 'Home', icon: 'house', url: '/home' },
   { name: 'Meu treino', icon: 'fitness_center', url: '/atleta' },
-  { name: 'Cadastrar metas', icon: 'anchor', url: '/metas' },
 ];
 const teacherMenu = [
   { name: 'Cadastrar aluno', icon: 'person_add', url: '/atleta/cadastrar' },
-  { name: 'Meu treino', icon: 'person_add_alt_1', url: '/treinador/cadastro-treinador' },
   { name: 'Cadastrar treino', icon: 'create', url: '/treinador/cadastro-treino' },
   { name: 'Meus alunos', icon: 'groups', url: '/treinador/meus-atletas' },
 ];
@@ -23,8 +21,7 @@ export const MENU_OPTIONS = new Map([
   [
     UserRoleEnum.STAFF,
     [
-      ...studentMenu,
-      ...teacherMenu,
+      { name: 'Cadastrar aluno', icon: 'person_add', url: '/atleta/cadastrar' },
       { name: 'Cadastrar treinador', icon: 'anchor', url: '/metas' },
       { name: 'Treinadores', icon: 'group', url: '/treinador/lista' },
     ]
@@ -32,8 +29,8 @@ export const MENU_OPTIONS = new Map([
   [
     UserRoleEnum.TEACHER,
     [
-      ...studentMenu,
-      ...teacherMenu
+      { name: 'Cadastrar treino', icon: 'create', url: '/treinador/cadastro-treino' },
+      { name: 'Meus alunos', icon: 'groups', url: '/treinador/meus-atletas' },
     ]
   ],
 

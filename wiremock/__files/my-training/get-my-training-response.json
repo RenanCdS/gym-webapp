@@ -1,7 +1,7 @@
 {
   "trainingId": 1,
   "isStarted": false,
-  "isFinished": true,
+  "isFinished": false,
   "dailyTrainingId": 2,
   "exercises": null
 }

@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
+import { Athlete } from 'src/app/core/models/Athlete';
 import { Exercise } from '../models/api/exercise';
 import { AthleteApiActions, AthletePageActions } from './actions';
 
@@ -12,6 +13,8 @@ export interface AthleteState {
   isFinished: boolean;
   error: string;
   currentExercise: Exercise;
+  athleteToUpdate: Athlete;
+  isRegistration: boolean; // variável usada para verificar se a tela de formulário é um cadastro ou uma atualização
 }
 
 const initialState: AthleteState = {
@@ -22,7 +25,9 @@ const initialState: AthleteState = {
   isStarted: null,
   trainingId: null,
   error: '',
-  currentExercise: null
+  currentExercise: null,
+  isRegistration: true,
+  athleteToUpdate: null
 };
 
 export const athleteReducer = createReducer<AthleteState>(

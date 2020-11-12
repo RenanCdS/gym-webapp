@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { RegisterAthleteRequest } from '../../models/api/athletes/register-athlete-register';
+import { AthleteService } from '../../services/athlete.service';
 import { State } from '../../state';
 import { AthletePageActions } from '../../state/actions';
 
@@ -10,13 +12,20 @@ import { AthletePageActions } from '../../state/actions';
   templateUrl: './athlete-register-page.component.html',
   styleUrls: ['./athlete-register-page.component.scss']
 })
-export class AthleteRegisterPageComponent implements OnInit {
+export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
 
   registerAthleteForm: FormGroup;
+  resetAthleteSub: Subscription;
   constructor(private readonly fb: FormBuilder,
-    private readonly store: Store<State>) { }
+    private readonly store: Store<State>,
+    private readonly athleteService: AthleteService) { }
 
   ngOnInit(): void {
+    this.resetAthleteSub = this.athleteService.resetAthleteForm$.subscribe(() => {
+      this.registerAthleteForm.markAsUntouched();
+      this.registerAthleteForm.reset();
+      this.registerAthleteForm.updateValueAndValidity();
+    });
     this.initializeForm();
   }
 
@@ -37,7 +46,7 @@ export class AthleteRegisterPageComponent implements OnInit {
       password: this.registerAthleteForm.controls.password.value,
     };
 
-    this.store.dispatch(AthletePageActions.registerAthlete({ athleteRequest: registerAthleteRequest, form: this.registerAthleteForm }));
+    this.store.dispatch(AthletePageActions.registerAthlete({ athleteRequest: registerAthleteRequest }));
   }
 
   private initializeForm(): void {
@@ -50,6 +59,10 @@ export class AthleteRegisterPageComponent implements OnInit {
       height: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
+  }
+
+  ngOnDestroy(): void {
+    this.resetAthleteSub.unsubscribe();
   }
 
 }
