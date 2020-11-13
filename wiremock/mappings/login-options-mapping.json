@@ -1,0 +1,9 @@
+{
+  "request": {
+      "method": "OPTIONS",
+      "url": "/api/auth/login"
+  },
+  "response": {
+      "status": 200
+  }
+}

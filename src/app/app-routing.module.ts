@@ -13,7 +13,7 @@ const routes: Routes = [
   {
     path: '',
     component: BasePageComponent,
-    canActivate: [AuthGuard],
+    canActivate: [], // TODO: Inserir AuthGuard
     children: [
       { path: 'treinador', loadChildren: () => import('./coach/coach.module').then(m => m.CoachModule) },
       { path: 'metas', loadChildren: () => import('./goal/goal.module').then(m => m.GoalModule) },

@@ -78,8 +78,7 @@
             </mat-form-field>
           </div>
         </form>
-        <button mat-raised-button color="primary"
-          (click)="registerAthlete()">{{isRegistration ? 'Cadastrar' : 'Atualizar'}}</button>
+        <button mat-raised-button color="primary" (click)="registerAthlete()">Próximo</button>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Treino A do aluno</ng-template>
@@ -103,6 +102,10 @@
             <mat-label>Quantidade</mat-label>
             <input matInput placeholder="Last name, First name" required>
           </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Series</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
         </div>
         <div style="display: flex; justify-content: space-around; padding-top: 1rem;">
           <span>Supino </span>
@@ -118,6 +121,8 @@
           <span>4 series </span>
         </div>
         <mat-divider></mat-divider>
+        <button mat-raised-button style="margin-right: auto; margin-left: auto; margin-top: 1rem;" color="primary"
+          (click)="registerAthlete()">Próximo</button>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Treino B do aluno</ng-template>

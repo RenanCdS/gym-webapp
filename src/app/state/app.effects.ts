@@ -29,37 +29,8 @@ export class AppEffects {
     return this.actions$.pipe(
       ofType(AppPageActions.login),
       switchMap(action => {
-        return this.authService.login(action.login, action.password).pipe(
-          tap(tokenResponse => {
-            const token = tokenResponse?.token;
-            if (!token) {
-              this.snackBar.open('Ocorreu um erro no login :(');
-              return;
-            }
-            this.router.navigate(['/']);
-            this.sessionService.setStorage(ACCESS_TOKEN_KEY, token);
-            this.snackBar.open('Logado com sucesso ;)', '', {
-              duration: 2000,
-              verticalPosition: 'bottom'
-            });
-          }),
-          map(tokenResponse => {
-            const token = tokenResponse.token;
-            const userRole = this.authService.decodeToken(token).role;
-            return AppApiActions.loginSuccess({ token, userRole });
-          }),
-          catchError(error => {
-            let message = this.ERROR_MESSAGES.get(500);
-            if (error && error.status) {
-              message = this.ERROR_MESSAGES.get(error.status);
-            }
-            this.snackBar.open(message, '', {
-              verticalPosition: 'top',
-              duration: 2000
-            });
-            return of(AppApiActions.loginFailure({ error }));
-          })
-        );
+        this.router.navigate(['/home']);
+        return of(AppApiActions.loginSuccess({ token: 'token', userRole: UserRoleEnum.STAFF }));
       })
     );
   });
