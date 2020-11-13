@@ -1,7 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { Store } from '@ngrx/store';
+import { SwiperComponent, SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { SuccessModalComponent } from 'src/app/shared/components/success-modal/success-modal.component';
+import { Exercise } from '../../models/api/exercise';
+import { getExercises, State } from '../../state';
+import { AthletePageActions } from '../../state/actions';
 
 @Component({
   selector: 'app-training-page',
@@ -10,43 +17,73 @@ import { SuccessModalComponent } from 'src/app/shared/components/success-modal/s
 })
 export class TrainingPageComponent implements OnInit {
 
-  @ViewChild('swipperGallery') swipperGallery: any;
-  slides = [
-    'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-    'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-    'https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-    'https://images.unsplash.com/photo-1535743686920-55e4145369b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-    'https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-  ];
+  @ViewChild('swiperGallery') swiperGallery: SwiperComponent;
+  @ViewChild('successModal') successModal: TemplateRef<any>;
+  @ViewChild('finalizedTraining') finalizedTraining: TemplateRef<any>;
 
-  config_gallery: SwiperConfigInterface = {
-    a11y: true,
-    direction: 'horizontal',
-    loop: true,
-    initialSlide: 0,
-    centeredSlides: true,
-    centerInsufficientSlides: true,
-    centeredSlidesBounds: true,
-    zoom: false
+  exercises$: Observable<Exercise[]>;
+  swiperConfig: SwiperConfigInterface = {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: false,
   };
 
-  constructor(private dialog: MatDialog) { }
+  changeWeightForm: FormGroup;
+
+  constructor(private readonly dialog: MatDialog,
+    private readonly store: Store<State>,
+    private readonly fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.exercises$ = this.store.select(getExercises).pipe(
+      map(exercises => exercises ? exercises?.filter(exercise => !exercise.completed) : []),
+      tap(exercises => {
+        if (exercises && exercises.length === 0) {
+          this.store.dispatch(AthletePageActions.finalizeTraining({ isFinished: true }));
+        }
+      })
+    );
+
+    this.initalizeChangeWeightForm();
   }
 
-  onIndexChange(index: number): void {
-    console.log('Swiper index: ', index);
-    if (index === 4) {
-      this.openModal();
+  onDoneHandler(exercise: Exercise): void {
+    const currentExercise: Exercise = Object.assign({}, exercise, { completed: true });
+    this.store.dispatch(AthletePageActions.doneExercise({ exercise: currentExercise }));
+    this.swiperGallery.directiveRef.update();
+  }
+
+  /**
+   * @description exibe a modal de confirmação de finalização do treino
+   * @param modal modal a ser exibida
+   */
+  onFinishHandler(modal: TemplateRef<any>): void {
+    this.dialog.open(modal);
+  }
+
+  finishTraining(): void {
+    this.store.dispatch(AthletePageActions.finalizeTraining({ isFinished: false }));
+    this.dialog.closeAll();
+    this.dialog.open(this.finalizedTraining);
+  }
+
+  changeWeight(exercise: Exercise): void {
+    if (!this.changeWeightForm.valid) {
+      this.changeWeightForm.markAllAsTouched();
+      this.changeWeightForm.updateValueAndValidity();
+      return;
     }
+    const currentWeight = this.changeWeightForm.get('currentWeight').value;
+    this.store.dispatch(AthletePageActions.changeExerciseWeight({ exercise, currentWeight }));
   }
 
-  onSwiperEvent(event: string): void {
-    console.log('Swiper event: ', event);
+  closeModal(): void {
+    this.dialog.closeAll();
   }
 
-  openModal(): void {
-    this.dialog.open(SuccessModalComponent);
+  private initalizeChangeWeightForm(): void {
+    this.changeWeightForm = this.fb.group({
+      currentWeight: this.fb.control('', [Validators.required, Validators.pattern('[0-9]*')])
+    });
   }
 }

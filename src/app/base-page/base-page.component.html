@@ -5,48 +5,23 @@
         <mat-icon>menu</mat-icon>
       </button>
       <div [routerLink]="['/']"
-        style=" margin: auto; width: 50%;display: flex; justify-content: space-between; align-items: center;">
-        <h1 class="title">Gym Webapp </h1>
+        style="margin: auto; width: 50%;display: flex; justify-content: space-between; align-items: center;">
+        <h1 class="title">Gym Pal </h1>
       </div>
     </mat-toolbar>
   </nav>
+  <div *ngIf="isLoading$ | async" class="loading-container d-flex justify-content-center align-items-center">
+    <mat-spinner></mat-spinner>
+  </div>
   <router-outlet></router-outlet>
 </div>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item [routerLink]="['/']">
-    <mat-icon>house</mat-icon>
-    <span>Home</span>
+  <button *ngFor="let menuItem of menuList" mat-menu-item [routerLink]="[menuItem.url]">
+    <mat-icon>{{menuItem.icon}}</mat-icon>
+    <span>{{menuItem.name}}</span>
   </button>
-  <button mat-menu-item [routerLink]="['/atleta/treino']">
-    <mat-icon>fitness_center</mat-icon>
-    <span>Meu treino</span>
-  </button>
-  <button mat-menu-item [routerLink]="['/atleta']">
-    <mat-icon>person_add</mat-icon>
-    <span>Cadastrar aluno</span>
-  </button>
-  <button mat-menu-item [routerLink]="['/treinador/cadastro-treinador']">
-    <mat-icon>person_add_alt_1</mat-icon>
-    <span>Cadastrar treinador</span>
-  </button>
-  <button mat-menu-item [routerLink]="['/treinador/cadastro-treino']">
-    <mat-icon>create</mat-icon>
-    <span>Cadastrar treino</span>
-  </button>
-  <button mat-menu-item [routerLink]="['/treinador/lista']">
-    <mat-icon>group</mat-icon>
-    <span>Treinadores</span>
-  </button>
-  <button mat-menu-item [routerLink]="['/metas']">
-    <mat-icon>anchor</mat-icon>
-    <span>Cadastrar metas</span>
-  </button>
-  <button mat-menu-item [routerLink]="['/treinador/meus-atletas']">
-    <mat-icon>groups</mat-icon>
-    <span>Meus alunos</span>
-  </button>
-  <button mat-menu-item [routerLink]="['/login']">
+  <button mat-menu-item (click)="exit()">
     <mat-icon>close</mat-icon>
     <span>Sair</span>
   </button>

@@ -1,24 +1,89 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { getIsRegistration } from 'src/app/state';
+import { RegisterAthleteRequest } from '../../models/api/athletes/register-athlete-register';
+import { AthleteService } from '../../services/athlete.service';
+import { State } from '../../state';
+import { AthletePageActions } from '../../state/actions';
 
 @Component({
   selector: 'app-athlete-register-page',
   templateUrl: './athlete-register-page.component.html',
   styleUrls: ['./athlete-register-page.component.scss']
 })
-export class AthleteRegisterPageComponent implements OnInit {
+export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
 
-  form: FormGroup;
-  constructor(private fb: FormBuilder) { }
+  registerAthleteForm: FormGroup;
+  resetAthleteSub: Subscription;
+  isRegistration = true;
+
+  constructor(private readonly fb: FormBuilder,
+    private readonly store: Store<State>,
+    private readonly athleteService: AthleteService) { }
 
   ngOnInit(): void {
-    this.form = this.fb.group({
+    this.resetAthleteSub = this.athleteService.resetAthleteForm$.subscribe(() => {
+      this.registerAthleteForm.markAsUntouched();
+      this.registerAthleteForm.reset();
+      this.registerAthleteForm.updateValueAndValidity();
+    });
+    this.initializeForm();
+
+    this.store.select(getIsRegistration).pipe(
+      take(1)
+    ).subscribe(({ isRegistration, athleteToUpdate }) => {
+      this.isRegistration = isRegistration;
+      if (!isRegistration) {
+        this.registerAthleteForm.patchValue({
+          name: athleteToUpdate.name,
+          age: athleteToUpdate.age,
+          email: athleteToUpdate.email,
+          height: athleteToUpdate.height,
+          phone: athleteToUpdate.phone,
+          weight: athleteToUpdate.weight,
+          password: athleteToUpdate.password
+        });
+      }
+    });
+  }
+
+  registerAthlete(): void {
+    if (!this.registerAthleteForm.valid) {
+      this.registerAthleteForm.markAllAsTouched();
+      this.registerAthleteForm.updateValueAndValidity();
+      return;
+    }
+
+    const registerAthleteRequest: Partial<RegisterAthleteRequest> = {
+      name: this.registerAthleteForm.controls.name.value,
+      age: this.registerAthleteForm.controls.age.value,
+      email: this.registerAthleteForm.controls.email.value,
+      height: this.registerAthleteForm.controls.height.value,
+      weight: this.registerAthleteForm.controls.weight.value,
+      phone: this.registerAthleteForm.controls.phone.value,
+      password: this.registerAthleteForm.controls.password.value,
+    };
+
+    this.store.dispatch(AthletePageActions.registerAthlete({ athleteRequest: registerAthleteRequest }));
+  }
+
+  private initializeForm(): void {
+    this.registerAthleteForm = this.fb.group({
       name: ['', [Validators.required]],
       age: ['', [Validators.required]],
       email: ['', [Validators.required]],
-      tel: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
       weight: ['', [Validators.required]],
+      height: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
+  }
+
+  ngOnDestroy(): void {
+    this.resetAthleteSub.unsubscribe();
   }
 
 }

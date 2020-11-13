@@ -13,14 +13,21 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SuccessModalComponent } from './components/success-modal/success-modal.component';
 import { LottieModule } from 'ngx-lottie';
 import { RouterModule } from '@angular/router';
+import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 
-const components = [];
+const components = [
+  SuccessModalComponent,
+  ConfirmationModalComponent
+];
 
 const modules = [
   CommonModule,
@@ -31,9 +38,12 @@ const modules = [
   MatIconModule,
   MatMenuModule,
   MatCardModule,
+  MatDividerModule,
   MatBadgeModule,
   MatTooltipModule,
   MatStepperModule,
+  MatTableModule,
+  MatProgressSpinnerModule,
   MatSelectModule,
   MatExpansionModule,
   MatDatepickerModule,
@@ -43,7 +53,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [...components, SuccessModalComponent],
+  declarations: [...components],
   imports: [
     ...modules,
     LottieModule,

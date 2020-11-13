@@ -2,69 +2,29 @@
   <div class="banner banner--align-center banner--title banner--bonification">
     <h1>Meus atletas</h1>
   </div>
-  <div class="panel-wrapper">
+  <div *ngFor="let myAthlete of myAthletes | async" class="panel-wrapper">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Nome do Atleta
+          {{myAthlete.name}}
         </mat-panel-title>
         <mat-panel-description>
-          Pontuação do atleta
+          Idade: {{myAthlete.age}}
         </mat-panel-description>
       </mat-expansion-panel-header>
+      <div class="description-container">
+        <div>Peso atual: {{myAthlete.weight}}</div>
+        <div>Altura: {{myAthlete.height}}</div>
+      </div>
       <div class="action-container">
-        <button color="primary" mat-raised-button (click)="openSnackbar()"> Bonificar </button>
-        <a>
+        <a (click)="deleteAthlete(myAthlete)">
           <mat-icon>delete</mat-icon>
         </a>
-        <a>
+        <a (click)="editAthlete(myAthlete)">
           <mat-icon>edit</mat-icon>
         </a>
       </div>
     </mat-expansion-panel>
   </div>
 
-  <div class="panel-wrapper">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Nome do Atleta
-        </mat-panel-title>
-        <mat-panel-description>
-          Pontuação do atleta
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="action-container">
-        <button color="primary" mat-raised-button> Bonificar </button>
-        <a>
-          <mat-icon>delete</mat-icon>
-        </a>
-        <a>
-          <mat-icon>edit</mat-icon>
-        </a>
-      </div>
-    </mat-expansion-panel>
-  </div>
-
-  <div class="panel-wrapper">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Nome do Atleta
-        </mat-panel-title>
-        <mat-panel-description>
-          Pontuação do atleta
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="action-container">
-        <button color="primary" mat-raised-button> Bonificar </button>
-        <a (click)="openSnackbar('Aluno excluido com sucesso!')">
-          <mat-icon>delete</mat-icon>
-        </a>
-        <a>
-          <mat-icon [routerLink]="['/atleta/atualizar']">edit</mat-icon>
-        </a>
-      </div>
-    </mat-expansion-panel>
-  </div>
 </div>

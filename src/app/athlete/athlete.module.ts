@@ -10,19 +10,34 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { StoreModule } from '@ngrx/store';
+import { athleteReducer } from './state/athlete.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AthleteEffects } from './state/athlete.effects';
+import { TrainingTypeComponent } from './pages/training-type/training-type.component';
+import { FinalizedTrainingPageComponent } from './pages/finalized-training-page/finalized-training-page.component';
 
 export function playerFactory() {
   return player;
 }
 
+const components = [
+  AthleteRegisterPageComponent,
+  AthleteUpdatePageComponent,
+  TrainingPageComponent,
+  TrainingTypeComponent,
+  FinalizedTrainingPageComponent
+];
+
 @NgModule({
-  declarations: [AthleteRegisterPageComponent, AthleteUpdatePageComponent, TrainingPageComponent],
+  declarations: [...components],
   imports: [
     CommonModule,
     SwiperModule,
     SharedModule,
     ReactiveFormsModule,
+    StoreModule.forFeature('athlete', athleteReducer),
+    EffectsModule.forFeature([AthleteEffects]),
     LottieModule.forRoot({ player: playerFactory }),
     AthleteRoutingModule
   ]

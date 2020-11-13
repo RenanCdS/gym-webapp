@@ -1,76 +1,207 @@
 <div class="athlete-form-page">
   <div class="banner banner--align-center banner--title banner--athlete">
-    <h1>Cadastro de Aluno</h1>
+    <h1>{{isRegistration ? 'Cadastro de aluno' : 'Atualização de aluno'}}</h1>
   </div>
   <div class="form-container">
-    <form [formGroup]="form" style="width: 90%;">
-      <div class="field-container">
+    <mat-vertical-stepper [linear]="true" #stepper>
+      <mat-step>
+        <ng-template matStepLabel>Dados do aluno</ng-template>
+        <form [formGroup]="registerAthleteForm" style="width: 90%;">
+          <div class="field-container">
+            <mat-form-field color="accent">
+              <mat-label>Nome</mat-label>
+              <input formControlName="name" matInput>
+              <mat-error
+                *ngIf=" registerAthleteForm.get('name').touched && registerAthleteForm.get('name').errors?.required">
+                esse campo é obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="field-container">
+            <mat-form-field color="accent">
+              <mat-label>Idade</mat-label>
+              <input formControlName="age" matInput>
+              <mat-error
+                *ngIf="registerAthleteForm.get('age').touched && registerAthleteForm.get('age').errors?.required">
+                esse campo é obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="field-container">
+            <mat-form-field color="accent">
+              <mat-label>E-mail</mat-label>
+              <input formControlName="email" matInput>
+              <mat-error
+                *ngIf="registerAthleteForm.get('email').touched && registerAthleteForm.get('email').errors?.required">
+                esse campo é obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="field-container">
+            <mat-form-field color="accent">
+              <mat-label>Telefone</mat-label>
+              <input formControlName="phone" matInput>
+              <mat-error
+                *ngIf="registerAthleteForm.get('phone').touched && registerAthleteForm.get('phone').errors?.required">
+                esse campo é obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="field-container">
+            <mat-form-field color="accent">
+              <mat-label>Peso</mat-label>
+              <input formControlName="weight" matInput>
+              <mat-error
+                *ngIf="registerAthleteForm.get('weight').touched && registerAthleteForm.get('weight').errors?.required">
+                esse campo é obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="field-container">
+            <mat-form-field color="accent">
+              <mat-label>Altura</mat-label>
+              <input matInput formControlName="height">
+              <mat-error
+                *ngIf="registerAthleteForm.get('height').touched && registerAthleteForm.get('height').errors?.required">
+                esse campo é obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="field-container">
+            <mat-form-field color="accent">
+              <mat-label>Senha</mat-label>
+              <input matInput formControlName="password">
+              <mat-error
+                *ngIf="registerAthleteForm.get('password').touched && registerAthleteForm.get('password').errors?.required">
+                esse campo é obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </form>
+        <button mat-raised-button color="primary"
+          (click)="registerAthlete()">{{isRegistration ? 'Cadastrar' : 'Atualizar'}}</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Treino A do aluno</ng-template>
+        <button mat-mini-fab color="primary" style="margin-bottom: 1rem;">
+          <mat-icon>plus_one</mat-icon>
+        </button>
+        <div class="exercise-form-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Exercício</mat-label>
+            <mat-select>
+              <mat-option>
+                <i class="fas fa-tachometer-fastest"></i>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Peso</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Quantidade</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+        </div>
+        <div style="display: flex; justify-content: space-around; padding-top: 1rem;">
+          <span>Supino </span>
+          <span>30kg </span>
+          <span>12 reps </span>
+          <span>4 series </span>
+        </div>
+        <mat-divider></mat-divider>
+        <div style="display: flex; justify-content: space-around;  padding-top: 1rem;">
+          <span>Agachamento </span>
+          <span>40kg </span>
+          <span>12 reps </span>
+          <span>4 series </span>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Treino B do aluno</ng-template>
+        <button mat-mini-fab color="primary" style="margin-bottom: 1rem;">
+          <mat-icon>plus_one</mat-icon>
+        </button>
+        <div class="exercise-form-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Exercício</mat-label>
+            <mat-select>
+              <mat-option>
+                <i class="fas fa-tachometer-fastest"></i>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Peso</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Quantidade</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+        </div>
+        <div style="display: flex; justify-content: space-around; padding-top: 1rem;">
+          <span>Supino </span>
+          <span>30kg </span>
+          <span>12 reps </span>
+          <span>4 series </span>
+        </div>
+        <mat-divider></mat-divider>
+        <div style="display: flex; justify-content: space-around;  padding-top: 1rem;">
+          <span>Agachamento </span>
+          <span>40kg </span>
+          <span>12 reps </span>
+          <span>4 series </span>
+        </div>
+        <mat-divider></mat-divider>
+        <button mat-raised-button color="primary"
+          style="margin-right: auto; margin-left: auto; margin-top: 1rem;">Próximo</button>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Treino C do aluno</ng-template>
+        <button mat-mini-fab color="primary" style="margin-bottom: 2rem;">
+          <mat-icon>plus_one</mat-icon>
+        </button>
+        <div class="exercise-form-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Exercício</mat-label>
+            <mat-select>
+              <mat-option>
+                <i class="fas fa-tachometer-fastest"></i>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Peso</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Quantidade</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+        </div>
+        <div style="display: flex; justify-content: space-around; padding-top: 1rem;">
+          <span>Supino </span>
+          <span>30kg </span>
+          <span>12 reps </span>
+          <span>4 series </span>
+        </div>
+        <mat-divider></mat-divider>
+        <div style="display: flex; justify-content: space-around;  padding-top: 1rem;">
+          <span>Agachamento </span>
+          <span>40kg </span>
+          <span>12 reps </span>
+          <span>4 series </span>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Finalizar</ng-template>
+      </mat-step>
+    </mat-vertical-stepper>
 
-
-        <mat-form-field color="accent">
-          <mat-label>Nome</mat-label>
-          <input formControlName="name" matInput>
-          <mat-error>
-            Esse campo é obrigatório
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="field-container">
-        <mat-form-field color="accent">
-          <mat-label>Idade</mat-label>
-          <input formControlName="age" matInput>
-          <mat-error>
-            Esse campo é obrigatório
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="field-container">
-        <mat-form-field color="accent">
-          <mat-label>E-mail</mat-label>
-          <input formControlName="email" matInput>
-          <mat-error>
-            Esse campo é obrigatório
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="field-container">
-        <mat-form-field color="accent">
-          <mat-label>Telefone</mat-label>
-          <input formControlName="tel" matInput>
-          <mat-error>
-            Esse campo é obrigatório
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="field-container">
-        <mat-form-field color="accent">
-          <mat-label>Peso</mat-label>
-          <input formControlName="weight" matInput>
-          <mat-error>
-            Esse campo é obrigatório
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="field-container">
-        <mat-form-field color="accent">
-          <mat-label>Altura</mat-label>
-          <input matInput>
-          <mat-error>
-            Esse campo é obrigatório
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="field-container">
-        <mat-form-field color="accent">
-          <mat-label>Rg</mat-label>
-          <input matInput>
-          <mat-error>
-            Esse campo é obrigatório
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <button mat-raised-button color="primary">Cadastrar</button>
-    </form>
   </div>
 
 </div>

@@ -1,0 +1,22 @@
+{
+  "athletes": [
+      {
+          "name": "Renan",
+          "age": 19,
+          "email": "renan@gmail.com",
+          "phone": "23432-3232",
+          "weight": 86,
+          "height": 1.86,
+          "password": "123"
+      },
+      {
+          "name": "Guilherme",
+          "age": 25,
+          "email": "guilherme@gmail.com",
+          "phone": "23432-3232",
+          "weight": 90,
+          "height": 1.75,
+          "password": "123"
+      }
+  ]
+}

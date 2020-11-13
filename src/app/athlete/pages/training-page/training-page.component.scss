@@ -1,7 +1,7 @@
 :host {
   .training-page {
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
     display: flex;
 
     .finished {
@@ -10,6 +10,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    &__change-weight-form {
+      margin-bottom: 1rem;
     }
   }
 

@@ -9,14 +9,31 @@ import { MyAthletesPageComponent } from './pages/my-athletes-page/my-athletes-pa
 import { TrainingRegisterPageComponent } from './pages/training-register-page/training-register-page.component';
 import { CoachUpdatePageComponent } from './pages/coach-update-page/coach-update-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { coachReducer } from './state/coach.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { CoachEffects } from './state/coach.effects';
+import { RouterModule } from '@angular/router';
 
+const components = [
+  CoachRegisterPageComponent,
+  CoachListPageComponent,
+  MyAthletesPageComponent,
+  TrainingRegisterPageComponent,
+  CoachUpdatePageComponent
+];
 
 @NgModule({
-  declarations: [CoachRegisterPageComponent, CoachListPageComponent, MyAthletesPageComponent, TrainingRegisterPageComponent, CoachUpdatePageComponent],
+  declarations: [...components],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     SharedModule,
+    HttpClientModule,
+    RouterModule,
+    StoreModule.forFeature('coach', coachReducer),
+    EffectsModule.forFeature([CoachEffects]),
     CoachRoutingModule
   ]
 })

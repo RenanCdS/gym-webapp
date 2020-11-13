@@ -1,0 +1,10 @@
+<div class="confirmation-modal">
+  <div class="confirmation-modal__image">
+    <img [src]="image" />
+  </div>
+  <h2 class="header"> Tem certeza que deseja finalizar o treino ?</h2>
+  <div class="confirmation-modal__actions">
+    <button mat-raised-button color="primary" (click)="confirmationEvent.emit()">Sim</button>
+    <button mat-raised-button color="primary" (click)="deniedEvent.emit()">Não</button>
+  </div>
+</div>

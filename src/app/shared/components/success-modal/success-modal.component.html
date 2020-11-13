@@ -2,7 +2,7 @@
   <div class="login-page__animation" lottie [options]="lottieOptions" width="50px" height="100px"
     (animationCreated)="animationCreated($event)">
   </div>
-  <h2> Treino concluido com sucesso!</h2>
+  <h2>{{text}}</h2>
 </div>
 <div class="button-container">
   <button class="back-button" mat-raised-button color="primary" (click)="goBackHome()"> Voltar para home</button>
