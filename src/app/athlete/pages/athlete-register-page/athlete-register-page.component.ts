@@ -3,14 +3,16 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatVerticalStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { getIsRegistration } from 'src/app/state';
+import { getAvailableExercises, getIsRegistration } from 'src/app/state';
 import { RegisterAthleteRequest } from '../../models/api/athletes/register-athlete-register';
 import { AthleteService } from '../../services/athlete.service';
 import { State } from '../../state';
 import { AthletePageActions } from '../../state/actions';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+import { RegisteredExercise } from 'src/app/core/models/RegisteredExercise';
+import { getRegisteredExercises } from 'src/app/state/actions/app-page.actions';
 
 @Component({
   selector: 'app-athlete-register-page',
@@ -22,6 +24,7 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
   registerAthleteForm: FormGroup;
   resetAthleteSub: Subscription;
   isRegistration = true;
+  availableExercises$: Observable<RegisteredExercise[]>;
 
   readonly phoneMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/];
   readonly numberMask = createNumberMask({
@@ -31,12 +34,18 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
     allowDecimal: true,
     decimalSymbol: ','
   });
+  readonly ageMask = createNumberMask({
+    prefix: '',
+    integerLimit: 3,
+  });
 
   constructor(private readonly fb: FormBuilder,
     private readonly store: Store<State>,
     private readonly athleteService: AthleteService) { }
 
   ngOnInit(): void {
+    this.store.dispatch(getRegisteredExercises());
+    this.availableExercises$ = this.store.select(getAvailableExercises);
     this.resetAthleteSub = this.athleteService.resetAthleteForm$.subscribe(() => {
       this.registerAthleteForm.markAsUntouched();
       this.registerAthleteForm.reset();

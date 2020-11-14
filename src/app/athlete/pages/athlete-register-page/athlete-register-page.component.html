@@ -21,7 +21,7 @@
           <div class="field-container">
             <mat-form-field color="accent">
               <mat-label>Idade</mat-label>
-              <input formControlName="age" matInput>
+              <input [textMask]="{ mask: ageMask }" formControlName="age" matInput>
               <mat-error
                 *ngIf="registerAthleteForm.get('age').touched && registerAthleteForm.get('age').errors?.required">
                 esse campo é obrigatório
@@ -95,8 +95,10 @@
           <mat-form-field appearance="fill">
             <mat-label>Exercício</mat-label>
             <mat-select>
-              <mat-option>
+              <mat-option *ngFor="let availableExercise of availableExercises$ | async"
+                [value]="availableExercise.exerciseId">
                 <i class="fas fa-tachometer-fastest"></i>
+                {{ availableExercise.exerciseName }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -106,6 +108,10 @@
           </mat-form-field>
           <mat-form-field color="accent">
             <mat-label>Quantidade</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Séries</mat-label>
             <input matInput placeholder="Last name, First name" required>
           </mat-form-field>
         </div>

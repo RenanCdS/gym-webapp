@@ -30,3 +30,7 @@ export const updateAthlete = createAction(
   '[App] Update Athlete',
   props<{ athlete: Athlete }>()
 );
+
+export const getRegisteredExercises = createAction(
+  '[App] Get Registered Exercises'
+);

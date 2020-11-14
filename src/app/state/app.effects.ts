@@ -9,6 +9,9 @@ import { SessionService } from 'src/app/core/services/session.service';
 import { Router } from '@angular/router';
 import { ACCESS_TOKEN_KEY } from 'src/app/core/constants/constants';
 import { UserRoleEnum } from 'src/app/core/enums/user-role.enum';
+import { ExerciseService } from '../core/services/exercise.service';
+import { Store } from '@ngrx/store';
+import { State } from '.';
 
 @Injectable()
 export class AppEffects {
@@ -20,10 +23,13 @@ export class AppEffects {
   ]);
 
   constructor(private readonly actions$: Actions,
+    private readonly store: Store<State>,
     private readonly authService: AuthService,
     private readonly sessionService: SessionService,
     private readonly snackBar: MatSnackBar,
-    private readonly router: Router) { }
+    private readonly exerciseService: ExerciseService,
+    private readonly router: Router
+  ) { }
 
   login$ = createEffect(() => {
     return this.actions$.pipe(
@@ -44,6 +50,7 @@ export class AppEffects {
             });
           }),
           map(tokenResponse => {
+            this.store.dispatch(AppPageActions.getRegisteredExercises());
             const token = tokenResponse.token;
             const userRole = this.authService.decodeToken(token).role;
             return AppApiActions.loginSuccess({ token, userRole });
@@ -84,6 +91,25 @@ export class AppEffects {
         }
 
         return AppApiActions.userRoleSuccess({ userRole });
+      })
+    );
+  });
+
+  getRegisterExercises$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AppPageActions.getRegisteredExercises),
+      switchMap(() => {
+        return this.exerciseService.getRegisteredExercises().pipe(
+          map(exercisesResponse => {
+            return exercisesResponse.exercises;
+          }),
+          map(registeredExercises => {
+            return AppApiActions.getRegisteredExercisesSuccess({ registeredExercises });
+          }),
+          catchError(error => {
+            return of(AppApiActions.getRegisteredExercisesFailure({ error }));
+          })
+        );
       })
     );
   });

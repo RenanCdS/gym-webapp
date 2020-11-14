@@ -1,0 +1,12 @@
+{
+  "exercises": [
+      {
+          "exerciseId": "1",
+          "exerciseName": "Supinão"
+      },
+      {
+          "exerciseId": "2",
+          "exerciseName": "Agachamento"
+      }
+  ]
+}

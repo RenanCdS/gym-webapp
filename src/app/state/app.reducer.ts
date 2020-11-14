@@ -9,7 +9,8 @@ const initialState: State = {
   userRole: null,
   loading: false,
   athleteToUpdate: null,
-  isRegistration: true
+  isRegistration: true,
+  availableExercises: []
 };
 
 export const appReducer = createReducer<State>(
@@ -60,6 +61,18 @@ export const appReducer = createReducer<State>(
       ...state,
       isRegistration: false,
       athleteToUpdate: action.athlete
+    };
+  }),
+  on(AppApiActions.getRegisteredExercisesSuccess, (state, action) => {
+    return {
+      ...state,
+      availableExercises: action.registeredExercises
+    };
+  }),
+  on(AppApiActions.getRegisteredExercisesFailure, (state, action) => {
+    return {
+      ...state,
+      error: action.error
     };
   })
 );

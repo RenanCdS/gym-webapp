@@ -1,0 +1,21 @@
+{
+  "priority": 9999,
+  "request": {
+      "method": "GET",
+      "urlPathPattern": "/api/exercises"
+  },
+  "response": {
+      "status": 200,
+      "bodyFileName": "exercises/get-exercises-response.json",
+      "headers": {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Methods" : "*",
+        "Access-Control-Allow-Headers": "Accept, Content-Type, Content-Encoding, Server, Transfer-Encoding",
+        "X-Content-Type-Options" : "nosniff",
+        "x-frame-options" : "DENY",
+        "x-xss-protection" : "1; mode=block"
+      },
+      "fixedDelayMilliseconds": 2000
+  }
+}
