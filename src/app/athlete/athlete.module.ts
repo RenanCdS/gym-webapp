@@ -16,6 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AthleteEffects } from './state/athlete.effects';
 import { TrainingTypeComponent } from './pages/training-type/training-type.component';
 import { FinalizedTrainingPageComponent } from './pages/finalized-training-page/finalized-training-page.component';
+import { TextMaskModule } from 'angular2-text-mask';
 
 export function playerFactory() {
   return player;
@@ -36,6 +37,7 @@ const components = [
     SwiperModule,
     SharedModule,
     ReactiveFormsModule,
+    TextMaskModule,
     StoreModule.forFeature('athlete', athleteReducer),
     EffectsModule.forFeature([AthleteEffects]),
     LottieModule.forRoot({ player: playerFactory }),

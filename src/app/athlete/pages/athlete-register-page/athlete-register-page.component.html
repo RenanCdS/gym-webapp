@@ -3,8 +3,9 @@
     <h1>{{isRegistration ? 'Cadastro de aluno' : 'Atualização de aluno'}}</h1>
   </div>
   <div class="form-container">
-    <mat-vertical-stepper [linear]="true" #stepper>
-      <mat-step>
+    <mat-vertical-stepper [linear]="true" #athleteStepper>
+      <!-- Start Personal Data from athlete -->
+      <mat-step #personalDataStep>
         <ng-template matStepLabel>Dados do aluno</ng-template>
         <form [formGroup]="registerAthleteForm" style="width: 90%;">
           <div class="field-container">
@@ -35,12 +36,16 @@
                 *ngIf="registerAthleteForm.get('email').touched && registerAthleteForm.get('email').errors?.required">
                 esse campo é obrigatório
               </mat-error>
+              <mat-error
+                *ngIf="registerAthleteForm.get('email').touched && registerAthleteForm.get('email').errors?.email">
+                por favor, insira um e-mail válido
+              </mat-error>
             </mat-form-field>
           </div>
           <div class="field-container">
             <mat-form-field color="accent">
               <mat-label>Telefone</mat-label>
-              <input formControlName="phone" matInput>
+              <input [textMask]="{ mask: phoneMask, guide: false }" formControlName="phone" matInput>
               <mat-error
                 *ngIf="registerAthleteForm.get('phone').touched && registerAthleteForm.get('phone').errors?.required">
                 esse campo é obrigatório
@@ -50,7 +55,7 @@
           <div class="field-container">
             <mat-form-field color="accent">
               <mat-label>Peso</mat-label>
-              <input formControlName="weight" matInput>
+              <input [textMask]="{ mask: numberMask }" formControlName="weight" matInput>
               <mat-error
                 *ngIf="registerAthleteForm.get('weight').touched && registerAthleteForm.get('weight').errors?.required">
                 esse campo é obrigatório
@@ -60,7 +65,7 @@
           <div class="field-container">
             <mat-form-field color="accent">
               <mat-label>Altura</mat-label>
-              <input matInput formControlName="height">
+              <input [textMask]="{ mask: numberMask }" matInput formControlName="height">
               <mat-error
                 *ngIf="registerAthleteForm.get('height').touched && registerAthleteForm.get('height').errors?.required">
                 esse campo é obrigatório
@@ -70,7 +75,7 @@
           <div class="field-container">
             <mat-form-field color="accent">
               <mat-label>Senha</mat-label>
-              <input matInput formControlName="password">
+              <input type="password" matInput formControlName="password">
               <mat-error
                 *ngIf="registerAthleteForm.get('password').touched && registerAthleteForm.get('password').errors?.required">
                 esse campo é obrigatório
@@ -78,10 +83,10 @@
             </mat-form-field>
           </div>
         </form>
-        <button mat-raised-button color="primary"
-          (click)="registerAthlete()">{{isRegistration ? 'Cadastrar' : 'Atualizar'}}</button>
+        <button mat-raised-button color="primary" (click)="validatePersonalData(trainAStep)">Próximo</button>
       </mat-step>
-      <mat-step>
+      <!-- End Personal Data from athlete -->
+      <mat-step #trainAStep>
         <ng-template matStepLabel>Treino A do aluno</ng-template>
         <button mat-mini-fab color="primary" style="margin-bottom: 1rem;">
           <mat-icon>plus_one</mat-icon>
@@ -119,7 +124,7 @@
         </div>
         <mat-divider></mat-divider>
       </mat-step>
-      <mat-step>
+      <mat-step #trainBStep>
         <ng-template matStepLabel>Treino B do aluno</ng-template>
         <button mat-mini-fab color="primary" style="margin-bottom: 1rem;">
           <mat-icon>plus_one</mat-icon>
@@ -159,7 +164,7 @@
         <button mat-raised-button color="primary"
           style="margin-right: auto; margin-left: auto; margin-top: 1rem;">Próximo</button>
       </mat-step>
-      <mat-step>
+      <mat-step #trainCStep>
         <ng-template matStepLabel>Treino C do aluno</ng-template>
         <button mat-mini-fab color="primary" style="margin-bottom: 2rem;">
           <mat-icon>plus_one</mat-icon>

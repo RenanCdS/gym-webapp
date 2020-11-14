@@ -1,5 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CdkStep } from '@angular/cdk/stepper';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatVerticalStepper } from '@angular/material/stepper';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -8,6 +10,7 @@ import { RegisterAthleteRequest } from '../../models/api/athletes/register-athle
 import { AthleteService } from '../../services/athlete.service';
 import { State } from '../../state';
 import { AthletePageActions } from '../../state/actions';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 @Component({
   selector: 'app-athlete-register-page',
@@ -15,10 +18,19 @@ import { AthletePageActions } from '../../state/actions';
   styleUrls: ['./athlete-register-page.component.scss']
 })
 export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
-
+  @ViewChild('athleteStepper', { static: true }) athleteStepper: MatVerticalStepper;
   registerAthleteForm: FormGroup;
   resetAthleteSub: Subscription;
   isRegistration = true;
+
+  readonly phoneMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/];
+  readonly numberMask = createNumberMask({
+    prefix: '',
+    integerLimit: 3,
+    decimalLimit: 2,
+    allowDecimal: true,
+    decimalSymbol: ','
+  });
 
   constructor(private readonly fb: FormBuilder,
     private readonly store: Store<State>,
@@ -50,6 +62,21 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * @description validate the personal data of the athlete and goes to the next step in the
+   * registration
+   * @param nextStep step that will be selected if the data is valid
+   */
+  validatePersonalData(nextStep: CdkStep): void {
+    if (!this.registerAthleteForm.valid) {
+      this.registerAthleteForm.markAllAsTouched();
+      this.registerAthleteForm.updateValueAndValidity();
+      return;
+    }
+
+    this.athleteStepper.selected = nextStep;
+  }
+
   registerAthlete(): void {
     if (!this.registerAthleteForm.valid) {
       this.registerAthleteForm.markAllAsTouched();
@@ -74,7 +101,7 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
     this.registerAthleteForm = this.fb.group({
       name: ['', [Validators.required]],
       age: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       weight: ['', [Validators.required]],
       height: ['', [Validators.required]],
