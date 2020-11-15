@@ -81,8 +81,6 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
       this.trainingForm.markAsUntouched();
       this.trainingForm.reset();
       this.trainingForm.updateValueAndValidity();
-
-      this.athleteStepper.selected = this.personalDataStep;
     });
     this.initializeForm();
     this.intializeTrainingForms();
@@ -239,7 +237,7 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
     });
 
     if (trainingData[`training${trainingType}`].exercises.length === 0) {
-      this.utilsService.showMessage(`Adicione pelo menos um exercício para o treino ${trainingType}`);
+      this.utilsService.showMessage(`Por favor, selecione pelo menos um exercício ao treino ${trainingType}`);
       return;
     }
 

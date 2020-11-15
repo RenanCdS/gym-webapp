@@ -3,7 +3,7 @@
     <h1>{{isRegistration ? 'Cadastro de aluno' : 'Atualização de aluno'}}</h1>
   </div>
   <div class="form-container">
-    <mat-vertical-stepper [linear]="true" #athleteStepper>
+    <mat-vertical-stepper #athleteStepper>
       <!-- Start Personal Data from athlete -->
       <mat-step #personalDataStep>
         <ng-template matStepLabel>Dados do aluno</ng-template>
