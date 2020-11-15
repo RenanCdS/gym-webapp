@@ -34,14 +34,13 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 };
 
 const components = [
-
+  AppComponent,
+  BasePageComponent,
+  LoginComponent
 ];
 
 @NgModule({
   declarations: [
-    AppComponent,
-    BasePageComponent,
-    LoginComponent,
     ...components
   ],
   imports: [

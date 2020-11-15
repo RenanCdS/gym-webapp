@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { AthleteRoutingModule } from './athlete-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { AthleteRegisterPageComponent } from './pages/athlete-register-page/athlete-register-page.component';
-import { AthleteUpdatePageComponent } from './pages/athlete-update-page/athlete-update-page.component';
 import { TrainingPageComponent } from './pages/training-page/training-page.component';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { LottieModule } from 'ngx-lottie';
@@ -24,7 +23,6 @@ export function playerFactory() {
 
 const components = [
   AthleteRegisterPageComponent,
-  AthleteUpdatePageComponent,
   TrainingPageComponent,
   TrainingTypeComponent,
   FinalizedTrainingPageComponent

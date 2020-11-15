@@ -22,4 +22,13 @@ export const deleteAthleteFailure = createAction(
   props<{ error: string }>()
 );
 
+export const cadasterCoachSuccess = createAction(
+  '[Coach] Cadaster Coach Success'
+);
+
+export const cadasterCoachFailure = createAction(
+  '[Coach] Cadaster Coach Failure',
+  props<{ error: string }>()
+);
+
 

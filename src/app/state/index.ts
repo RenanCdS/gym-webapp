@@ -10,7 +10,7 @@ export interface State {
   error: string;
   userRole: UserRoleEnum;
   loading: boolean;
-  isRegistration: boolean;
+  isAthleteRegistration: boolean;
   athleteToUpdate: Athlete;
   availableExercises: RegisteredExercise[]; // exercises registered in the database
 }
@@ -40,7 +40,7 @@ export const getLoading = createSelector(
 export const getIsRegistration = createSelector(
   rootSelector,
   state => ({
-    isRegistration: state.isRegistration,
+    isRegistration: state.isAthleteRegistration,
     athleteToUpdate: state.athleteToUpdate
   })
 );

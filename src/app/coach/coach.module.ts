@@ -15,6 +15,7 @@ import { coachReducer } from './state/coach.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CoachEffects } from './state/coach.effects';
 import { RouterModule } from '@angular/router';
+import { TextMaskModule } from 'angular2-text-mask';
 
 const components = [
   CoachRegisterPageComponent,
@@ -31,6 +32,7 @@ const components = [
     ReactiveFormsModule,
     SharedModule,
     HttpClientModule,
+    TextMaskModule,
     RouterModule,
     StoreModule.forFeature('coach', coachReducer),
     EffectsModule.forFeature([CoachEffects]),

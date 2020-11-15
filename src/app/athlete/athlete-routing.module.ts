@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TrainingGuard } from './guards/training.guard';
 import { AthleteRegisterPageComponent } from './pages/athlete-register-page/athlete-register-page.component';
-import { AthleteUpdatePageComponent } from './pages/athlete-update-page/athlete-update-page.component';
 import { FinalizedTrainingPageComponent } from './pages/finalized-training-page/finalized-training-page.component';
 import { TrainingPageComponent } from './pages/training-page/training-page.component';
 import { TrainingTypeComponent } from './pages/training-type/training-type.component';
@@ -11,7 +10,7 @@ import { TrainingTypeComponent } from './pages/training-type/training-type.compo
 const routes: Routes = [
   { path: '', component: AthleteRegisterPageComponent },
   { path: 'inicializar', component: TrainingTypeComponent },
-  { path: 'atualizar', component: AthleteUpdatePageComponent },
+  { path: 'editar', component: AthleteRegisterPageComponent },
   { path: 'finalizado', component: FinalizedTrainingPageComponent },
   {
     path: 'treino',

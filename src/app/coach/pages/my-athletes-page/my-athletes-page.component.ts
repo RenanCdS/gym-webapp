@@ -25,7 +25,7 @@ export class MyAthletesPageComponent implements OnInit {
 
   editAthlete(athlete: Athlete): void {
     this.store.dispatch(AppPageActions.updateAthlete({ athlete }));
-    this.router.navigate(['/atleta']);
+    this.router.navigate(['/atleta/editar']);
   }
 
   deleteAthlete(athlete: Athlete): void {

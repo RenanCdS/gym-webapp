@@ -3,12 +3,12 @@
     <h1>Cadastro de treinador</h1>
   </div>
   <div class="form-container">
-    <form style="width: 90%;" [formGroup]="form">
+    <form style="width: 90%;" [formGroup]="coachCadasterForm">
       <div class="field-container">
         <mat-form-field color="accent">
           <mat-label>Nome</mat-label>
           <input formControlName="name" matInput>
-          <mat-error>
+          <mat-error *ngIf="coachCadasterForm.get('name').touched && coachCadasterForm.get('name').errors?.required">
             Esse campo é obrigatório
           </mat-error>
         </mat-form-field>
@@ -16,8 +16,8 @@
       <div class="field-container">
         <mat-form-field color="accent">
           <mat-label>Idade</mat-label>
-          <input formControlName="age" matInput>
-          <mat-error>
+          <input [textMask]="{ mask: ageMask }" formControlName="age" matInput>
+          <mat-error *ngIf="coachCadasterForm.get('age').touched && coachCadasterForm.get('age').errors?.required">
             Esse campo é obrigatório
           </mat-error>
         </mat-form-field>
@@ -26,16 +26,19 @@
         <mat-form-field color="accent">
           <mat-label>E-mail</mat-label>
           <input formControlName="email" matInput>
-          <mat-error>
+          <mat-error *ngIf="coachCadasterForm.get('email').touched && coachCadasterForm.get('email').errors?.required">
             Esse campo é obrigatório
+          </mat-error>
+          <mat-error *ngIf="coachCadasterForm.get('email').touched && coachCadasterForm.get('email').errors?.email">
+            por favor, insira um e-mail válido
           </mat-error>
         </mat-form-field>
       </div>
       <div class="field-container">
         <mat-form-field color="accent">
           <mat-label>Telefone</mat-label>
-          <input formControlName="tel" matInput>
-          <mat-error>
+          <input [textMask]="{ mask: phoneMask, guide: false }" formControlName="phone" matInput>
+          <mat-error *ngIf="coachCadasterForm.get('phone').touched && coachCadasterForm.get('phone').errors?.required">
             Esse campo é obrigatório
           </mat-error>
         </mat-form-field>
@@ -43,17 +46,9 @@
       <div class="field-container">
         <mat-form-field color="accent">
           <mat-label>Endereço</mat-label>
-          <input matInput>
-          <mat-error>
-            Esse campo é obrigatório
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="field-container">
-        <mat-form-field color="accent">
-          <mat-label>CPF</mat-label>
-          <input matInput>
-          <mat-error>
+          <input formControlName="address" matInput>
+          <mat-error
+            *ngIf="coachCadasterForm.get('address').touched && coachCadasterForm.get('address').errors?.required">
             Esse campo é obrigatório
           </mat-error>
         </mat-form-field>
@@ -61,8 +56,9 @@
       <div class="field-container">
         <mat-form-field color="accent">
           <mat-label>Peso</mat-label>
-          <input matInput>
-          <mat-error>
+          <input [textMask]="{ mask: numberMask }" formControlName="weight" matInput>
+          <mat-error
+            *ngIf="coachCadasterForm.get('weight').touched && coachCadasterForm.get('weight').errors?.required">
             Esse campo é obrigatório
           </mat-error>
         </mat-form-field>
@@ -70,8 +66,9 @@
       <div class="field-container">
         <mat-form-field color="accent">
           <mat-label>Altura</mat-label>
-          <input matInput>
-          <mat-error>
+          <input [textMask]="{ mask: numberMask }" formControlName="height" matInput>
+          <mat-error
+            *ngIf="coachCadasterForm.get('height').touched && coachCadasterForm.get('height').errors?.required">
             Esse campo é obrigatório
           </mat-error>
         </mat-form-field>
@@ -79,14 +76,14 @@
       <div class="field-container">
         <mat-form-field color="accent">
           <mat-label>Senha</mat-label>
-          <input matInput>
-          <mat-error>
+          <input formControlName="password" type="password" matInput>
+          <mat-error
+            *ngIf="coachCadasterForm.get('password').touched && coachCadasterForm.get('password').errors?.required">
             Esse campo é obrigatório
           </mat-error>
         </mat-form-field>
       </div>
-      <button mat-raised-button color="primary">Cadastrar</button>
     </form>
+    <button mat-raised-button color="primary" (click)="cadasterCoach()">Cadastrar</button>
   </div>
-
 </div>

@@ -19,6 +19,7 @@ import { getTrainingToRegister } from '../../state';
 import { UtilsService } from 'src/app/core/services/utils.service';
 import { UserRoleEnum } from 'src/app/core/enums/user-role.enum';
 import { registerAthlete, resetExercisesToRegister, updateAthlete } from '../../state/actions/athlete-page.actions';
+import { AppPageActions } from 'src/app/state/actions';
 
 @Component({
   selector: 'app-athlete-register-page',
@@ -99,6 +100,8 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
           weight: athleteToUpdate.weight,
           password: athleteToUpdate.password
         });
+      } else {
+        this.registerAthleteForm.reset();
       }
     });
   }
@@ -307,5 +310,7 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.resetAthleteSub.unsubscribe();
+    // action dispatched to go back to the default register page to the athlete
+    this.store.dispatch(AppPageActions.createAthlete());
   }
 }

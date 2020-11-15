@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { GetMyAthleteResponse } from '../models/api/get-my-athletes-response';
+import { PostCadasterCoachRequest } from '../models/api/post-cadaster-coach-request';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +18,9 @@ export class CoachService {
 
   deleteAthlete(athleteEmail: string): Observable<any> {
     return this.http.delete(`${this.BASE_URL}my-athletes?email=${athleteEmail}`);
+  }
+
+  postCadasterCoach(cadasterCoachRequest: PostCadasterCoachRequest): Observable<any> {
+    return this.http.post<any>(`${this.BASE_URL}teachers`, cadasterCoachRequest);
   }
 }

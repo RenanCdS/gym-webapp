@@ -31,5 +31,17 @@ export const coachReducer = createReducer<CoachState>(
       ...state,
       error: action.error
     };
+  }),
+  on(CoachApiActions.cadasterCoachSuccess, (state, action) => {
+    return {
+      ...state,
+      error: ''
+    };
+  }),
+  on(CoachApiActions.cadasterCoachFailure, (state, action) => {
+    return {
+      ...state,
+      error: action.error
+    };
   })
 );

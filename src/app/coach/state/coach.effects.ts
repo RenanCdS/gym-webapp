@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
+import { of, pipe } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { UtilsService } from 'src/app/core/services/utils.service';
 import { State } from 'src/app/state';
@@ -60,4 +60,28 @@ export class CoachEffects {
       })
     );
   });
+
+  cadasterCoach$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CoachPageActions.cadasterCoach),
+      switchMap(action => {
+        return this.coachService.postCadasterCoach(action.coach).pipe(
+          map(() => {
+            action.callback(); // callback that reset the form
+            this.utilsService.showMessage('Usuário cadastrado com sucesso!');
+            return CoachApiActions.cadasterCoachSuccess();
+          }),
+          catchError(error => {
+            if (error.status && error.status === 400) {
+              this.utilsService.showMessage('O e-mail inserido já foi cadastrado. Por favor, insira um e-mail diferente');
+            } else {
+              this.utilsService.showMessage('Occorreu um erro no sistema, ' +
+                'por favor tente novamente mais tarde');
+            }
+            return of(CoachApiActions.cadasterCoachFailure({ error }));
+          })
+        );
+      })
+    )
+  })
 }

@@ -12,3 +12,8 @@ export const getMyAthletes = createSelector(
   coachSelector,
   state => state.myAthletes
 );
+
+export const getError = createSelector(
+  coachSelector,
+  state => state.error
+);
