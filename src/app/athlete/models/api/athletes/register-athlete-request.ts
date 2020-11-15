@@ -1,4 +1,5 @@
 import { UserRoleEnum } from 'src/app/core/enums/user-role.enum';
+import { ExerciseToRegister } from './exercise-to-register';
 
 export interface RegisterAthleteRequest {
   roleId: UserRoleEnum;
@@ -9,4 +10,11 @@ export interface RegisterAthleteRequest {
   weight: number;
   height: number;
   password: string;
+  trainingA: Training;
+  trainingB: Training;
+  trainingC: Training;
+}
+
+export interface Training {
+  exercises: ExerciseToRegister[];
 }

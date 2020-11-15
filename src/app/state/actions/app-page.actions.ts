@@ -34,3 +34,8 @@ export const updateAthlete = createAction(
 export const getRegisteredExercises = createAction(
   '[App] Get Registered Exercises'
 );
+
+export const showError = createAction(
+  '[App] Show Error',
+  props<{ error: string }>()
+);

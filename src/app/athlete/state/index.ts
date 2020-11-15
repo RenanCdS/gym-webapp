@@ -13,11 +13,6 @@ export const getExercises = createSelector(
   state => state.exercises
 );
 
-export const getMyTrainingFailure = createSelector(
-  athleteSelector,
-  state => state.error
-);
-
 export const getIsFinished = createSelector(
   athleteSelector,
   state => state.isFinished
@@ -36,4 +31,14 @@ export const getTrainingId = createSelector(
 export const getdailyTrainingId = createSelector(
   athleteSelector,
   state => state.dailyTrainingId
+);
+
+export const getTrainingToRegister = createSelector(
+  athleteSelector,
+  state => state.trainingToRegister
+);
+
+export const getError = createSelector(
+  athleteSelector,
+  state => state.error
 );

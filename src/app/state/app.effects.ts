@@ -12,6 +12,8 @@ import { UserRoleEnum } from 'src/app/core/enums/user-role.enum';
 import { ExerciseService } from '../core/services/exercise.service';
 import { Store } from '@ngrx/store';
 import { State } from '.';
+import { AppPage } from 'e2e/src/app.po';
+import { UtilsService } from '../core/services/utils.service';
 
 @Injectable()
 export class AppEffects {
@@ -28,6 +30,7 @@ export class AppEffects {
     private readonly sessionService: SessionService,
     private readonly snackBar: MatSnackBar,
     private readonly exerciseService: ExerciseService,
+    private readonly utilsService: UtilsService,
     private readonly router: Router
   ) { }
 
@@ -80,6 +83,15 @@ export class AppEffects {
     );
   });
 
+  showError$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AppPageActions.showError),
+      tap(action => {
+        this.utilsService.showMessage(action.error);
+      })
+    );
+  });
+
   identifyUserRole$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AppPageActions.indetifyUserRole),
@@ -107,6 +119,7 @@ export class AppEffects {
             return AppApiActions.getRegisteredExercisesSuccess({ registeredExercises });
           }),
           catchError(error => {
+            this.router.navigate(['/erro']);
             return of(AppApiActions.getRegisteredExercisesFailure({ error }));
           })
         );

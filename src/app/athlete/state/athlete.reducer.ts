@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
 import { Athlete } from 'src/app/core/models/Athlete';
+import { ExerciseToRegister } from '../models/api/athletes/exercise-to-register';
 import { Exercise } from '../models/api/exercise';
 import { AthleteApiActions, AthletePageActions } from './actions';
 
@@ -14,7 +15,18 @@ export interface AthleteState {
   error: string;
   currentExercise: Exercise;
   athleteToUpdate: Athlete;
-  isRegistration: boolean; // variável usada para verificar se a tela de formulário é um cadastro ou uma atualização
+  isRegistration: boolean; // variável usada para verificar se a tela de formulário é um cadastro ou uma atualização,
+  trainingToRegister: {
+    trainingA: {
+      exercises: ExerciseToRegister[];
+    },
+    trainingB: {
+      exercises: ExerciseToRegister[];
+    },
+    trainingC: {
+      exercises: ExerciseToRegister[];
+    }
+  };
 }
 
 const initialState: AthleteState = {
@@ -27,7 +39,18 @@ const initialState: AthleteState = {
   error: '',
   currentExercise: null,
   isRegistration: true,
-  athleteToUpdate: null
+  athleteToUpdate: null,
+  trainingToRegister: {
+    trainingA: {
+      exercises: []
+    },
+    trainingB: {
+      exercises: []
+    },
+    trainingC: {
+      exercises: []
+    }
+  }
 };
 
 export const athleteReducer = createReducer<AthleteState>(
@@ -95,6 +118,57 @@ export const athleteReducer = createReducer<AthleteState>(
       ...state,
       exercises: state.exercises ? state.exercises.map(exercise =>
         exercise.exerciseId === action.exercise.exerciseId ? action.exercise : exercise) : []
+    };
+  }),
+  on(AthletePageActions.addExerciseToRegister, (state, action) => {
+    const trainingType = `training${action.trainingType}`;
+
+    const training = {
+      trainingA: {
+        exercises: [...state.trainingToRegister.trainingA.exercises]
+      },
+      trainingB: {
+        exercises: [...state.trainingToRegister.trainingB.exercises]
+      },
+      trainingC: {
+        exercises: [...state.trainingToRegister.trainingC.exercises]
+      }
+    };
+
+    if (((training[trainingType].exercises) as Array<ExerciseToRegister>).find(exercise =>
+      exercise.exerciseId === action.exerciseToRegister.exerciseId)) {
+      return {
+        ...state
+      };
+    }
+
+    training[trainingType].exercises.push(action.exerciseToRegister);
+
+    return {
+      ...state,
+      trainingToRegister: training
+    };
+
+  }),
+  on(AthletePageActions.removeExerciseToRegister, (state, action) => {
+    const trainingType = `training${action.trainingType}`;
+    const training = {
+      trainingA: {
+        exercises: [...state.trainingToRegister.trainingA.exercises]
+      },
+      trainingB: {
+        exercises: [...state.trainingToRegister.trainingB.exercises]
+      },
+      trainingC: {
+        exercises: [...state.trainingToRegister.trainingC.exercises]
+      }
+    };
+    training[trainingType].exercises = training[trainingType].exercises.filter(
+      exercise => exercise.exerciseId !== action.exerciseToRegister.exerciseId
+    );
+    return {
+      ...state,
+      trainingToRegister: training
     };
   })
 );

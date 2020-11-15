@@ -8,7 +8,7 @@ import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators'
 import { UtilsService } from 'src/app/core/services/utils.service';
 import { getUserRole } from 'src/app/state';
 import { athleteSelector, getTrainingId, State } from '.';
-import { RegisterAthleteRequest } from '../models/api/athletes/register-athlete-register';
+import { RegisterAthleteRequest } from '../models/api/athletes/register-athlete-request';
 import { TrainingStatusResponse } from '../models/api/my-training-response';
 import { ChangeWeightRequest } from '../models/api/my-training/change-weight-request';
 import { ExerciseStatus } from '../models/api/my-training/send-training-request';
@@ -147,16 +147,12 @@ export class AthleteEffects {
     );
   });
 
-  // TODO: Limpar campos do formulário
   registerAthlete$ = createEffect(() => {
-
     return this.actions$.pipe(
       ofType(AthletePageActions.registerAthlete),
-      withLatestFrom(this.store.select(getUserRole)),
-      switchMap(([action, userRole]) => {
-
+      switchMap(action => {
         const registerAthleteRequest: RegisterAthleteRequest =
-          Object.assign({}, action.athleteRequest, { roleId: userRole }) as RegisterAthleteRequest;
+          Object.assign({}, action.athleteToRegister) as RegisterAthleteRequest;
         return this.athleteService.registerAthlete(registerAthleteRequest).pipe(
           map(() => {
             this.athleteService.resetAthleteFormSubject.next();
@@ -166,7 +162,12 @@ export class AthleteEffects {
             return AthleteApiActions.registerAthleteSuccess();
           }),
           catchError(error => {
-            this.utilsService.showMessage('Ocorreu uma falha ao registrar o atleta :(');
+            if (error.status && error.status === 400) {
+              action.callbackError();
+              this.utilsService.showMessage('O e-mail inserido já foi cadastrado. Por favor, insira um e-mail diferente');
+            } else {
+              this.utilsService.showMessage('Ocorreu uma falha ao registrar o atleta :(');
+            }
             return of(AthleteApiActions.registerAthleteFailure({ error }));
           })
         );
