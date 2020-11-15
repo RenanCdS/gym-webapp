@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start:api": "concurrently \"ng serve\" \"cd .. && cd gym-api-node && npm start\"",
-    "wiremock": "wiremock --root-dir ./wiremock --global-response-templating"
+    "wiremock": "wiremock --root-dir ./wiremock --global-response-templating",
+    "cypress": "cypress open"
   },
   "private": true,
   "dependencies": {

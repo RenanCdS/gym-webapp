@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { AthleteRoutingModule } from './athlete-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -16,6 +16,7 @@ import { AthleteEffects } from './state/athlete.effects';
 import { TrainingTypeComponent } from './pages/training-type/training-type.component';
 import { FinalizedTrainingPageComponent } from './pages/finalized-training-page/finalized-training-page.component';
 import { TextMaskModule } from 'angular2-text-mask';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 export function playerFactory() {
   return player;
@@ -40,6 +41,10 @@ const components = [
     EffectsModule.forFeature([AthleteEffects]),
     LottieModule.forRoot({ player: playerFactory }),
     AthleteRoutingModule
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    DatePipe
   ]
 })
 export class AthleteModule { }

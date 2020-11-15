@@ -20,6 +20,7 @@ import { UtilsService } from 'src/app/core/services/utils.service';
 import { UserRoleEnum } from 'src/app/core/enums/user-role.enum';
 import { registerAthlete, resetExercisesToRegister, updateAthlete } from '../../state/actions/athlete-page.actions';
 import { AppPageActions } from 'src/app/state/actions';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-athlete-register-page',
@@ -68,7 +69,8 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
   constructor(private readonly fb: FormBuilder,
     private readonly store: Store<State>,
     private readonly athleteService: AthleteService,
-    private readonly utilsService: UtilsService) { }
+    private readonly utilsService: UtilsService,
+    private readonly datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.currentTrainingToRegister$ = this.store.select(getTrainingToRegister);
@@ -182,14 +184,6 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
     ).subscribe(trainingToRegister => {
       trainingData = trainingToRegister;
     });
-    const athleteData = this.getAthleteData();
-    const athleteToRegister: RegisterAthleteRequest = {
-      roleId: UserRoleEnum.STUDENT,
-      ...athleteData,
-      trainingA: trainingData.trainingA,
-      trainingB: trainingData.trainingB,
-      trainingC: trainingData.trainingC,
-    };
 
     if (!this.registerAthleteForm.valid) {
       this.registerAthleteForm.markAllAsTouched();
@@ -215,6 +209,23 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
       this.utilsService.showMessage('Por favor, adicione ao menos um exercício para o treino C');
       return;
     }
+
+    if (!this.trainingForm.get('validityDate').valid) {
+      this.trainingForm.get('validityDate').markAsTouched();
+      this.trainingForm.get('validityDate').updateValueAndValidity();
+      return;
+    }
+
+    const athleteData = this.getAthleteData();
+    const athleteToRegister: RegisterAthleteRequest = {
+      roleId: UserRoleEnum.STUDENT,
+      ...athleteData,
+      trainingA: trainingData.trainingA,
+      trainingB: trainingData.trainingB,
+      trainingC: trainingData.trainingC,
+      ValidityDate: this.datePipe.transform(this.trainingForm.get('validityDate').value, 'yyyy-MM-dd')
+    };
+
     if (this.isRegistration) {
       this.store.dispatch(registerAthlete({
         athleteToRegister, callbackError: () => {
@@ -304,8 +315,13 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
         quantity: ['', Validators.required],
         series: ['', Validators.required],
         repetions: ['', Validators.required]
-      })
+      }),
+      validityDate: ['', [Validators.required]]
     });
+  }
+
+  getCurrentDate(): any {
+    return new Date();
   }
 
   ngOnDestroy(): void {

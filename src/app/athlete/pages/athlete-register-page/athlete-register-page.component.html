@@ -7,7 +7,7 @@
       <!-- Start Personal Data from athlete -->
       <mat-step #personalDataStep>
         <ng-template matStepLabel>Dados do aluno</ng-template>
-        <form [formGroup]="registerAthleteForm" style="width: 90%;">
+        <form [formGroup]="registerAthleteForm" style="width: 90%;" novalidate>
           <div class="field-container">
             <mat-form-field color="accent">
               <mat-label>Nome</mat-label>
@@ -341,7 +341,16 @@
               <mat-divider></mat-divider>
             </div>
           </ng-container>
-          <div class="d-flex justify-content-center flex-direction-column w-100">
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Validade do treino</mat-label>
+            <input formControlName="validityDate" matInput [min]="getCurrentDate()" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker (startAt)="getCurrentDate()" #picker></mat-datepicker>
+            <mat-error *ngIf="trainingForm.get('validityDate').touched && trainingForm.get('validityDate').errors">
+              por favor, insira uma data válida
+            </mat-error>
+          </mat-form-field>
+          <div class="d-flex justify-content-center flex-direction-column w-100 mt-1">
             <button type="button" mat-raised-button color="primary" (click)="finalizeRegister()"
               style="margin-bottom: 1rem;">
               Finalizar Cadastro

@@ -13,6 +13,7 @@ export interface RegisterAthleteRequest {
   trainingA: Training;
   trainingB: Training;
   trainingC: Training;
+  ValidityDate: string;
 }
 
 export interface Training {
