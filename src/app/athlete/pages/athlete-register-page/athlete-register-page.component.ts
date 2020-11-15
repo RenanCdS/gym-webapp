@@ -18,7 +18,7 @@ import { ExerciseToRegister } from '../../models/api/athletes/exercise-to-regist
 import { getTrainingToRegister } from '../../state';
 import { UtilsService } from 'src/app/core/services/utils.service';
 import { UserRoleEnum } from 'src/app/core/enums/user-role.enum';
-import { registerAthlete } from '../../state/actions/athlete-page.actions';
+import { registerAthlete, resetExercisesToRegister, updateAthlete } from '../../state/actions/athlete-page.actions';
 
 @Component({
   selector: 'app-athlete-register-page',
@@ -179,7 +179,7 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
     ).subscribe(trainingToRegister => {
       trainingData = trainingToRegister;
     });
-    const athleteData = this.getAthleteDate();
+    const athleteData = this.getAthleteData();
     const athleteToRegister: RegisterAthleteRequest = {
       roleId: UserRoleEnum.STUDENT,
       ...athleteData,
@@ -212,12 +212,21 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
       this.utilsService.showMessage('Por favor, adicione ao menos um exercício para o treino C');
       return;
     }
+    if (this.isRegistration) {
+      this.store.dispatch(registerAthlete({
+        athleteToRegister, callbackError: () => {
+          this.athleteStepper.selected = this.personalDataStep;
+        }
+      }));
+    } else {
+      this.store.dispatch(updateAthlete({
+        athleteToRegister, callbackError: () => {
+          this.athleteStepper.selected = this.personalDataStep;
+        }
+      }));
+    }
 
-    this.store.dispatch(registerAthlete({
-      athleteToRegister, callbackError: () => {
-        this.athleteStepper.selected = this.personalDataStep;
-      }
-    }));
+    this.store.dispatch(resetExercisesToRegister());
   }
 
   /**
@@ -244,7 +253,7 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
     this.athleteStepper.next();
   }
 
-  private getAthleteDate(): any {
+  private getAthleteData(): any {
     const athleteData: Partial<RegisterAthleteRequest> = {
       name: this.registerAthleteForm.controls.name.value,
       age: this.registerAthleteForm.controls.age.value,

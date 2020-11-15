@@ -174,4 +174,27 @@ export class AthleteEffects {
       })
     );
   });
+
+  updateAthlete$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AthletePageActions.updateAthlete),
+      switchMap(action => {
+        const registerAthleteRequest: RegisterAthleteRequest =
+          Object.assign({}, action.athleteToRegister) as RegisterAthleteRequest;
+        return this.athleteService.updateAthlete(registerAthleteRequest).pipe(
+          map(() => {
+            this.athleteService.resetAthleteFormSubject.next();
+            this.snackBar.open('Atleta alterado com sucesso :)', '', {
+              duration: 2000
+            });
+            return AthleteApiActions.updateAthleteSuccess();
+          }),
+          catchError(error => {
+            this.utilsService.showMessage('Ocorreu uma falha ao atualizar o atleta :(');
+            return of(AthleteApiActions.updateAthleteFailure({ error }));
+          })
+        );
+      })
+    );
+  });
 }

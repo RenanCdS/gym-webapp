@@ -51,6 +51,10 @@ export class AthleteService {
     return this.http.post<any>(`${this.BASE_URL}athletes`, registerAthleteRequest);
   }
 
+  updateAthlete(registerAthleteRequest: RegisterAthleteRequest): Observable<any> {
+    return this.http.put<any>(`${this.BASE_URL}athletes`, registerAthleteRequest);
+  }
+
   validateTrainingStatus(isFinished: boolean, isStarted: boolean): void {
     if (isStarted === null || isFinished == null) {
       return;

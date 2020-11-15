@@ -43,8 +43,17 @@ export const removeExerciseToRegister = createAction(
   props<{ trainingType: TrainingTypeEnum, exerciseToRegister: ExerciseToRegister }>()
 );
 
+export const resetExercisesToRegister = createAction(
+  '[Athlete] Reset Exercises To Register'
+);
+
 export const registerAthlete = createAction(
   '[Athlete] Register Athlete',
+  props<{ athleteToRegister: RegisterAthleteRequest, callbackError: any }>()
+);
+
+export const updateAthlete = createAction(
+  '[Athlete] Update Athlete',
   props<{ athleteToRegister: RegisterAthleteRequest, callbackError: any }>()
 );
 

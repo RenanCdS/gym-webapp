@@ -148,7 +148,22 @@ export const athleteReducer = createReducer<AthleteState>(
       ...state,
       trainingToRegister: training
     };
-
+  }),
+  on(AthletePageActions.resetExercisesToRegister, (state) => {
+    return {
+      ...state,
+      trainingToRegister: {
+        trainingA: {
+          exercises: []
+        },
+        trainingB: {
+          exercises: []
+        },
+        trainingC: {
+          exercises: []
+        }
+      }
+    };
   }),
   on(AthletePageActions.removeExerciseToRegister, (state, action) => {
     const trainingType = `training${action.trainingType}`;
