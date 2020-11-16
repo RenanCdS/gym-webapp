@@ -26,6 +26,8 @@ export class BasePageComponent implements OnInit {
       this.menuList = MENU_OPTIONS.get(userRole);
       if (userRole) {
         this.sessionService.setStorage(USER_MENU, JSON.stringify(this.menuList));
+      } else {
+        this.menuList = JSON.parse(localStorage.getItem('user_menu'));
       }
     });
 

@@ -15,13 +15,14 @@ export const MENU_OPTIONS = new Map([
   [
     UserRoleEnum.STUDENT,
     [
+      { name: 'Home', icon: 'anchor', url: '/home' },
       ...studentMenu
     ]
   ],
   [
     UserRoleEnum.STAFF,
     [
-      { name: 'Cadastrar aluno', icon: 'person_add', url: '/atleta' },
+      { name: 'Home', icon: 'anchor', url: '/home' },
       { name: 'Cadastrar treinador', icon: 'anchor', url: '/treinador' },
       { name: 'Treinadores', icon: 'group', url: '/treinador/lista' },
     ]
@@ -29,7 +30,8 @@ export const MENU_OPTIONS = new Map([
   [
     UserRoleEnum.TEACHER,
     [
-      { name: 'Cadastrar treino', icon: 'create', url: '/treinador/cadastro-treino' },
+      { name: 'Home', icon: 'anchor', url: '/home' },
+      { name: 'Cadastrar aluno', icon: 'anchor', url: '/atleta' },
       { name: 'Meus alunos', icon: 'groups', url: '/treinador/meus-atletas' },
     ]
   ],

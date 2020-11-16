@@ -68,7 +68,7 @@ export class CoachEffects {
         return this.coachService.postCadasterCoach(action.coach).pipe(
           map(() => {
             action.callback(); // callback that reset the form
-            this.utilsService.showMessage('Usuário cadastrado com sucesso!');
+            this.utilsService.showMessage('Treinador cadastrado com sucesso ; )');
             return CoachApiActions.cadasterCoachSuccess();
           }),
           catchError(error => {
