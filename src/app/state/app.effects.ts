@@ -14,11 +14,13 @@ import { Store } from '@ngrx/store';
 import { State } from '.';
 import { AppPage } from 'e2e/src/app.po';
 import { UtilsService } from '../core/services/utils.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AppEffects {
 
   private readonly ERROR_MESSAGES = new Map([
+    [400, 'E-mail ou senha incorretos'],
     [401, 'E-mail ou senha incorretos'],
     [403, 'E-mail ou senha incorretos'],
     [500, 'Ocorreu um erro no sistema :('],
@@ -45,7 +47,7 @@ export class AppEffects {
               this.snackBar.open('Ocorreu um erro no login :(');
               return;
             }
-            this.router.navigate(['/']);
+            this.router.navigate(['/home']);
             this.sessionService.setStorage(ACCESS_TOKEN_KEY, token);
             this.snackBar.open('Logado com sucesso ;)', '', {
               duration: 2000,
@@ -55,6 +57,9 @@ export class AppEffects {
           map(tokenResponse => {
             this.store.dispatch(AppPageActions.getRegisteredExercises());
             const token = tokenResponse.token;
+            if (!environment.validateToken) {
+              return AppApiActions.loginSuccess({ token, userRole: UserRoleEnum.STAFF });
+            }
             const userRole = this.authService.decodeToken(token).role;
             return AppApiActions.loginSuccess({ token, userRole });
           }),

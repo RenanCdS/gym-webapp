@@ -1,12 +1,18 @@
 {
-  "priority": 9999,
   "request": {
       "method": "POST",
-      "url": "/api/auth/login"
+      "url": "/api/auth/login",
+      "bodyPatterns" : [ 
+        {
+          "equalToJson" : {
+            "login": "usuario.invalido@gmail.com",
+            "password": "123"
+          }
+        } 
+      ]
   },
   "response": {
-      "status": 200,
-      "bodyFileName": "login/login-{{jsonPath request.body '$.login'}}-response.json",
+      "status": 401,
       "headers": {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin" : "*",

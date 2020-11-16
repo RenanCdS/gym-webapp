@@ -1,9 +1,9 @@
 export const environment = {
-  production: true,
+  production: false,
   api: {
-    login: 'http://localhost:3000/api/',
+    login: 'http://localhost:8080/api/',
     gym: 'http://localhost:8080/api/'
   },
-  validateToken: true,
+  validateToken: false,
   host: 'localhost:4200'
 };

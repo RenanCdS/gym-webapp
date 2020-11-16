@@ -1,12 +1,10 @@
 {
-  "priority": 9999,
   "request": {
-      "method": "POST",
+      "method": "OPTIONS",
       "url": "/api/auth/login"
   },
   "response": {
       "status": 200,
-      "bodyFileName": "login/login-{{jsonPath request.body '$.login'}}-response.json",
       "headers": {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin" : "*",
