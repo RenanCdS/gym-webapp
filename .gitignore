@@ -11,6 +11,7 @@
 /node_modules
 
 /cypress/videos
+/mochawesome-report
 
 # profiling files
 chrome-profiler-events*.json
