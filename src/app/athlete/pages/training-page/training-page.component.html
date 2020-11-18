@@ -42,8 +42,9 @@
             </form>
             <div>
             </div>
-            <button color="primary" mat-raised-button (click)="onDoneHandler(exercise)">Feito</button>
-            <button color="primary" mat-raised-button (click)="onFinishHandler(confirmationModal)">Finalizar
+            <button color="primary" id="done" mat-raised-button (click)="onDoneHandler(exercise)">Feito</button>
+            <button color="primary" id="finalize-training" mat-raised-button
+              (click)="onFinishHandler(confirmationModal)">Finalizar
               treino</button>
           </mat-card-actions>
         </mat-card>

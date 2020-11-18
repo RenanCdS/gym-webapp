@@ -19,7 +19,9 @@ export class TrainingGuard implements CanActivate {
       map(([isFinished, isStarted]) => {
         if (isFinished) {
           this.router.navigate(['home']);
-          this.snackBar.open('Seu treino diário já foi concluído :)');
+          this.snackBar.open('Seu treino diário já foi concluído :)', '', {
+            duration: 2000
+          });
           return false;
         }
 
