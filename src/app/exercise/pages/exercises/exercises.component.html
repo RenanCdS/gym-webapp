@@ -1,0 +1,28 @@
+<div class="exercises-page">
+  <div class="banner banner--align-center banner--title banner--exercise">
+    <h1>Exercícios disponíveis</h1>
+  </div>
+  <div class="cards-container">
+    <mat-card class="example-card">
+      <img mat-card-image
+        src="https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80">
+      <mat-card-header>
+        <mat-card-title>Barra fixa</mat-card-title>
+      </mat-card-header>
+      <mat-card-actions>
+        <button mat-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-button (click)="openConfirmationModal()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<ng-template #confirmationModal>
+  <app-confirmation-modal (deniedEvent)="closeModal()" image="assets/img/confirmation-image.svg"
+    text="deseja excluir esse exercício ?">
+  </app-confirmation-modal>
+</ng-template>

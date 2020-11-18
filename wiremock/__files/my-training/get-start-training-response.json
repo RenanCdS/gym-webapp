@@ -6,22 +6,22 @@
   "exercises": [
       {
           "exerciseId": 1,
-          "exerciseName": "Supino",
+          "exerciseName": "Levantamento Terra",
           "weight": 20,
           "repetions": 10,
           "series": 4,
-          "description": "Exercício de supino",
+          "description": "Levantamento Terra",
           "teacherName": "João",
           "exerciseImage": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
           "completed": false
       },
       {
           "exerciseId": 2,
-          "exerciseName": "Cross over",
+          "exerciseName": "Flexão",
           "weight": 15,
           "repetions": 8,
           "series": 3,
-          "description": "Exercício de Cross over",
+          "description": "Exercício de Flexão",
           "teacherName": "João",
           "exerciseImage": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
           "completed": false

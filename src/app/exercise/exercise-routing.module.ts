@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ExerciseComponent } from './exercise.component';
+import { ExerciseRegisterComponent } from './pages/exercise-register/exercise-register.component';
+import { ExercisesComponent } from './pages/exercises/exercises.component';
 
 const routes: Routes = [
-  { path: '', component: ExerciseComponent }
+  { path: '', component: ExercisesComponent },
+  { path: 'cadastrar', component: ExerciseRegisterComponent }
 ];
 
 @NgModule({

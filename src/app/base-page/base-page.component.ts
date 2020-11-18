@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
+import { AthletePageActions } from '../athlete/state/actions';
 import { MENU_OPTIONS, USER_MENU } from '../core/constants/constants';
 import { MenuItem } from '../core/models/MenuItem';
 import { SessionService } from '../core/services/session.service';
@@ -21,6 +22,7 @@ export class BasePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(AthletePageActions.verifyTrainingStatus());
     this.store.dispatch(AppPageActions.indetifyUserRole());
     this.store.select(getUserRole).subscribe(userRole => {
       this.menuList = MENU_OPTIONS.get(userRole);

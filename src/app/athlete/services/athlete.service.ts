@@ -66,6 +66,7 @@ export class AthleteService {
     }
 
     if (isStarted) {
+      this.snackBar.open('Bem vindo de volta', '', { duration: 2000 });
       this.router.navigate(['/atleta/treino']);
       return;
     }

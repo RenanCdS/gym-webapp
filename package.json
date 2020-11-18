@@ -34,6 +34,7 @@
     "lottie-web": "^5.7.3",
     "ng-chartist": "^4.1.0",
     "ng-gallery": "^5.0.0",
+    "ngx-file-drop": "^10.1.1",
     "ngx-lottie": "^6.4.0",
     "ngx-swiper-wrapper": "^9.0.1",
     "rxjs": "~6.5.4",

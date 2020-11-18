@@ -26,7 +26,7 @@ export class TrainingGuard implements CanActivate {
         if (isStarted) {
           return true;
         }
-        this.router.navigate(['/atleta']);
+        this.router.navigate(['/atleta/inicializar']);
         return false;
       })
     );

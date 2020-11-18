@@ -53,8 +53,8 @@
 </div>
 
 <ng-template #confirmationModal>
-  <app-confirmation-modal image="assets/img/confirmation-image.svg" (confirmationEvent)="finishTraining()"
-    (deniedEvent)="closeModal()">
+  <app-confirmation-modal image="assets/img/confirmation-image.svg" text="Tem certeza que deseja finalizar o treino ?"
+    (confirmationEvent)="finishTraining()" (deniedEvent)="closeModal()">
   </app-confirmation-modal>
 </ng-template>
 

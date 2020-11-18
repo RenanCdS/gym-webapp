@@ -136,7 +136,7 @@ export class AthleteEffects {
         return this.athleteService.changeExerciseWeight(changeWeightRequest).pipe(
           map(changeWeightResponse => AthleteApiActions.changeWeightSuccess(changeWeightResponse)),
           tap(() => this.snackBar.open('Peso alterado com sucesso ;)', '', {
-            duration: 2000
+            duration: 15000
           })),
           catchError(error => {
             this.utilsService.showMessage('Houve um erro no sistema :(');
