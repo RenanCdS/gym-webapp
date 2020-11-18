@@ -1,8 +1,14 @@
 import { UserRoleEnum } from '../enums/user-role.enum';
-
+export const allMenuItems = [
+  { name: 'Home', icon: 'house', url: '/home' },
+  { name: 'Meu treino', icon: 'fitness_center', url: '/atleta/treino' },
+  { name: 'Cadastrar aluno', icon: 'person_add', url: '/atleta' },
+  { name: 'Meus alunos', icon: 'groups', url: '/treinador/meus-atletas' },
+  { name: 'Treinadores', icon: 'group', url: '/treinador/lista' },
+];
 const studentMenu = [
   { name: 'Home', icon: 'house', url: '/home' },
-  { name: 'Meu treino', icon: 'fitness_center', url: '/atleta' },
+  { name: 'Meu treino', icon: 'fitness_center', url: '/atleta/treino' },
 ];
 const teacherMenu = [
   { name: 'Cadastrar aluno', icon: 'person_add', url: '/atleta' },

@@ -1,6 +1,6 @@
 export const MenuPage = {
   clickOnMenu(menuName) {
-    cy.get('.mat-menu-trigger').click()
+    cy.get('.mat-menu-trigger').click({ force: true })
       .get('.mat-menu-item')
       .contains(menuName)
       .click();

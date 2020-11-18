@@ -1,11 +1,16 @@
 {
+  "priority": 9998,
   "request": {
       "method": "GET",
-      "urlPattern": "/api/my-training/start/([A-C])"
+      "urlPath": "/api/my-training",
+      "headers": {
+        "Authorization": {
+          "contains": "erro_sistema"
+        }
+      }
   },
   "response": {
-      "status": 200,
-      "bodyFileName": "my-training/get-start-training-{{ request.headers.Authorization }}-response.json",
+      "status": 500,
       "headers": {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin" : "*",

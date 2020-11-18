@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { AthletePageActions } from '../athlete/state/actions';
-import { MENU_OPTIONS, USER_MENU } from '../core/constants/constants';
+import { allMenuItems, MENU_OPTIONS, USER_MENU } from '../core/constants/constants';
 import { MenuItem } from '../core/models/MenuItem';
 import { SessionService } from '../core/services/session.service';
 import { getLoading, getUserRole, State } from '../state';
@@ -25,7 +26,12 @@ export class BasePageComponent implements OnInit {
     this.store.dispatch(AthletePageActions.verifyTrainingStatus());
     this.store.dispatch(AppPageActions.indetifyUserRole());
     this.store.select(getUserRole).subscribe(userRole => {
+      // TODO: Verificar seleção de menu por usuário
       this.menuList = MENU_OPTIONS.get(userRole);
+      // usado nos testes automatizados
+      if (!environment.validateToken) {
+        this.menuList = allMenuItems;
+      }
       if (userRole) {
         this.sessionService.setStorage(USER_MENU, JSON.stringify(this.menuList));
       } else {

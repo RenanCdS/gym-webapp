@@ -1,11 +1,12 @@
 {
+  "priority": 9999,
   "request": {
       "method": "GET",
       "urlPath": "/api/my-training"
   },
   "response": {
       "status": 200,
-      "bodyFileName": "my-training/get-my-training-response.json",
+      "bodyFileName": "my-training/get-my-training-{{ request.headers.Authorization }}-response.json",
       "headers": {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin" : "*",

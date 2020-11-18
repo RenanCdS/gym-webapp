@@ -23,3 +23,4 @@ Then('devo ver um toast com a mensagem {string}', (message) => {
 Then('devo ver a mensagem {string} nos campos não preenchidos', (message) => {
   CoachPage.getInputErrorFeedback().should('contain', message);
 });
+
