@@ -15,6 +15,7 @@ import { State } from '.';
 import { AppPage } from 'e2e/src/app.po';
 import { UtilsService } from '../core/services/utils.service';
 import { environment } from 'src/environments/environment';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable()
 export class AppEffects {
@@ -41,8 +42,8 @@ export class AppEffects {
       ofType(AppPageActions.login),
       switchMap(action => {
         return this.authService.login(action.login, action.password).pipe(
-          tap(tokenResponse => {
-            const token = tokenResponse?.token;
+          tap((tokenResponse: HttpResponse<any>) => {
+            const token = tokenResponse.headers.get('Authorization')?.replace('Bearer ', '');
             if (!token) {
               this.snackBar.open('Ocorreu um erro no login :(');
               return;
@@ -55,12 +56,13 @@ export class AppEffects {
             });
           }),
           map(tokenResponse => {
+            const token = tokenResponse.headers.get('Authorization');
             this.store.dispatch(AppPageActions.getRegisteredExercises());
-            const token = tokenResponse.token;
             if (!environment.validateToken) {
               return AppApiActions.loginSuccess({ token, userRole: UserRoleEnum.STAFF });
             }
-            const userRole = this.authService.decodeToken(token).role;
+            const userRole = this.authService.decodeToken(token).scopes;
+            console.log(userRole);
             return AppApiActions.loginSuccess({ token, userRole });
           }),
           catchError(error => {

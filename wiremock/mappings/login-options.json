@@ -1,7 +1,7 @@
 {
   "request": {
       "method": "OPTIONS",
-      "url": "/api/auth/login"
+      "url": "/user/login"
   },
   "response": {
       "status": 200,

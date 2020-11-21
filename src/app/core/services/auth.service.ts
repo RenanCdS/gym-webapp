@@ -15,9 +15,11 @@ export class AuthService {
     private readonly jwtHelperService: JwtHelperService) { }
 
   login(login: string, password: string): Observable<any> {
-    return this.http.post<any>(this.BASE_URL + 'auth/login', {
+    return this.http.post<any>(this.BASE_URL + 'user/login', {
       login,
       password
+    }, {
+      observe: 'response'
     });
   }
 
