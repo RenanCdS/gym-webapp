@@ -97,7 +97,7 @@ export class CoachEffects {
             return CoachApiActions.updateCoachSuccess({ coach });
           }),
           catchError(error => {
-            this.utilsService.showMessage('ocorreu um erro ao atulizar o treinador');
+            this.utilsService.showMessage('Ocorreu um erro ao atulizar o treinador');
             return of(CoachApiActions.updateCoachFailure({ error }));
           })
         );
