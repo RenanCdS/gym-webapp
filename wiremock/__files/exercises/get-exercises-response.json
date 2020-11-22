@@ -1,0 +1,13 @@
+[
+      {
+          "exerciseId": "1",
+          "exerciseName": "Supinão",
+          "image": "https://images.unsplash.com/photo-1580261450046-d0a30080dc9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=353&q=80"
+      },
+      {
+          "exerciseId": "2",
+          "exerciseName": "Agachamento",
+          "image": "https://images.unsplash.com/photo-1594737626072-90dc274bc2bd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+      }
+]
+

@@ -14,7 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ReactiveFormsModule } from '@angular/forms';
 import { appReducer } from './state/app.reducer';
@@ -22,6 +22,7 @@ import { AppEffects } from './state/app.effects';
 import { LoginComponent } from './components/login/login.component';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 export function playerFactory() {
   return player;
@@ -34,14 +35,13 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 };
 
 const components = [
-
+  AppComponent,
+  BasePageComponent,
+  LoginComponent
 ];
 
 @NgModule({
   declarations: [
-    AppComponent,
-    BasePageComponent,
-    LoginComponent,
     ...components
   ],
   imports: [
@@ -71,6 +71,11 @@ const components = [
     {
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

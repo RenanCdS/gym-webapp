@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
 import { environment } from 'src/environments/environment';
-import { RegisterAthleteRequest } from '../models/api/athletes/register-athlete-register';
+import { RegisterAthleteRequest } from '../models/api/athletes/register-athlete-request';
 import { TrainingStatusResponse } from '../models/api/my-training-response';
 import { ChangeWeightRequest } from '../models/api/my-training/change-weight-request';
 import { ChangeWeightResponse } from '../models/api/my-training/change-weight-response';
@@ -51,6 +51,10 @@ export class AthleteService {
     return this.http.post<any>(`${this.BASE_URL}athletes`, registerAthleteRequest);
   }
 
+  updateAthlete(registerAthleteRequest: RegisterAthleteRequest): Observable<any> {
+    return this.http.put<any>(`${this.BASE_URL}athletes`, registerAthleteRequest);
+  }
+
   validateTrainingStatus(isFinished: boolean, isStarted: boolean): void {
     if (isStarted === null || isFinished == null) {
       return;
@@ -62,6 +66,7 @@ export class AthleteService {
     }
 
     if (isStarted) {
+      this.snackBar.open('Bem vindo de volta', '', { duration: 2000 });
       this.router.navigate(['/atleta/treino']);
       return;
     }

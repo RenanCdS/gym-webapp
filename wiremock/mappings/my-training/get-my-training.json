@@ -1,16 +1,17 @@
 {
+  "priority": 9999,
   "request": {
       "method": "GET",
-      "urlPath": "/api/my-training"
+      "urlPath": "/my-training"
   },
   "response": {
       "status": 200,
-      "bodyFileName": "my-training/get-my-training-response.json",
+      "bodyFileName": "my-training/get-my-training-{{ request.headers.Authorization }}-response.json",
       "headers": {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin" : "*",
         "Access-Control-Allow-Methods" : "*",
-        "Access-Control-Allow-Headers": "Accept, Content-Type, Content-Encoding, Server, Transfer-Encoding",
+        "Access-Control-Allow-Headers": "*",
         "X-Content-Type-Options" : "nosniff",
         "x-frame-options" : "DENY",
         "x-xss-protection" : "1; mode=block"

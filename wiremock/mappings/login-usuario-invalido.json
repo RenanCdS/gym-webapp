@@ -1,0 +1,27 @@
+{
+  "priority": 9999,
+  "request": {
+      "method": "POST",
+      "url": "/user/login",
+      "bodyPatterns" : [ 
+        {
+          "equalToJson" : {
+            "login": "usuario.invalido@gmail.com",
+            "password": "123"
+          }
+        } 
+      ]
+  },
+  "response": {
+      "status": 401,
+      "headers": {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Methods" : "*",
+        "Access-Control-Allow-Headers": "Accept, Content-Type, Content-Encoding, Server, Transfer-Encoding",
+        "X-Content-Type-Options" : "nosniff",
+        "x-frame-options" : "DENY",
+        "x-xss-protection" : "1; mode=block"
+    }
+  }
+}

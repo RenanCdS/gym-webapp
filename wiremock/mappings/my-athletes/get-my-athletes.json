@@ -2,7 +2,7 @@
   "priority": 9999,
   "request": {
       "method": "GET",
-      "url": "/api/my-athletes"
+      "url": "/my-athletes"
   },
   "response": {
       "status": 200,

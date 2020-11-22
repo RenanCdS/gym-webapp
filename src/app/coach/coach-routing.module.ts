@@ -12,8 +12,7 @@ const routes: Routes = [
   { path: 'lista', component: CoachListPageComponent },
   { path: 'meus-atletas', component: MyAthletesPageComponent },
   { path: 'cadastro-treino', component: TrainingRegisterPageComponent },
-  { path: 'cadastro-treinador', component: CoachRegisterPageComponent },
-  { path: 'atualizar', component: CoachUpdatePageComponent },
+  { path: 'atualizar', component: CoachRegisterPageComponent },
 ];
 
 @NgModule({

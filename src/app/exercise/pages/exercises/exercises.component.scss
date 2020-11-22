@@ -1,0 +1,16 @@
+:host {
+
+  .button-container {
+    width: 100%;
+    flex-direction: row-reverse;
+    padding: 1rem;
+  }
+
+  .cards-container {
+    padding-top: 1rem;
+  
+    .mat-card-image {
+      height: 300px;
+    }
+  }  
+}

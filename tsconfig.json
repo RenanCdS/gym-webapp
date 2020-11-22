@@ -1,5 +1,8 @@
 {
   "compileOnSave": false,
+  "exclude": [
+    "cypress"
+  ],
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",

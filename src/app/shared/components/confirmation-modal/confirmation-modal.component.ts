@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class ConfirmationModalComponent implements OnInit {
 
   @Input() image;
+  @Input() text;
   @Output() confirmationEvent = new EventEmitter();
   @Output() deniedEvent = new EventEmitter();
 

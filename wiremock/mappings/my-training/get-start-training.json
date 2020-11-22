@@ -1,16 +1,16 @@
 {
   "request": {
       "method": "GET",
-      "urlPattern": "/api/my-training/start/([A-C])"
+      "urlPattern": "/my-training/start/([A-C])"
   },
   "response": {
       "status": 200,
-      "bodyFileName": "my-training/get-start-training-response.json",
+      "bodyFileName": "my-training/get-start-training-{{ request.headers.Authorization }}-response.json",
       "headers": {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin" : "*",
         "Access-Control-Allow-Methods" : "*",
-        "Access-Control-Allow-Headers": "Accept, Content-Type, Content-Encoding, Server, Transfer-Encoding",
+        "Access-Control-Allow-Headers": "*",
         "X-Content-Type-Options" : "nosniff",
         "x-frame-options" : "DENY",
         "x-xss-protection" : "1; mode=block"

@@ -51,3 +51,12 @@ export const registerAthleteFailure = createAction(
   '[Athlete] Register Athlete Failure',
   props<{ error }>()
 );
+
+export const updateAthleteSuccess = createAction(
+  '[Athlete] Update Athlete Success'
+);
+
+export const updateAthleteFailure = createAction(
+  '[Athlete] Update Athlete Failure',
+  props<{ error }>()
+);

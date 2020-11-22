@@ -1,10 +1,21 @@
 {
+  "priority": 9999,
   "request": {
       "method": "POST",
-      "url": "/api/login"
+      "url": "/user/login"
   },
   "response": {
       "status": 200,
-      "bodyFileName": "login/login-{{jsonPath request.body '$.login'}}-response.json"
+      "bodyFileName": "login/login-response.json",
+      "headers": {
+        "Authorization": "{{ replace (jsonPath request.body '$.login') '@gmail.com' ''}}",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Methods" : "*",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "X-Content-Type-Options" : "nosniff",
+        "x-frame-options" : "DENY",
+        "x-xss-protection" : "1; mode=block"
+    }
   }
 }

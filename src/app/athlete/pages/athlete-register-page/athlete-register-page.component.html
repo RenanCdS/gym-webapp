@@ -3,10 +3,11 @@
     <h1>{{isRegistration ? 'Cadastro de aluno' : 'Atualização de aluno'}}</h1>
   </div>
   <div class="form-container">
-    <mat-vertical-stepper [linear]="true" #stepper>
-      <mat-step>
+    <mat-vertical-stepper #athleteStepper>
+      <!-- Start Personal Data from athlete -->
+      <mat-step #personalDataStep>
         <ng-template matStepLabel>Dados do aluno</ng-template>
-        <form [formGroup]="registerAthleteForm" style="width: 90%;">
+        <form [formGroup]="registerAthleteForm" style="width: 90%;" novalidate>
           <div class="field-container">
             <mat-form-field color="accent">
               <mat-label>Nome</mat-label>
@@ -20,7 +21,7 @@
           <div class="field-container">
             <mat-form-field color="accent">
               <mat-label>Idade</mat-label>
-              <input formControlName="age" matInput>
+              <input [textMask]="{ mask: ageMask }" formControlName="age" matInput>
               <mat-error
                 *ngIf="registerAthleteForm.get('age').touched && registerAthleteForm.get('age').errors?.required">
                 esse campo é obrigatório
@@ -35,12 +36,16 @@
                 *ngIf="registerAthleteForm.get('email').touched && registerAthleteForm.get('email').errors?.required">
                 esse campo é obrigatório
               </mat-error>
+              <mat-error
+                *ngIf="registerAthleteForm.get('email').touched && registerAthleteForm.get('email').errors?.email">
+                por favor, insira um e-mail válido
+              </mat-error>
             </mat-form-field>
           </div>
           <div class="field-container">
             <mat-form-field color="accent">
               <mat-label>Telefone</mat-label>
-              <input formControlName="phone" matInput>
+              <input [textMask]="{ mask: phoneMask, guide: false }" formControlName="phone" matInput>
               <mat-error
                 *ngIf="registerAthleteForm.get('phone').touched && registerAthleteForm.get('phone').errors?.required">
                 esse campo é obrigatório
@@ -50,7 +55,7 @@
           <div class="field-container">
             <mat-form-field color="accent">
               <mat-label>Peso</mat-label>
-              <input formControlName="weight" matInput>
+              <input [textMask]="{ mask: numberMask }" formControlName="weight" matInput>
               <mat-error
                 *ngIf="registerAthleteForm.get('weight').touched && registerAthleteForm.get('weight').errors?.required">
                 esse campo é obrigatório
@@ -60,7 +65,7 @@
           <div class="field-container">
             <mat-form-field color="accent">
               <mat-label>Altura</mat-label>
-              <input matInput formControlName="height">
+              <input [textMask]="{ mask: numberMask }" matInput formControlName="height">
               <mat-error
                 *ngIf="registerAthleteForm.get('height').touched && registerAthleteForm.get('height').errors?.required">
                 esse campo é obrigatório
@@ -70,7 +75,7 @@
           <div class="field-container">
             <mat-form-field color="accent">
               <mat-label>Senha</mat-label>
-              <input matInput formControlName="password">
+              <input type="password" matInput formControlName="password">
               <mat-error
                 *ngIf="registerAthleteForm.get('password').touched && registerAthleteForm.get('password').errors?.required">
                 esse campo é obrigatório
@@ -78,130 +83,281 @@
             </mat-form-field>
           </div>
         </form>
-        <button mat-raised-button color="primary"
-          (click)="registerAthlete()">{{isRegistration ? 'Cadastrar' : 'Atualizar'}}</button>
+        <button type="button" mat-raised-button color="primary"
+          (click)="validatePersonalData(trainingAStep)">Próximo</button>
       </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Treino A do aluno</ng-template>
-        <button mat-mini-fab color="primary" style="margin-bottom: 1rem;">
-          <mat-icon>plus_one</mat-icon>
-        </button>
-        <div class="exercise-form-container">
-          <mat-form-field appearance="fill">
-            <mat-label>Exercício</mat-label>
-            <mat-select>
-              <mat-option>
-                <i class="fas fa-tachometer-fastest"></i>
-              </mat-option>
-            </mat-select>
+      <!-- End Personal Data from athlete -->
+      <form [formGroup]="trainingForm">
+        <mat-step #trainingAStep>
+          <ng-template matStepLabel>Treino A do aluno</ng-template>
+          <div class="exercise-form-container" formGroupName="trainingA">
+            <mat-form-field appearance="fill">
+              <mat-label>Exercício</mat-label>
+              <mat-select formControlName="exerciseId">
+                <mat-option *ngFor="let availableExercise of availableExercises$ | async"
+                  [value]="availableExercise.exerciseId">
+                  <i class="fas fa-tachometer-fastest"></i>
+                  {{ availableExercise.exerciseName }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="trainingForm.get('trainingA.exerciseId').touched && trainingForm.get('trainingA.exerciseId').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <mat-label>Peso</mat-label>
+              <input [textMask]="{mask: numberMask }" matInput placeholder="Peso" formControlName="weight" required>
+              <mat-error
+                *ngIf="trainingForm.get('trainingA.weight').touched && trainingForm.get('trainingA.weight').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <mat-label>Quantidade</mat-label>
+              <input [textMask]="{mask: numberMask }" matInput placeholder="Quantidade" formControlName="quantity"
+                required>
+              <mat-error
+                *ngIf="trainingForm.get('trainingA.quantity').touched && trainingForm.get('trainingA.quantity').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <mat-label>Repetições</mat-label>
+              <input [textMask]="{mask: numberMask }" matInput placeholder="Repetições" formControlName="repetions"
+                required>
+              <mat-error
+                *ngIf="trainingForm.get('trainingA.repetions').touched && trainingForm.get('trainingA.repetions').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <mat-label>Séries</mat-label>
+              <input [textMask]="{mask: numberMask }" matInput placeholder="Séries" formControlName="series" required>
+              <mat-error
+                *ngIf="trainingForm.get('trainingA.series').touched && trainingForm.get('trainingA.series').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="d-flex justify-content-center w-100">
+            <button type="button" mat-mini-fab color="primary" style="margin-bottom: 1rem;"
+              (click)="addToTraining(trainingType.A)">
+              <mat-icon>plus_one</mat-icon>
+            </button>
+          </div>
+          <div *ngFor="let trainingAExercise of (currentTrainingToRegister$ | async).trainingA.exercises"
+            style="display: flex; justify-content: space-around; padding-top: 1rem;">
+            <span>{{trainingAExercise.exerciseName}} </span>
+            <span>{{trainingAExercise.weight}}Kg</span>
+            <span>{{trainingAExercise.repetions}}x </span>
+            <span>{{trainingAExercise.series}}x</span>
+            <span (click)="deleteFromTraining(trainingType.A, trainingAExercise)">
+              <mat-icon>delete</mat-icon>
+            </span>
+            <mat-divider></mat-divider>
+          </div>
+          <button type="button" mat-raised-button color="primary" (click)="nextStep(trainingType.A)"
+            style="margin-right: auto; margin-left: auto; margin-top: 1rem;">Próximo</button>
+        </mat-step>
+        <mat-step #trainingBStep>
+          <ng-template matStepLabel>Treino B do aluno</ng-template>
+          <div class="exercise-form-container" formGroupName="trainingB">
+            <mat-form-field appearance="fill">
+              <mat-label>Exercício</mat-label>
+              <mat-select formControlName="exerciseId">
+                <mat-option *ngFor="let availableExercise of availableExercises$ | async"
+                  [value]="availableExercise.exerciseId">
+                  <i class="fas fa-tachometer-fastest"></i>
+                  {{ availableExercise.exerciseName }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="trainingForm.get('trainingB.exerciseId').touched && trainingForm.get('trainingB.exerciseId').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <mat-label>Peso</mat-label>
+              <input [textMask]="{mask: numberMask }" matInput placeholder="Peso" formControlName="weight" required>
+              <mat-error
+                *ngIf="trainingForm.get('trainingB.weight').touched && trainingForm.get('trainingB.weight').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <mat-label>Quantidade</mat-label>
+              <input [textMask]="{mask: numberMask }" matInput placeholder="Quantidade" formControlName="quantity"
+                required>
+              <mat-error
+                *ngIf="trainingForm.get('trainingB.quantity').touched && trainingForm.get('trainingB.quantity').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <mat-label>Repetições</mat-label>
+              <input [textMask]="{mask: numberMask }" matInput placeholder="Repetições" formControlName="repetions"
+                required>
+              <mat-error
+                *ngIf="trainingForm.get('trainingB.repetions').touched && trainingForm.get('trainingB.repetions').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <mat-label>Séries</mat-label>
+              <input [textMask]="{mask: numberMask }" matInput placeholder="Séries" formControlName="series" required>
+              <mat-error
+                *ngIf="trainingForm.get('trainingB.series').touched && trainingForm.get('trainingB.series').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="d-flex justify-content-center w-100">
+            <button type="button" mat-mini-fab color="primary" style="margin-bottom: 1rem;"
+              (click)="addToTraining(trainingType.B)">
+              <mat-icon>plus_one</mat-icon>
+            </button>
+          </div>
+          <div *ngFor="let trainingBExercise of (currentTrainingToRegister$ | async).trainingB.exercises"
+            style="display: flex; justify-content: space-around; padding-top: 1rem;">
+            <span>{{trainingBExercise.exerciseName}} </span>
+            <span>{{trainingBExercise.weight}}Kg</span>
+            <span>{{trainingBExercise.repetions}}x </span>
+            <span>{{trainingBExercise.series}}x</span>
+            <span (click)="deleteFromTraining(trainingType.B, trainingBExercise)">
+              <mat-icon>delete</mat-icon>
+            </span>
+          </div>
+          <mat-divider></mat-divider>
+          <button type="button" (click)="nextStep(trainingType.B)" mat-raised-button color="primary"
+            style="margin-right: auto; margin-left: auto; margin-top: 1rem;">Próximo</button>
+        </mat-step>
+        <mat-step #trainingCStep>
+          <ng-template matStepLabel>Treino C do aluno</ng-template>
+          <div class="exercise-form-container" formGroupName="trainingC">
+            <mat-form-field appearance="fill">
+              <mat-label>Exercício</mat-label>
+              <mat-select formControlName="exerciseId">
+                <mat-option *ngFor="let availableExercise of availableExercises$ | async"
+                  [value]="availableExercise.exerciseId">
+                  <i class="fas fa-tachometer-fastest"></i>
+                  {{ availableExercise.exerciseName }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="trainingForm.get('trainingC.exerciseId').touched && trainingForm.get('trainingC.exerciseId').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <mat-label>Peso</mat-label>
+              <input [textMask]="{mask: numberMask }" matInput placeholder="Peso" formControlName="weight" required>
+              <mat-error
+                *ngIf="trainingForm.get('trainingC.weight').touched && trainingForm.get('trainingC.weight').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <mat-label>Quantidade</mat-label>
+              <input [textMask]="{mask: numberMask }" matInput placeholder="Quantidade" formControlName="quantity"
+                required>
+              <mat-error
+                *ngIf="trainingForm.get('trainingC.quantity').touched && trainingForm.get('trainingC.quantity').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <mat-label>Repetições</mat-label>
+              <input [textMask]="{mask: numberMask }" matInput placeholder="Repetições" formControlName="repetions"
+                required>
+              <mat-error
+                *ngIf="trainingForm.get('trainingC.repetions').touched && trainingForm.get('trainingC.repetions').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <mat-label>Séries</mat-label>
+              <input [textMask]="{mask: numberMask }" matInput placeholder="Séries" formControlName="series" required>
+              <mat-error
+                *ngIf="trainingForm.get('trainingC.series').touched && trainingForm.get('trainingC.series').errors?.required">
+                campo obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="d-flex justify-content-center w-100">
+            <button type="button" mat-mini-fab color="primary" style="margin-bottom: 1rem;"
+              (click)="addToTraining(trainingType.C)">
+              <mat-icon>plus_one</mat-icon>
+            </button>
+          </div>
+          <div *ngFor="let trainingCExercise of (currentTrainingToRegister$ | async).trainingC.exercises"
+            style="display: flex; justify-content: space-around; padding-top: 1rem;">
+            <span>{{trainingCExercise.exerciseName}} </span>
+            <span>{{trainingCExercise.weight}}Kg</span>
+            <span>{{trainingCExercise.repetions}}x </span>
+            <span>{{trainingCExercise.series}}x</span>
+            <span (click)="deleteFromTraining(trainingType.C, trainingCExercise)">
+              <mat-icon>delete</mat-icon>
+            </span>
+          </div>
+          <mat-divider></mat-divider>
+          <button type="button" (click)="nextStep(trainingType.C)" mat-raised-button color="primary"
+            style="margin-right: auto; margin-left: auto; margin-top: 1rem;">Próximo</button>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Finalizar</ng-template>
+          <ng-container *ngIf="currentTrainingToRegister$ | async as training">
+            <div class="summary-container">
+              <h2 class="end-training-header"> Treino A</h2>
+              <div *ngFor="let trainingExercise of training.trainingA.exercises"
+                style="display: flex; justify-content: space-around; padding-top: 1rem;">
+                <span>{{trainingExercise.exerciseName}} </span>
+                <span>{{trainingExercise.weight}}Kg</span>
+                <span>{{trainingExercise.repetions}}x </span>
+                <span>{{trainingExercise.series}}x</span>
+              </div>
+              <mat-divider></mat-divider>
+            </div>
+            <div class="summary-container">
+              <h2 class="end-training-header"> Treino B</h2>
+              <div *ngFor="let trainingExercise of training.trainingB.exercises"
+                style="display: flex; justify-content: space-around; padding-top: 1rem;">
+                <span>{{trainingExercise.exerciseName}} </span>
+                <span>{{trainingExercise.weight}}Kg</span>
+                <span>{{trainingExercise.repetions}}x </span>
+                <span>{{trainingExercise.series}}x</span>
+              </div>
+              <mat-divider></mat-divider>
+            </div>
+            <div class="summary-container">
+              <h2 class="end-training-header"> Treino C</h2>
+              <div *ngFor="let trainingExercise of training.trainingC.exercises"
+                style="display: flex; justify-content: space-around; padding-top: 1rem;">
+                <span>{{trainingExercise.exerciseName}} </span>
+                <span>{{trainingExercise.weight}}Kg</span>
+                <span>{{trainingExercise.repetions}}x </span>
+                <span>{{trainingExercise.series}}x</span>
+              </div>
+              <mat-divider></mat-divider>
+            </div>
+          </ng-container>
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Validade do treino</mat-label>
+            <input formControlName="validityDate" matInput [min]="getCurrentDate()" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker (startAt)="getCurrentDate()" #picker></mat-datepicker>
+            <mat-error *ngIf="trainingForm.get('validityDate').touched && trainingForm.get('validityDate').errors">
+              por favor, insira uma data válida
+            </mat-error>
           </mat-form-field>
-          <mat-form-field color="accent">
-            <mat-label>Peso</mat-label>
-            <input matInput placeholder="Last name, First name" required>
-          </mat-form-field>
-          <mat-form-field color="accent">
-            <mat-label>Quantidade</mat-label>
-            <input matInput placeholder="Last name, First name" required>
-          </mat-form-field>
-        </div>
-        <div style="display: flex; justify-content: space-around; padding-top: 1rem;">
-          <span>Supino </span>
-          <span>30kg </span>
-          <span>12 reps </span>
-          <span>4 series </span>
-        </div>
-        <mat-divider></mat-divider>
-        <div style="display: flex; justify-content: space-around;  padding-top: 1rem;">
-          <span>Agachamento </span>
-          <span>40kg </span>
-          <span>12 reps </span>
-          <span>4 series </span>
-        </div>
-        <mat-divider></mat-divider>
-      </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Treino B do aluno</ng-template>
-        <button mat-mini-fab color="primary" style="margin-bottom: 1rem;">
-          <mat-icon>plus_one</mat-icon>
-        </button>
-        <div class="exercise-form-container">
-          <mat-form-field appearance="fill">
-            <mat-label>Exercício</mat-label>
-            <mat-select>
-              <mat-option>
-                <i class="fas fa-tachometer-fastest"></i>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field color="accent">
-            <mat-label>Peso</mat-label>
-            <input matInput placeholder="Last name, First name" required>
-          </mat-form-field>
-          <mat-form-field color="accent">
-            <mat-label>Quantidade</mat-label>
-            <input matInput placeholder="Last name, First name" required>
-          </mat-form-field>
-        </div>
-        <div style="display: flex; justify-content: space-around; padding-top: 1rem;">
-          <span>Supino </span>
-          <span>30kg </span>
-          <span>12 reps </span>
-          <span>4 series </span>
-        </div>
-        <mat-divider></mat-divider>
-        <div style="display: flex; justify-content: space-around;  padding-top: 1rem;">
-          <span>Agachamento </span>
-          <span>40kg </span>
-          <span>12 reps </span>
-          <span>4 series </span>
-        </div>
-        <mat-divider></mat-divider>
-        <button mat-raised-button color="primary"
-          style="margin-right: auto; margin-left: auto; margin-top: 1rem;">Próximo</button>
-      </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Treino C do aluno</ng-template>
-        <button mat-mini-fab color="primary" style="margin-bottom: 2rem;">
-          <mat-icon>plus_one</mat-icon>
-        </button>
-        <div class="exercise-form-container">
-          <mat-form-field appearance="fill">
-            <mat-label>Exercício</mat-label>
-            <mat-select>
-              <mat-option>
-                <i class="fas fa-tachometer-fastest"></i>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field color="accent">
-            <mat-label>Peso</mat-label>
-            <input matInput placeholder="Last name, First name" required>
-          </mat-form-field>
-          <mat-form-field color="accent">
-            <mat-label>Quantidade</mat-label>
-            <input matInput placeholder="Last name, First name" required>
-          </mat-form-field>
-        </div>
-        <div style="display: flex; justify-content: space-around; padding-top: 1rem;">
-          <span>Supino </span>
-          <span>30kg </span>
-          <span>12 reps </span>
-          <span>4 series </span>
-        </div>
-        <mat-divider></mat-divider>
-        <div style="display: flex; justify-content: space-around;  padding-top: 1rem;">
-          <span>Agachamento </span>
-          <span>40kg </span>
-          <span>12 reps </span>
-          <span>4 series </span>
-        </div>
-        <mat-divider></mat-divider>
-      </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Finalizar</ng-template>
-      </mat-step>
+          <div class="d-flex justify-content-center flex-direction-column w-100 mt-1">
+            <button type="button" mat-raised-button color="primary" (click)="finalizeRegister()"
+              style="margin-bottom: 1rem;">
+              Finalizar Cadastro
+            </button>
+          </div>
+        </mat-step>
+      </form>
     </mat-vertical-stepper>
-
   </div>
-
 </div>

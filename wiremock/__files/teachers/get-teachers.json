@@ -1,0 +1,24 @@
+{
+  "teachers": [
+      {
+          "id": 1,
+          "name": "Renan",
+          "age": 19,
+          "email": "renan@gmail.com",
+          "phone": "23432-3232",
+          "weight": 86,
+          "height": 1.86,
+          "password": "123"
+      },
+      {
+          "id": 2,
+          "name": "Guilherme",
+          "age": 25,
+          "email": "guilherme@gmail.com",
+          "phone": "23432-3232",
+          "weight": 86,
+          "height": 1.86,
+          "password": "123"
+      }
+  ]
+}

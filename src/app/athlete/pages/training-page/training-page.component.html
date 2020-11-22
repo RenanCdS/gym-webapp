@@ -1,5 +1,5 @@
 <div *ngIf="exercises$ | async as exercises" class="training-page">
-  <swiper *ngIf="exercises.length > 0" class="swiper-container" [config]="swiperConfig" #swiperGallery>
+  <swiper *ngIf="exercises && exercises.length > 0" class="swiper-container" [config]="swiperConfig" #swiperGallery>
     <div *ngFor="let exercise of exercises" class="swiper-slide">
       <div class="card-container">
         <mat-card>
@@ -9,11 +9,6 @@
             <mat-card-subtitle>{{exercise.exerciseName}}</mat-card-subtitle>
           </mat-card-header>
           <img mat-card-image [src]="exercise.exerciseImage" class="slide">
-          <mat-card-content>
-            <p>
-              {{exercise.description}}
-            </p>
-          </mat-card-content>
           <mat-card-actions>
             <div class="exercise-info">
               <p>
@@ -42,8 +37,9 @@
             </form>
             <div>
             </div>
-            <button color="primary" mat-raised-button (click)="onDoneHandler(exercise)">Feito</button>
-            <button color="primary" mat-raised-button (click)="onFinishHandler(confirmationModal)">Finalizar
+            <button color="primary" id="done" mat-raised-button (click)="onDoneHandler(exercise)">Feito</button>
+            <button color="primary" id="finalize-training" mat-raised-button
+              (click)="onFinishHandler(confirmationModal)">Finalizar
               treino</button>
           </mat-card-actions>
         </mat-card>
@@ -53,8 +49,8 @@
 </div>
 
 <ng-template #confirmationModal>
-  <app-confirmation-modal image="assets/img/confirmation-image.svg" (confirmationEvent)="finishTraining()"
-    (deniedEvent)="closeModal()">
+  <app-confirmation-modal image="assets/img/confirmation-image.svg" text="Tem certeza que deseja finalizar o treino ?"
+    (confirmationEvent)="finishTraining()" (deniedEvent)="closeModal()">
   </app-confirmation-modal>
 </ng-template>
 

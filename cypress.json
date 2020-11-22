@@ -1,0 +1,12 @@
+{
+  "baseUrl": "http://localhost:4200",
+  "testFiles": "**/*.{feature,features}",
+  "reporter": "mochawesome",
+  "viewportWidth": 500,
+  "viewportHeight": 750,
+  "reporterOptions": {
+    "overwrite": true,
+    "html": true,
+    "json": true
+  }
+}

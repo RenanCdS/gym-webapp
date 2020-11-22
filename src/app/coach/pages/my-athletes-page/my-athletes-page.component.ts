@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -25,7 +24,7 @@ export class MyAthletesPageComponent implements OnInit {
 
   editAthlete(athlete: Athlete): void {
     this.store.dispatch(AppPageActions.updateAthlete({ athlete }));
-    this.router.navigate(['/atleta']);
+    this.router.navigate(['/atleta/editar']);
   }
 
   deleteAthlete(athlete: Athlete): void {
