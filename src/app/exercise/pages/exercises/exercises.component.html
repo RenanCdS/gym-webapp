@@ -2,19 +2,20 @@
   <div class="banner banner--align-center banner--title banner--exercise">
     <h1>Exercícios disponíveis</h1>
   </div>
+  <div class="button-container d-flex">
+    <button mat-mini-fab color="primary" [routerLink]="['/exercicio/cadastrar']">
+      <mat-icon>plus_one</mat-icon>
+    </button>
+  </div>
   <div class="cards-container">
-    <mat-card class="example-card">
-      <img mat-card-image
-        src="https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80">
+    <mat-card *ngFor="let exercise of availableExercises$ | async" class="example-card">
+      <img mat-card-image [src]="exercise.image" class="mat-card-image">
       <mat-card-header>
-        <mat-card-title>Barra fixa</mat-card-title>
+        <mat-card-title>{{exercise.exerciseName}}</mat-card-title>
       </mat-card-header>
       <mat-card-actions>
-        <button mat-button>
+        <button mat-button (click)="updateExercise(exercise)">
           <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-button (click)="openConfirmationModal()">
-          <mat-icon>delete</mat-icon>
         </button>
       </mat-card-actions>
     </mat-card>

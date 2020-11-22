@@ -1,12 +1,12 @@
 {
   "priority": 9999,
   "request": {
-      "method": "GET",
-      "urlPath": "/my-training"
+      "method": "POST",
+      "urlPathPattern": "/exercises"
   },
   "response": {
       "status": 200,
-      "bodyFileName": "my-training/get-my-training-{{ request.headers.Authorization }}-response.json",
+      "bodyFileName": "exercises/post-exercises-response.json",
       "headers": {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin" : "*",
@@ -16,6 +16,6 @@
         "x-frame-options" : "DENY",
         "x-xss-protection" : "1; mode=block"
       },
-      "fixedDelayMilliseconds": 200
+      "fixedDelayMilliseconds": 2000
   }
 }

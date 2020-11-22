@@ -1,7 +1,7 @@
 {
   "request": {
       "method": "PUT",
-      "urlPath": "/api/my-training"
+      "urlPath": "/my-training"
   },
   "response": {
       "status": 200,

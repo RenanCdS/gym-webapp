@@ -1,7 +1,7 @@
 {
   "request": {
       "method": "POST",
-      "urlPath": "/api/my-training"
+      "urlPath": "/my-training"
   },
   "response": {
       "status": 200,

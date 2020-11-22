@@ -1,6 +1,6 @@
 <div class="exercise-page">
   <div class="banner banner--align-center banner--title banner--exercise">
-    <h1>Edição de Exercício</h1>
+    <h1>{{isRegistration ? 'Cadastro de Exercício' : 'Edição de exercício'}}</h1>
   </div>
   <div style="padding: .5rem;"
     class="form-container d-flex justify-content-center flex-direction-column align-items-center">
@@ -9,13 +9,13 @@
         <mat-form-field color="accent">
           <mat-label>Nome do exercício</mat-label>
           <input matInput formControlName="name">
-          <mat-error *ngIf="true">
+          <mat-error *ngIf="exerciseRegisterForm.controls.name.touched && exerciseRegisterForm.controls.name.errors">
             campo obrigatório
           </mat-error>
         </mat-form-field>
       </div>
 
-      <ngx-file-drop dropZoneLabel="Drop files here">
+      <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="onFileDrop($event)">
         <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
           <div class="upload-container">
             <span style="margin-right: 1rem;">Insira uma imagem</span>
@@ -23,12 +23,15 @@
           </div>
         </ng-template>
       </ngx-file-drop>
-      <mat-error *ngIf="true">
+      <img *ngIf="imageUrl" [src]="imageUrl" class="preview-image" />
+      <mat-error *ngIf="showFileError">
         campo obrigatório
       </mat-error>
     </form>
   </div>
   <div class="w-100 pt-2 d-flex justify-content-center">
-    <button class="w-90 mt-4" type="button" mat-raised-button color="primary">Editar</button>
+    <button class="w-90 mt-4 action-button" type="button"
+      (click)="isRegistration ? registerExercise() : updateExercise()" mat-raised-button
+      color="primary">{{isRegistration ? 'Cadastrar' : 'Editar'}}</button>
   </div>
 </div>

@@ -2,7 +2,7 @@
   "priority": 9999,
   "request": {
       "method": "DELETE",
-      "urlPathPattern": "/api/my-athletes"
+      "urlPathPattern": "/my-athletes"
   },
   "response": {
       "status": 200,

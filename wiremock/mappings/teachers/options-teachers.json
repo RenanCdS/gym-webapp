@@ -1,7 +1,7 @@
 {
   "request": {
       "method": "OPTIONS",
-      "urlPath": "/api/teachers"
+      "urlPath": "/teachers"
   },
   "response": {
       "status": 200,

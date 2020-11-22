@@ -1,7 +1,7 @@
 {
   "request": {
       "method": "GET",
-      "urlPattern": "/api/my-training/start/([A-C])"
+      "urlPattern": "/my-training/start/([A-C])"
   },
   "response": {
       "status": 200,

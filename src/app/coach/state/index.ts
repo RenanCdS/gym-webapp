@@ -17,3 +17,16 @@ export const getError = createSelector(
   coachSelector,
   state => state.error
 );
+
+export const getCoaches = createSelector(
+  coachSelector,
+  state => state.coaches
+);
+
+export const getIsRegistration = createSelector(
+  coachSelector,
+  state => ({
+    isRegistration: state.isRegistration,
+    coachToUpdate: state.coachToUpdate
+  })
+);

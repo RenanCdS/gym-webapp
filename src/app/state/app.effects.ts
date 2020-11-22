@@ -120,7 +120,7 @@ export class AppEffects {
       switchMap(() => {
         return this.exerciseService.getRegisteredExercises().pipe(
           map(exercisesResponse => {
-            return exercisesResponse.exercises;
+            return exercisesResponse;
           }),
           map(registeredExercises => {
             return AppApiActions.getRegisteredExercisesSuccess({ registeredExercises });

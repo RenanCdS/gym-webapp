@@ -1,4 +1,5 @@
 export interface Coach {
+  id?: number;
   name: string;
   age: number;
   email: string;

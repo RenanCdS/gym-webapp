@@ -2,7 +2,7 @@
   "priority": 9999,
   "request": {
       "method": "POST",
-      "urlPath": "/api/teachers"
+      "urlPath": "/teachers"
   },
   "response": {
       "status": 201,

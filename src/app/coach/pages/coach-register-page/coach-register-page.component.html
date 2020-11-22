@@ -1,6 +1,6 @@
 <div class="coach-form-page">
   <div class="banner banner--align-center banner--title banner--coach">
-    <h1>Cadastro de treinador</h1>
+    <h1>{{ isRegistration ? 'Cadastro de treinador' : 'Edição de treinador'}}</h1>
   </div>
   <div class="form-container">
     <form style="width: 90%;" [formGroup]="coachCadasterForm">
@@ -45,16 +45,6 @@
       </div>
       <div class="field-container">
         <mat-form-field color="accent">
-          <mat-label>Endereço</mat-label>
-          <input formControlName="address" matInput>
-          <mat-error
-            *ngIf="coachCadasterForm.get('address').touched && coachCadasterForm.get('address').errors?.required">
-            campo obrigatório
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="field-container">
-        <mat-form-field color="accent">
           <mat-label>Peso</mat-label>
           <input [textMask]="{ mask: numberMask }" formControlName="weight" matInput>
           <mat-error
@@ -84,6 +74,7 @@
         </mat-form-field>
       </div>
     </form>
-    <button mat-raised-button color="primary" (click)="cadasterCoach()">Cadastrar</button>
+    <button mat-raised-button color="primary" class="registration-button"
+      (click)="isRegistration ? cadasterCoach() : updateCoach()">{{isRegistration ? 'Cadastrar' : 'Editar'}}</button>
   </div>
 </div>

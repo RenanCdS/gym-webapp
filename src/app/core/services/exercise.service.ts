@@ -11,7 +11,15 @@ import { RegisteredExercise } from '../models/RegisteredExercise';
 export class ExerciseService {
   constructor(private readonly http: HttpClient) { }
 
-  getRegisteredExercises(): Observable<GetRegisteredExercisesResponse> {
-    return this.http.get<GetRegisteredExercisesResponse>(`${environment.api.gym}exercises`);
+  getRegisteredExercises(): Observable<RegisteredExercise[]> {
+    return this.http.get<RegisteredExercise[]>(`${environment.api.gym}exercises`);
+  }
+
+  registerExercise(exerciseData: FormData): Observable<any> {
+    return this.http.post<any>(`${environment.api.gym}exercises`, exerciseData);
+  }
+
+  updateExercise(exerciseData: FormData, exerciseId: number): Observable<any> {
+    return this.http.put<any>(`${environment.api.gym}exercises/${exerciseId}`, exerciseData);
   }
 }

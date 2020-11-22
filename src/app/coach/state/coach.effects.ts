@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { create } from 'domain';
 import { of, pipe } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { UtilsService } from 'src/app/core/services/utils.service';
@@ -9,6 +10,7 @@ import { State } from 'src/app/state';
 import { AppPageActions } from 'src/app/state/actions';
 import { CoachService } from '../services/coach.service';
 import { CoachApiActions, CoachPageActions } from './actions';
+import { getCoaches } from './actions/coach-page.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +84,57 @@ export class CoachEffects {
           })
         );
       })
-    )
-  })
+    );
+  });
+
+  updateCoach$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CoachPageActions.updateCoach),
+      switchMap(action => {
+        return this.coachService.updateCoach(action.coach).pipe(
+          map(coach => {
+            this.utilsService.showMessage('Treinador atualizado com sucesso ;)');
+            return CoachApiActions.updateCoachSuccess({ coach });
+          }),
+          catchError(error => {
+            this.utilsService.showMessage('ocorreu um erro ao atulizar o treinador');
+            return of(CoachApiActions.updateCoachFailure({ error }));
+          })
+        );
+      })
+    );
+  });
+
+  getCoaches$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getCoaches),
+      switchMap(() => {
+        return this.coachService.getCoaches().pipe(
+          map(response => {
+            return CoachApiActions.getCoachesSuccess({ coaches: response.teachers });
+          }),
+          catchError(() => {
+            this.router.navigate(['/erro']);
+            return of(CoachApiActions.getCoachesFailure);
+          })
+        );
+      })
+    );
+  });
+
+  deleteCoach$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CoachPageActions.deleteCoach),
+      switchMap(action => {
+        return this.coachService.deleteCoach(action.coach).pipe(
+          map(coach => {
+            return CoachApiActions.deleteCoachSuccess({ coach });
+          }),
+          catchError(error => {
+            return of(CoachApiActions.deleteAthleteFailure({ error }));
+          })
+        );
+      })
+    );
+  });
 }

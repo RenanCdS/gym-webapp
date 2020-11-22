@@ -1,5 +1,4 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { Exercise } from '../athlete/models/api/exercise';
 import { UserRoleEnum } from '../core/enums/user-role.enum';
 import { Athlete } from '../core/models/Athlete';
 import { RegisteredExercise } from '../core/models/RegisteredExercise';
@@ -10,6 +9,8 @@ export interface State {
   error: string;
   userRole: UserRoleEnum;
   loading: boolean;
+  isExerciseRegistration: boolean;
+  exerciseToUpdate: RegisteredExercise;
   isAthleteRegistration: boolean;
   athleteToUpdate: Athlete;
   availableExercises: RegisteredExercise[]; // exercises registered in the database
@@ -42,6 +43,14 @@ export const getIsRegistration = createSelector(
   state => ({
     isRegistration: state.isAthleteRegistration,
     athleteToUpdate: state.athleteToUpdate
+  })
+);
+
+export const getIsExerciseRegistration = createSelector(
+  rootSelector,
+  state => ({
+    isRegistration: state.isExerciseRegistration,
+    exerciseToUpdate: state.exerciseToUpdate
   })
 );
 

@@ -2,7 +2,7 @@
   "priority": 9998,
   "request": {
       "method": "GET",
-      "urlPath": "/api/my-training",
+      "urlPath": "/my-training",
       "headers": {
         "Authorization": {
           "contains": "erro_sistema"

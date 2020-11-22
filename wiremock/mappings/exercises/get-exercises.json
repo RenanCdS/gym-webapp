@@ -2,7 +2,7 @@
   "priority": 9999,
   "request": {
       "method": "GET",
-      "urlPathPattern": "/api/exercises"
+      "urlPathPattern": "/exercises"
   },
   "response": {
       "status": 200,
