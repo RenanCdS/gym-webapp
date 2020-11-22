@@ -3,6 +3,7 @@ export const allMenuItems = [
   { name: 'Home', icon: 'house', url: '/home' },
   { name: 'Meu treino', icon: 'fitness_center', url: '/atleta/treino' },
   { name: 'Cadastrar aluno', icon: 'person_add', url: '/atleta' },
+  { name: 'Cadastrar treinador', icon: 'person_add', url: '/treinador' },
   { name: 'Meus alunos', icon: 'groups', url: '/treinador/meus-atletas' },
   { name: 'Treinadores', icon: 'group', url: '/treinador/lista' },
 ];
@@ -12,7 +13,7 @@ const studentMenu = [
 ];
 const teacherMenu = [
   { name: 'Cadastrar aluno', icon: 'person_add', url: '/atleta' },
-  { name: 'Cadastrar treino', icon: 'create', url: '/treinador/cadastro-treino' },
+  { name: 'Cadastrar treino', icon: 'create', url: '/treinador' },
   { name: 'Meus alunos', icon: 'groups', url: '/treinador/meus-atletas' },
 ];
 export const ACCESS_TOKEN_KEY = 'access_token';

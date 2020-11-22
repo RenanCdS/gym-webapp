@@ -113,9 +113,9 @@ export class CoachEffects {
           map(response => {
             return CoachApiActions.getCoachesSuccess({ coaches: response.teachers });
           }),
-          catchError(() => {
+          catchError(error => {
             this.router.navigate(['/erro']);
-            return of(CoachApiActions.getCoachesFailure);
+            return of(CoachApiActions.getCoachesFailure({ error }));
           })
         );
       })

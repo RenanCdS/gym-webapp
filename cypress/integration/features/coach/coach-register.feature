@@ -17,6 +17,7 @@ validação dos campos de texto
       Quando que clico no botão Cadastrar
       Então devo ver a mensagem "campo obrigatório" nos campos não preenchidos
 
+  @focus
     Cenario: Usuário tenta cadastrar um e-mail já existente no sistema
       Dado que eu faço login com o usuário "email-ja-cadastrado@gmail.com"
       E clico no submenu "Cadastrar treinador"

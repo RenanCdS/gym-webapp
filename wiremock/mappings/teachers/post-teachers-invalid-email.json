@@ -5,7 +5,7 @@
       "urlPath": "/teachers",
       "headers": {
         "Authorization": {
-          "contains": "email-ja-cadastrado@gmail.com"
+          "contains": "email-ja-cadastrado"
         }
       }
   },

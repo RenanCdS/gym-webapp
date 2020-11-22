@@ -6,7 +6,6 @@ Given('que eu preencho todos os campos do formulário de treinador corretamente'
   CoachPage.typeOnField('age', '20');
   CoachPage.typeOnField('email', 'renan.santos@outlook.com');
   CoachPage.typeOnField('phone', '123456789');
-  CoachPage.typeOnField('address', 'Rua XYZ');
   CoachPage.typeOnField('weight', '89.5');
   CoachPage.typeOnField('height', '1.86');
   CoachPage.typeOnField('password', '123');
