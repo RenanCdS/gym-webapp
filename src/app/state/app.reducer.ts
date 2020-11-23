@@ -31,19 +31,13 @@ export const appReducer = createReducer<State>(
       error: action.error
     };
   }),
-  on(AppApiActions.userRoleSuccess, (state, action) => {
-    return {
-      ...state,
-      userRole: action.userRole
-    };
-  }),
   on(AppPageActions.exit, state => {
     return {
       ...state,
       error: '',
       login: '',
       token: '',
-      userRole: null
+      userRole: null,
     };
   }),
   on(AppPageActions.startLoading, state => {

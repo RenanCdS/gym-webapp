@@ -2,7 +2,7 @@ export interface Exercise {
   exerciseId: number;
   exerciseName: string;
   weight: number;
-  repetions: number;
+  repetitions: number;
   series: number;
   description: string;
   teacherName: string;

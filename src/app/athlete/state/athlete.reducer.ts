@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { TrainingTypeEnum } from 'src/app/core/enums/training-type.enum';
 import { Athlete } from 'src/app/core/models/Athlete';
+import { AppPageActions } from 'src/app/state/actions';
 import { ExerciseToRegister } from '../models/api/athletes/exercise-to-register';
 import { Exercise } from '../models/api/exercise';
 import { AthleteApiActions, AthletePageActions } from './actions';
@@ -30,7 +31,7 @@ export interface AthleteState {
 }
 
 const initialState: AthleteState = {
-  exercises: [],
+  exercises: null,
   currentTrainingType: null,
   dailyTrainingId: null,
   isFinished: null,
@@ -185,5 +186,8 @@ export const athleteReducer = createReducer<AthleteState>(
       ...state,
       trainingToRegister: training
     };
-  })
+  }),
+  on(AppPageActions.exit, state => {
+    return initialState;
+  }),
 );

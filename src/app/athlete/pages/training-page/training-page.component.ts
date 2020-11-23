@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { SwiperComponent, SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { SuccessModalComponent } from 'src/app/shared/components/success-modal/success-modal.component';
 import { Exercise } from '../../models/api/exercise';
 import { getExercises, State } from '../../state';
 import { AthletePageActions } from '../../state/actions';

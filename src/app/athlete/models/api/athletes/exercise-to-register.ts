@@ -3,6 +3,6 @@ export interface ExerciseToRegister {
   exerciseName?: string;
   weight: number;
   quantity: number;
-  repetions: number;
+  repetitions: number;
   series: number;
 }

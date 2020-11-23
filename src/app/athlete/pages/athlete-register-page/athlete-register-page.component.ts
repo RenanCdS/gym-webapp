@@ -150,7 +150,7 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
           quantity: trainingForm.controls.quantity.value,
           weight: trainingForm.controls.weight.value,
           series: trainingForm.controls.series.value,
-          repetions: trainingForm.controls.repetions.value,
+          repetitions: trainingForm.controls.repetions.value,
         };
         if (exercises.find(exercise =>
           exercise.exerciseId === exerciseToRegister.exerciseId)) {
@@ -218,7 +218,7 @@ export class AthleteRegisterPageComponent implements OnInit, OnDestroy {
 
     const athleteData = this.getAthleteData();
     const athleteToRegister: RegisterAthleteRequest = {
-      roleId: UserRoleEnum.STUDENT,
+      roleId: 0,
       ...athleteData,
       trainingA: trainingData.trainingA,
       trainingB: trainingData.trainingB,

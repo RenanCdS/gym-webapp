@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AthletePageActions } from '../athlete/state/actions';
@@ -15,18 +15,17 @@ import { AppPageActions } from '../state/actions';
   templateUrl: './base-page.component.html',
   styleUrls: ['./base-page.component.scss'],
 })
-export class BasePageComponent implements OnInit {
+export class BasePageComponent implements OnInit, OnDestroy {
   menuList: MenuItem[];
   isLoading$: Observable<boolean>;
+  storeSub: Subscription;
   constructor(private readonly store: Store<State>,
     private readonly sessionService: SessionService) {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(AthletePageActions.verifyTrainingStatus());
     this.store.dispatch(AppPageActions.indetifyUserRole());
-    this.store.select(getUserRole).subscribe(userRole => {
-      // TODO: Verificar seleção de menu por usuário
+    this.storeSub = this.store.select(getUserRole).subscribe(userRole => {
       this.menuList = MENU_OPTIONS.get(userRole);
       // usado nos testes automatizados
       if (!environment.validateToken) {
@@ -44,5 +43,11 @@ export class BasePageComponent implements OnInit {
 
   exit(): void {
     this.store.dispatch(AppPageActions.exit());
+  }
+
+  ngOnDestroy(): void {
+    if (this.storeSub) {
+      this.storeSub.unsubscribe();
+    }
   }
 }

@@ -28,7 +28,7 @@ export class AthleteService {
   }
 
   getTrainingStatus(): Observable<TrainingStatusResponse> {
-    return this.http.get<TrainingStatusResponse>(`${this.BASE_URL}my-training`);
+    return this.http.get<TrainingStatusResponse>(`${this.BASE_URL}my-trainnig`);
   }
 
   getTrainingStartedVerification(): Observable<any> {
@@ -36,15 +36,15 @@ export class AthleteService {
   }
 
   sendDailyTraining(sendTrainingRequest: SendTrainingRequest): Observable<any> {
-    return this.http.post<any>(`${this.BASE_URL}my-training`, sendTrainingRequest);
+    return this.http.post<any>(`${this.BASE_URL}my-trainnig`, sendTrainingRequest);
   }
 
   changeExerciseWeight(changeWeightRequest: ChangeWeightRequest): Observable<ChangeWeightResponse> {
-    return this.http.put<ChangeWeightResponse>(`${this.BASE_URL}my-training`, changeWeightRequest);
+    return this.http.put<ChangeWeightResponse>(`${this.BASE_URL}my-trainnig`, changeWeightRequest);
   }
 
   startTraining(trainingType: TrainingTypeEnum): Observable<StartTrainingResponse> {
-    return this.http.get<StartTrainingResponse>(`${this.BASE_URL}my-training/start/${trainingType}`);
+    return this.http.post<StartTrainingResponse>(`${this.BASE_URL}my-trainnig/start/${trainingType}`, {});
   }
 
   registerAthlete(registerAthleteRequest: RegisterAthleteRequest): Observable<any> {

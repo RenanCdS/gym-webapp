@@ -7,7 +7,7 @@
       <!-- Start Personal Data from athlete -->
       <mat-step #personalDataStep>
         <ng-template matStepLabel>Dados do aluno</ng-template>
-        <form [formGroup]="registerAthleteForm" style="width: 90%;" novalidate>
+        <form [formGroup]="registerAthleteForm" class="personal-data-form" style="width: 90%;" novalidate>
           <div class="field-container">
             <mat-form-field color="accent">
               <mat-label>Nome</mat-label>
@@ -83,7 +83,7 @@
             </mat-form-field>
           </div>
         </form>
-        <button type="button" mat-raised-button color="primary"
+        <button type="button" class="personal-data-next" mat-raised-button color="primary"
           (click)="validatePersonalData(trainingAStep)">Próximo</button>
       </mat-step>
       <!-- End Personal Data from athlete -->
@@ -141,8 +141,8 @@
             </mat-form-field>
           </div>
           <div class="d-flex justify-content-center w-100">
-            <button type="button" mat-mini-fab color="primary" style="margin-bottom: 1rem;"
-              (click)="addToTraining(trainingType.A)">
+            <button type="button" class="plus-one training-type-A" mat-mini-fab color="primary"
+              style="margin-bottom: 1rem;" (click)="addToTraining(trainingType.A)">
               <mat-icon>plus_one</mat-icon>
             </button>
           </div>
@@ -150,7 +150,7 @@
             style="display: flex; justify-content: space-around; padding-top: 1rem;">
             <span>{{trainingAExercise.exerciseName}} </span>
             <span>{{trainingAExercise.weight}}Kg</span>
-            <span>{{trainingAExercise.repetions}}x </span>
+            <span>{{trainingAExercise.repetitions}}x </span>
             <span>{{trainingAExercise.series}}x</span>
             <span (click)="deleteFromTraining(trainingType.A, trainingAExercise)">
               <mat-icon>delete</mat-icon>
@@ -213,8 +213,8 @@
             </mat-form-field>
           </div>
           <div class="d-flex justify-content-center w-100">
-            <button type="button" mat-mini-fab color="primary" style="margin-bottom: 1rem;"
-              (click)="addToTraining(trainingType.B)">
+            <button type="button" class="plus-one training-type-B" mat-mini-fab color="primary"
+              style="margin-bottom: 1rem;" (click)="addToTraining(trainingType.B)">
               <mat-icon>plus_one</mat-icon>
             </button>
           </div>
@@ -222,7 +222,7 @@
             style="display: flex; justify-content: space-around; padding-top: 1rem;">
             <span>{{trainingBExercise.exerciseName}} </span>
             <span>{{trainingBExercise.weight}}Kg</span>
-            <span>{{trainingBExercise.repetions}}x </span>
+            <span>{{trainingBExercise.repetitions}}x </span>
             <span>{{trainingBExercise.series}}x</span>
             <span (click)="deleteFromTraining(trainingType.B, trainingBExercise)">
               <mat-icon>delete</mat-icon>
@@ -285,8 +285,8 @@
             </mat-form-field>
           </div>
           <div class="d-flex justify-content-center w-100">
-            <button type="button" mat-mini-fab color="primary" style="margin-bottom: 1rem;"
-              (click)="addToTraining(trainingType.C)">
+            <button type="button" class="plus-one training-type-C" mat-mini-fab color="primary"
+              style="margin-bottom: 1rem;" (click)="addToTraining(trainingType.C)">
               <mat-icon>plus_one</mat-icon>
             </button>
           </div>
@@ -294,7 +294,7 @@
             style="display: flex; justify-content: space-around; padding-top: 1rem;">
             <span>{{trainingCExercise.exerciseName}} </span>
             <span>{{trainingCExercise.weight}}Kg</span>
-            <span>{{trainingCExercise.repetions}}x </span>
+            <span>{{trainingCExercise.repetitions}}x </span>
             <span>{{trainingCExercise.series}}x</span>
             <span (click)="deleteFromTraining(trainingType.C, trainingCExercise)">
               <mat-icon>delete</mat-icon>
@@ -313,7 +313,7 @@
                 style="display: flex; justify-content: space-around; padding-top: 1rem;">
                 <span>{{trainingExercise.exerciseName}} </span>
                 <span>{{trainingExercise.weight}}Kg</span>
-                <span>{{trainingExercise.repetions}}x </span>
+                <span>{{trainingExercise.repetitions}}x </span>
                 <span>{{trainingExercise.series}}x</span>
               </div>
               <mat-divider></mat-divider>
@@ -324,7 +324,7 @@
                 style="display: flex; justify-content: space-around; padding-top: 1rem;">
                 <span>{{trainingExercise.exerciseName}} </span>
                 <span>{{trainingExercise.weight}}Kg</span>
-                <span>{{trainingExercise.repetions}}x </span>
+                <span>{{trainingExercise.repetitions}}x </span>
                 <span>{{trainingExercise.series}}x</span>
               </div>
               <mat-divider></mat-divider>
@@ -335,7 +335,7 @@
                 style="display: flex; justify-content: space-around; padding-top: 1rem;">
                 <span>{{trainingExercise.exerciseName}} </span>
                 <span>{{trainingExercise.weight}}Kg</span>
-                <span>{{trainingExercise.repetions}}x </span>
+                <span>{{trainingExercise.repetitions}}x </span>
                 <span>{{trainingExercise.series}}x</span>
               </div>
               <mat-divider></mat-divider>

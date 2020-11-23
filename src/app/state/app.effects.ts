@@ -56,7 +56,6 @@ export class AppEffects {
               });
               return;
             }
-            this.router.navigate(['/home']);
             this.sessionService.setStorage(ACCESS_TOKEN_KEY, token);
             this.snackBar.open('Logado com sucesso ;)', '', {
               duration: 2000,
@@ -70,7 +69,8 @@ export class AppEffects {
               return AppApiActions.loginSuccess({ token, userRole: UserRoleEnum.STAFF });
             }
             const userRole = this.authService.decodeToken(token).scopes;
-            console.log(userRole);
+            this.router.navigate(['/home']);
+
             return AppApiActions.loginSuccess({ token, userRole });
           }),
           catchError(error => {

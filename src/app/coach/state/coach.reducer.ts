@@ -1,6 +1,7 @@
 import { Statement } from '@angular/compiler';
 import { createReducer, on } from '@ngrx/store';
 import { Athlete } from 'src/app/core/models/Athlete';
+import { AppPageActions } from 'src/app/state/actions';
 import { Coach } from '../models/coach';
 import { CoachApiActions, CoachPageActions } from './actions';
 
@@ -94,5 +95,8 @@ export const coachReducer = createReducer<CoachState>(
       ...state,
       coaches: state.coaches.filter(coach => coach.email !== action.coach.email)
     };
-  })
+  }),
+  on(AppPageActions.exit, state => {
+    return initialState;
+  }),
 );
